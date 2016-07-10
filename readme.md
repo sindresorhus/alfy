@@ -80,11 +80,13 @@ Input from Alfred. What the user wrote in the input box.
 
 #### output(list)
 
+Return output to Alfred.
+
 ##### list
 
-Type: `array`
+Type: `Array`
 
-List of `Objects` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
+List of `Object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
 
 Example:
 
@@ -108,11 +110,13 @@ Text to be logged to the debug panel. Only logs when `alfred.debug` is `true`, s
 
 #### error(err)
 
+Display an error or error message in Alfred.
+
 ##### err
 
 Type: `Error` `string`
 
-Display an error or error message in Alfred.
+Error or error message to be displayed.
 
 <img src="media/screenshot-error.png" width="694">
 
