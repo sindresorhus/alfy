@@ -8,6 +8,7 @@ const Conf = require('conf');
 const hookStd = require('hook-std');
 const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
+const CacheConf = require('./lib/cache-conf');
 
 // prevent caching of this module so module.parent is always accurate
 delete require.cache[__filename];
@@ -96,7 +97,7 @@ alfy.config = new Conf({
 	cwd: alfy.alfred.data
 });
 
-alfy.cache = new Conf({
+alfy.cache = new CacheConf({
 	configName: 'cache',
 	cwd: alfy.alfred.cache
 });
