@@ -38,6 +38,7 @@
   "dependencies": {
     "clean-stack": "^0.1.0",
     "conf": "^0.11.0",
+    "dot-prop": "^3.0.0",
     "find-up": "^1.1.2",
     "hook-std": "^0.2.0",
     "loud-rejection": "^1.6.0"

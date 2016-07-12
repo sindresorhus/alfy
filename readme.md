@@ -100,6 +100,80 @@ alfy.output([{
 
 <img src="media/screenshot-output.png" width="694">
 
+#### matches(input, list, [item])
+
+Returns an `Array` of items in `list` that case-insensitively contains `input`.
+
+```js
+alfy.matches('Corn', ['foo', 'unicorn']);
+//=> ['unicorn']
+```
+
+##### input
+
+Type: `string`
+
+Text to match against the `list` items.
+
+##### list
+
+Type: `Array`
+
+List to be matched against.
+
+##### item
+
+Type: `string` `Function`
+
+By default it will match against the `list` items.
+
+Specify a string to match against an object property:
+
+```js
+const list = [{
+	title: 'foo'
+}, {
+	title: 'unicorn'
+}];
+
+alfy.matches('Unicorn', list, 'title');
+//=> [{title: 'unicorn'}]
+```
+
+Or [nested property](https://github.com/sindresorhus/dot-prop):
+
+```js
+const list = [{
+	name: {
+		first: 'John',
+		last: 'Doe'
+	}
+}, {
+	name: {
+		first: 'Sindre',
+		last: 'Sorhus'
+	}
+}];
+
+alfy.matches('sindre', list, 'name.first');
+//=> [{name: {first: 'Sindre', last: 'Sorhus'}}]
+```
+
+Specify a function to handle the matching yourself. The function receives the list item and input, both lowercased, as arguments, and is expected to return a boolean whether it matches:
+
+```js
+const list = ['foo', 'unicorn'];
+
+// here we do an exact match
+// `Foo` matches the item since it's lowercased for you
+alfy.matches('Foo', list, (item, input) => item === input);
+//=> ['foo']
+```
+
+#### matchesInput(list, [item])
+
+Same as `matches()`, but with `alfy.input` as `input`.
+
 #### log(text)
 
 ##### text
