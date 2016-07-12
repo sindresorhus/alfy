@@ -257,6 +257,16 @@ Example: `'adbd4f66bc3ae8493832af61a41ee609b20d8705'`
 Non-synced local preferences are stored within `Alfred.alfredpreferences` under `…/preferences/local/${preferencesLocalHash}/`.
 
 
+## Users
+
+*Alfred workflows using Alfy*
+
+- [alfred-emoj](https://github.com/sindresorhus/alfred-emoj) - Find relevant emoji from text
+- [alfred-npms](https://github.com/sindresorhus/alfred-npms) - Search for npm packages with npms.io
+- [alfred-ng2](https://github.com/SamVerschueren/alfred-ng2) - Search for Angular 2 API references
+- [alfred-react-native](https://github.com/ekonstantinidis/alfred-react-native) - Access the React Native documentation
+
+
 ## Related
 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
