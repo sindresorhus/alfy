@@ -162,12 +162,18 @@ the number of milliseconds the value is valid in the cache.
 Example:
 
 ```js
+const delay = require('delay');
+
 alfy.cache.set('foo', 'bar', {maxAge: 5000});
 
+alfy.cache.get('foo');
+//=> 'bar'
+
+// Wait 5 seconds
 await delay(5000);
 
 alfy.cache.get('foo');
-// undefined
+//=> undefined
 ```
 
 #### debug
