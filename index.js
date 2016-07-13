@@ -8,6 +8,7 @@ const Conf = require('conf');
 const hookStd = require('hook-std');
 const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
+const dotProp = require('dot-prop');
 const CacheConf = require('./lib/cache-conf');
 
 // prevent caching of this module so module.parent is always accurate
@@ -54,6 +55,28 @@ alfy.input = process.argv[2];
 alfy.output = arr => {
 	console.log(JSON.stringify({items: arr}, null, '\t'));
 };
+
+alfy.matches = (input, list, item) => {
+	input = input.toLowerCase();
+
+	return list.filter(x => {
+		if (typeof item === 'string') {
+			x = dotProp.get(x, item);
+		}
+
+		if (typeof x === 'string') {
+			x = x.toLowerCase();
+		}
+
+		if (typeof item === 'function') {
+			return item(x, input);
+		}
+
+		return x.includes(input);
+	});
+};
+
+alfy.inputMatches = (list, item) => alfy.matches(alfy.input, list, item);
 
 alfy.log = str => {
 	if (alfy.debug) {
