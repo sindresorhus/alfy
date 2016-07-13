@@ -47,8 +47,8 @@ Here we fetch some JSON from a placeholder API and present matching items to the
 const alfy = require('alfy');
 
 alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
-	const items = data
-		.filter(x => `${x.title} ${x.body}`.includes(alfy.input))
+	const items = alfy
+		.inputMatches(data, 'title')
 		.map(x => ({
 			title: x.title,
 			subtitle: x.body,
@@ -169,7 +169,7 @@ alfy.matches('Foo', list, (item, input) => item === input);
 //=> ['foo']
 ```
 
-#### matchesInput(list, [item])
+#### inputMatches(list, [item])
 
 Same as `matches()`, but with `alfy.input` as `input`.
 
