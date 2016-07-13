@@ -9,6 +9,7 @@
 
 - Easy input↔output.
 - Config and cache handling built-in.
+- Fetching remote files with optional caching.
 - [Finds the `node` binary.](run-node.sh)
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
