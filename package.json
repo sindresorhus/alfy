@@ -1,6 +1,6 @@
 {
   "name": "alfy",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Create Alfred workflows with ease",
   "license": "MIT",
   "repository": "sindresorhus/alfy",
