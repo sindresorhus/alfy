@@ -135,8 +135,9 @@ alfy.fetch = (url, opts) => {
 		json: true
 	}, opts);
 
-	const cachedResponse = alfy.cache.store[url] && alfy.cache.store[url].data;
-	const key = url.replace(/\./g, '\\.');
+	const rawKey = url + JSON.stringify(opts);
+	const key = rawKey.replace(/\./g, '\\.');
+	const cachedResponse = alfy.cache.store[rawKey] && alfy.cache.store[rawKey].data;
 
 	if (cachedResponse && !alfy.cache.isExpired(key)) {
 		return Promise.resolve(cachedResponse);
