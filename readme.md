@@ -143,7 +143,7 @@ Type: `Object`
 
 Persist cache data.
 
-Exports a [`conf` instance](https://github.com/sindresorhus/conf#instance) with the correct cache path set.
+Exports a modified [`conf` instance](https://github.com/sindresorhus/conf#instance) with the correct cache path set.
 
 Example:
 
@@ -152,6 +152,28 @@ alfy.cache.set('unicorn', '🦄');
 
 alfy.cache.get('unicorn');
 //=> '🦄'
+```
+
+##### maxAge
+
+The `set` method of this instance accepts an optional third argument where you can provide a `maxAge` option. `maxAge` is
+the number of milliseconds the value is valid in the cache.
+
+Example:
+
+```js
+const delay = require('delay');
+
+alfy.cache.set('foo', 'bar', {maxAge: 5000});
+
+alfy.cache.get('foo');
+//=> 'bar'
+
+// Wait 5 seconds
+await delay(5000);
+
+alfy.cache.get('foo');
+//=> undefined
 ```
 
 #### debug

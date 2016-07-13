@@ -2,7 +2,7 @@ import test from 'ava';
 import hookStd from 'hook-std';
 
 process.env.AVA = true;
-const m = require('./');
+const m = require('../');
 
 test('default', t => {
 	t.false(m.debug);
