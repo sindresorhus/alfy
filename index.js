@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const findUp = require('find-up');
 const Conf = require('conf');
+const got = require('got');
 const hookStd = require('hook-std');
 const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
@@ -101,6 +102,39 @@ alfy.cache = new CacheConf({
 	configName: 'cache',
 	cwd: alfy.alfred.cache
 });
+
+alfy.fetch = (url, opts) => {
+	if (typeof url !== 'string') {
+		return Promise.reject(new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``));
+	}
+
+	opts = Object.assign({
+		json: true
+	}, opts);
+
+	const cachedResponse = alfy.cache.store[url] && alfy.cache.store[url].data;
+	const key = url.replace(/\./g, '\\.');
+
+	if (cachedResponse && !alfy.cache.isExpired(key)) {
+		return Promise.resolve(cachedResponse);
+	}
+
+	return got(url, opts)
+		.then(res => {
+			if (opts.maxAge) {
+				alfy.cache.set(key, res.body, {maxAge: opts.maxAge});
+			}
+
+			return res.body;
+		})
+		.catch(err => {
+			if (cachedResponse) {
+				return cachedResponse;
+			}
+
+			throw err;
+		});
+};
 
 alfy.debug = getEnv('debug') === '1';
 

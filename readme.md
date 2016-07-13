@@ -120,6 +120,35 @@ Error or error message to be displayed.
 
 <img src="media/screenshot-error.png" width="694">
 
+#### fetch(url, [options])
+
+Returns a Promise that returns the body of the response.
+
+##### url
+
+Type: `string`
+
+URL to be invoked.
+
+##### options
+
+Type: `object`
+
+Any of the [got](https://github.com/sindresorhus/got#options) options.
+
+###### json
+
+Type: `boolean`<br>
+Default: `true`
+
+Parse response body with `JSON.parse` and set `accept` header to `application/json`.
+
+###### maxAge
+
+Type: `number`
+
+The number of milliseconds this request should be cached.
+
 #### config
 
 Type: `Object`
