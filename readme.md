@@ -41,14 +41,13 @@ In the workflow directory, create a `index.js` file, import `alfy`, and do your 
 
 ## Example
 
-Here we use [`got`](https://github.com/sindresorhus/got) to fetch some JSON from a placeholder API and present matching items to the user:
+Here we fetch some JSON from a placeholder API and present matching items to the user:
 
 ```js
 const alfy = require('alfy');
-const got = require('got');
 
-got('jsonplaceholder.typicode.com/posts', {json: true}).then(result => {
-	const items = result.body
+alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
+	const items = data
 		.filter(x => `${x.title} ${x.body}`.includes(alfy.input))
 		.map(x => ({
 			title: x.title,
@@ -193,6 +192,35 @@ Type: `Error` `string`
 Error or error message to be displayed.
 
 <img src="media/screenshot-error.png" width="694">
+
+#### fetch(url, [options])
+
+Returns a `Promise` that returns the body of the response.
+
+##### url
+
+Type: `string`
+
+URL to fetch.
+
+##### options
+
+Type: `Object`
+
+Any of the [`got` options](https://github.com/sindresorhus/got#options).
+
+###### json
+
+Type: `boolean`<br>
+Default: `true`
+
+Parse response body with `JSON.parse` and set `accept` header to `application/json`.
+
+###### maxAge
+
+Type: `number`
+
+Number of milliseconds this request should be cached.
 
 #### config
 

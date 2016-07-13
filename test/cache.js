@@ -4,6 +4,10 @@ import delay from 'delay';
 process.env.AVA = true;
 const m = require('..');
 
+test.before(() => {
+	m.cache.clear();
+});
+
 test('no cache', t => {
 	m.cache.set('foo', 'bar');
 
@@ -30,5 +34,6 @@ test('expired data', async t => {
 	await delay(5000);
 
 	t.false(m.cache.has('expire'));
+	t.falsy(m.cache.get('expire'));
 	t.falsy(m.cache.store.expire);
 });
