@@ -11,13 +11,14 @@ test('default', t => {
 	t.is(typeof m.icon.error, 'string');
 });
 
-test('.error()', t => {
-	m.error(new Error('foo'));
-
-	const unhook = hookStd.stdout(output => {
+test.serial.cb('.error()', t => {
+	const unhook = hookStd.stdout({silent: true}, output => {
 		unhook();
 		t.is(JSON.parse(output).items[0].title, 'Error: foo');
+		t.end();
 	});
+
+	m.error(new Error('foo'));
 });
 
 test('.matches()', t => {
