@@ -390,6 +390,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-npms](https://github.com/sindresorhus/alfred-npms) - Search for npm packages with npms.io
 - [alfred-ng2](https://github.com/SamVerschueren/alfred-ng2) - Search for Angular 2 API references
 - [alfred-react-native](https://github.com/ekonstantinidis/alfred-react-native) - Access the React Native documentation
+- [alfred-hl](https://github.com/importre/alfred-hl) - Syntax highlight code in the clipboard
 
 
 ## Related
