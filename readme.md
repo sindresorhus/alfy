@@ -186,6 +186,8 @@ Text to be logged to the debug panel. Only logs when `alfred.debug` is `true`, s
 
 Display an error or error message in Alfred.
 
+**Note:** You don't need to `.catch()` top-level promises. Alfy handles that for you.
+
 ##### err
 
 Type: `Error` `string`
