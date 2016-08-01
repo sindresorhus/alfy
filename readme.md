@@ -1,4 +1,4 @@
-# ![Alfy](https://cdn.rawgit.com/sindresorhus/alfy/8ba34c77a6a2ba20caaadbb9a3ccbf504459e0f7/media/header.svg)
+# ![Alfy](https://cdn.rawgit.com/sindresorhus/alfy/4b50f0323dd99eafdd34523dc8de0680be04e049/media/header.svg)
 
 > Create [Alfred workflows](https://www.alfredapp.com/workflows/) with ease
 
