@@ -1,9 +1,6 @@
 'use strict';
 /* eslint-disable dot-notation */
 const os = require('os');
-const path = require('path');
-const fs = require('fs');
-const findUp = require('find-up');
 const Conf = require('conf');
 const got = require('got');
 const hookStd = require('hook-std');
@@ -12,29 +9,14 @@ const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('./lib/cache-conf');
 
-// prevent caching of this module so module.parent is always accurate
-delete require.cache[__filename];
-const parentDir = path.dirname(module.parent.filename);
-
 const alfy = module.exports;
-
-const getVersion = () => {
-	const infoPlist = findUp.sync('info.plist', {cwd: parentDir});
-
-	// happens when testing
-	if (!infoPlist) {
-		return '';
-	}
-
-	return /<key>version<\/key>[\s\S]*<string>([\d.]+)<\/string>/.exec(fs.readFileSync(infoPlist, 'utf8'))[1];
-};
 
 const getIcon = name => `/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/${name}.icns`;
 const getEnv = key => process.env[`alfred_${key}`];
 
 alfy.meta = {
 	name: getEnv('workflow_name'),
-	version: getVersion(),
+	version: getEnv('workflow_version'),
 	uid: getEnv('workflow_uid'),
 	bundleId: getEnv('workflow_bundleid')
 };
