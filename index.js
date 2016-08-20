@@ -40,7 +40,7 @@ alfy.output = arr => {
 };
 
 alfy.matches = (input, list, item) => {
-	input = input.toLowerCase();
+	input = input.toLowerCase().normalize();
 
 	return list.filter(x => {
 		if (typeof item === 'string') {
