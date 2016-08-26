@@ -68,6 +68,43 @@ alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
 Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng2`](https://github.com/SamVerschueren/alfred-ng2).
 
 
+## Publish to npm
+
+Instead of publishing your packages to [Packal](http://www.packal.org), you can also publish them to [npm](https://npmjs.org). This way, your packages are only one simple `npm install` command away.
+
+Add [alfred-link](https://github.com/samverschueren/alfred-link) as dependency to your package and add it as `postinstall` script.
+
+```json
+{
+  "name": "alfred-unicorn",
+  "version": "1.0.0",
+  "description": "My awesome unicorn workflow",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "scripts": {
+    "postinstall": "alfred-link"
+  },
+  "dependencies": {
+    "alfy": "*",
+    "alfred-link": "*"
+  }
+}
+```
+
+> Tip: Prefix your workflow with `alfred-` to make them easy searchable through npm.
+
+You can remove [these](https://github.com/samverschueren/alfred-link#infoplist) properties from your `info.plist` file as they are being added automatically at install time.
+
+After publishing your workflow to npm, your users can easily install the workflow.
+
+```
+$ npm install --global alfred-unicorn
+```
+
+
 ## API
 
 ### alfy
