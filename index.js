@@ -96,7 +96,7 @@ ${process.platform} ${process.arch} ${os.release()}
 };
 
 if (process.env.AVA) {
-	alfy.alfred.data = alfy.alfred.cache = os.tmpdir();
+	alfy.alfred.data = alfy.alfred.cache = os.tmpdir() + '/' + Date.now();
 }
 
 alfy.config = new Conf({
