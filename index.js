@@ -7,7 +7,7 @@ const hookStd = require('hook-std');
 const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
-const CacheConf = require('./lib/cache-conf');
+const CacheConf = require('cache-conf');
 
 const alfy = module.exports;
 
