@@ -464,6 +464,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 ## Related
 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
+- [alfred-updater](https://github.com/SamVerschueren/alfred-updater) - Workflow updater
+- [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) - Update notifications for your workflow
 
 
 ## License
