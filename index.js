@@ -109,13 +109,17 @@ alfy.cache = new CacheConf({
 });
 
 alfy.fetch = (url, opts) => {
+	opts = Object.assign({
+		json: true
+	}, opts);
+
 	if (typeof url !== 'string') {
 		return Promise.reject(new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``));
 	}
 
-	opts = Object.assign({
-		json: true
-	}, opts);
+	if (opts.transform && typeof opts.transform !== 'function') {
+		return Promise.reject(new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof opts.transform}\``));
+	}
 
 	const rawKey = url + JSON.stringify(opts);
 	const key = rawKey.replace(/\./g, '\\.');
@@ -126,12 +130,13 @@ alfy.fetch = (url, opts) => {
 	}
 
 	return got(url, opts)
-		.then(res => {
+		.then(res => opts.transform ? opts.transform(res.body) : res.body)
+		.then(data => {
 			if (opts.maxAge) {
-				alfy.cache.set(key, res.body, {maxAge: opts.maxAge});
+				alfy.cache.set(key, data, {maxAge: opts.maxAge});
 			}
 
-			return res.body;
+			return data;
 		})
 		.catch(err => {
 			if (cachedResponse) {

@@ -10,7 +10,7 @@ const URL = 'http://foo.bar';
 test.before(() => {
 	m.cache.clear();
 
-	nock(URL).get('/no-cache').reply(200, {foo: 'bar'});
+	nock(URL).get('/no-cache').times(2).reply(200, {foo: 'bar'});
 	nock(URL).get('/cache').once().reply(200, {hello: 'world'});
 	nock(URL).get('/cache').twice().reply(200, {hello: 'world!'});
 	nock(URL).get('/cache-key?unicorn=rainbow').reply(200, {unicorn: 'rainbow'});
@@ -19,6 +19,24 @@ test.before(() => {
 test('no cache', async t => {
 	t.deepEqual(await m.fetch(`${URL}/no-cache`), {foo: 'bar'});
 	t.falsy(m.cache.get(`${URL}/no-cache`));
+});
+
+test('transform not a function', async t => {
+	t.throws(m.fetch(`${URL}/no-cache`, {transform: 'foo'}), 'Expected `transform` to be a `function`, got `string`');
+});
+
+test('transform', async t => {
+	const result = await m.fetch(`${URL}/no-cache`, {
+		transform: res => {
+			res.unicorn = 'rainbow';
+			return res;
+		}
+	});
+
+	t.deepEqual(result, {
+		foo: 'bar',
+		unicorn: 'rainbow'
+	});
 });
 
 test('cache', async t => {
