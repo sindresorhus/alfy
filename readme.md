@@ -39,6 +39,8 @@ Create a new Alfred workflow and add a Script Filter with the following script:
 
 In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
+> Tip: you can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow.
+
 
 ## Example
 
@@ -59,6 +61,8 @@ alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
 	alfy.output(items);
 });
 ```
+
+> Tip: use [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) to show update notifications for your workflow.
 
 <img src="media/screenshot.png" width="694">
 
@@ -98,11 +102,13 @@ Add [alfred-link](https://github.com/samverschueren/alfred-link) as dependency t
 
 You can remove [these](https://github.com/samverschueren/alfred-link#infoplist) properties from your `info.plist` file as they are being added automatically at install time.
 
-After publishing your workflow to npm, your users can easily install the workflow.
+After publishing your workflow to npm, your users can easily install or update the workflow.
 
 ```
 $ npm install --global alfred-unicorn
 ```
+
+> Tip: instead of manually updating every workflow yourself, use the [alfred-updater](https://github.com/SamVerschueren/alfred-updater) workflow to do that for you.
 
 
 ## API
@@ -466,6 +472,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
 - [alfred-updater](https://github.com/SamVerschueren/alfred-updater) - Workflow updater
 - [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) - Update notifications for your workflow
+- [generator-alfred](https://github.com/samverschueren/generator-alfred) - Scaffold out an Alfred workflow
 
 
 ## License
