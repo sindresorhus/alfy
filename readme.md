@@ -227,12 +227,12 @@ Number of milliseconds this request should be cached.
 
 ###### transform
 
-Type: `function`
+Type: `Function`
 
 Transform the response before it gets cached.
 
 ```js
-alfy.fetch('http://api.foo.com', {
+alfy.fetch('https://api.foo.com', {
 	transform: body => {
 		body.foo = 'bar';
 		return body;
@@ -248,7 +248,7 @@ const pify = require('pify');
 
 const parseString = pify(xml2js.parseString);
 
-alfy.fetch('http://api.foo.com', {
+alfy.fetch('https://api.foo.com', {
 	transform: body => parseString(body)
 })
 ```
