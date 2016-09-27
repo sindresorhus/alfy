@@ -475,6 +475,12 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [generator-alfred](https://github.com/samverschueren/generator-alfred) - Scaffold out an Alfred workflow
 
 
+## Created by
+
+- [Sindre Sorhus](https://github.com/sindresorhus)
+- [Sam Verschueren](https://github.com/SamVerschueren)
+
+
 ## License
 
 MIT © [Sindre Sorhus](https://sindresorhus.com)
