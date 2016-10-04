@@ -123,7 +123,9 @@ alfy.fetch = (url, opts) => {
 
 	const rawKey = url + JSON.stringify(opts);
 	const key = rawKey.replace(/\./g, '\\.');
-	const cachedResponse = alfy.cache.store[rawKey] && alfy.cache.store[rawKey].data;
+
+	const cachedData = (alfy.cache.store[rawKey] && alfy.cache.store[rawKey].data) || {};
+	const cachedResponse = cachedData.version === alfy.meta.version ? cachedData.data : undefined;
 
 	if (cachedResponse && !alfy.cache.isExpired(key)) {
 		return Promise.resolve(cachedResponse);
@@ -133,7 +135,12 @@ alfy.fetch = (url, opts) => {
 		.then(res => opts.transform ? opts.transform(res.body) : res.body)
 		.then(data => {
 			if (opts.maxAge) {
-				alfy.cache.set(key, data, {maxAge: opts.maxAge});
+				const value = {
+					data,
+					version: alfy.meta.version
+				};
+
+				alfy.cache.set(key, value, {maxAge: opts.maxAge});
 			}
 
 			return data;
