@@ -1,8 +1,9 @@
 import test from 'ava';
 import hookStd from 'hook-std';
+import {alfy} from './fixtures/utils';
 
 process.env.AVA = true;
-const m = require('../');
+const m = alfy();
 
 m.input = 'Unicorn';
 

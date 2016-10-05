@@ -1,43 +1,38 @@
-import path from 'path';
 import test from 'ava';
 import delay from 'delay';
+import {alfy} from './fixtures/utils';
 
 process.env.AVA = true;
 
-test.beforeEach(t => {
-	delete require.cache[path.resolve('../index.js')];
-	t.context.m = require('..');
-});
-
 test('no cache', t => {
-	const alfy = t.context.m;
-	alfy.cache.set('foo', 'bar');
+	const m = alfy();
+	m.cache.set('foo', 'bar');
 
-	t.is(alfy.cache.get('foo'), 'bar');
-	t.true(alfy.cache.has('foo'));
+	t.is(m.cache.get('foo'), 'bar');
+	t.true(m.cache.has('foo'));
 });
 
 test('maxAge option', t => {
-	const alfy = t.context.m;
-	alfy.cache.set('hello', {hello: 'world'}, {maxAge: 300000});
+	const m = alfy();
+	m.cache.set('hello', {hello: 'world'}, {maxAge: 300000});
 
-	const age = alfy.cache.store.hello.timestamp - Date.now();
+	const age = m.cache.store.hello.timestamp - Date.now();
 
 	t.true(age <= 300000 && age >= 299000);
-	t.true(alfy.cache.has('hello'));
-	t.deepEqual(alfy.cache.get('hello'), {hello: 'world'});
+	t.true(m.cache.has('hello'));
+	t.deepEqual(m.cache.get('hello'), {hello: 'world'});
 });
 
 test('expired data', async t => {
-	const alfy = t.context.m;
-	alfy.cache.set('expire', {foo: 'bar'}, {maxAge: 5000});
+	const m = alfy();
+	m.cache.set('expire', {foo: 'bar'}, {maxAge: 5000});
 
-	t.true(alfy.cache.has('expire'));
-	t.deepEqual(alfy.cache.get('expire'), {foo: 'bar'});
+	t.true(m.cache.has('expire'));
+	t.deepEqual(m.cache.get('expire'), {foo: 'bar'});
 
 	await delay(5000);
 
-	t.false(alfy.cache.has('expire'));
-	t.falsy(alfy.cache.get('expire'));
-	t.falsy(alfy.cache.store.expire);
+	t.false(m.cache.has('expire'));
+	t.falsy(m.cache.get('expire'));
+	t.falsy(m.cache.store.expire);
 });
