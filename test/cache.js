@@ -1,6 +1,6 @@
 import test from 'ava';
 import delay from 'delay';
-import {alfy} from './fixtures/utils';
+import {alfy} from './_utils';
 
 process.env.AVA = true;
 

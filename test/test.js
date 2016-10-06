@@ -1,6 +1,6 @@
 import test from 'ava';
 import hookStd from 'hook-std';
-import {alfy} from './fixtures/utils';
+import {alfy} from './_utils';
 
 process.env.AVA = true;
 const m = alfy();
