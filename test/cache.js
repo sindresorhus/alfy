@@ -1,14 +1,11 @@
 import test from 'ava';
 import delay from 'delay';
+import {alfy} from './_utils';
 
 process.env.AVA = true;
-const m = require('..');
-
-test.before(() => {
-	m.cache.clear();
-});
 
 test('no cache', t => {
+	const m = alfy();
 	m.cache.set('foo', 'bar');
 
 	t.is(m.cache.get('foo'), 'bar');
@@ -16,6 +13,7 @@ test('no cache', t => {
 });
 
 test('maxAge option', t => {
+	const m = alfy();
 	m.cache.set('hello', {hello: 'world'}, {maxAge: 300000});
 
 	const age = m.cache.store.hello.timestamp - Date.now();
@@ -26,6 +24,7 @@ test('maxAge option', t => {
 });
 
 test('expired data', async t => {
+	const m = alfy();
 	m.cache.set('expire', {foo: 'bar'}, {maxAge: 5000});
 
 	t.true(m.cache.has('expire'));
