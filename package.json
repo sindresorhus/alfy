@@ -17,7 +17,8 @@
     }
   ],
   "bin": {
-    "run-node": "run-node.sh"
+    "run-node": "run-node.sh",
+    "alfy-init": "init.js"
   },
   "engines": {
     "node": ">=4"
@@ -27,6 +28,7 @@
   },
   "files": [
     "index.js",
+    "init.js",
     "run-node.sh"
   ],
   "keywords": [
@@ -42,13 +44,16 @@
     "osx"
   ],
   "dependencies": {
+    "alfred-link": "^0.1.4",
     "cache-conf": "^0.2.0",
     "clean-stack": "^1.0.0",
     "conf": "^0.11.0",
     "dot-prop": "^4.0.0",
+    "execa": "^0.5.0",
     "got": "^6.3.0",
     "hook-std": "^0.2.0",
-    "loud-rejection": "^1.6.0"
+    "loud-rejection": "^1.6.0",
+    "npm-run-path": "^2.0.2"
   },
   "devDependencies": {
     "ava": "*",
