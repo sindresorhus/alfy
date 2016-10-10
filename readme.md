@@ -11,6 +11,7 @@
 - Config and cache handling built-in.
 - Fetching remote files with optional caching.
 - Publish your workflow to npm.
+- Automatic [update notifications](#update-notifications).
 - [Finds the `node` binary.](run-node.sh)
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
@@ -63,14 +64,32 @@ alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
 });
 ```
 
-> Tip: use [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) to show update notifications for your workflow.
-
 <img src="media/screenshot.png" width="694">
 
 
 ###### More
 
 Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng2`](https://github.com/SamVerschueren/alfred-ng2).
+
+
+## Update notifications
+
+Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) in the background to show a notification when an update for your workflow is available.
+
+<img src="media/screenshot-update.png" width="694">
+
+Although it's best practice to show update notifications, it's possible to turn them off by setting `updateNotification` to `false` in the workflow's `package.json` file.
+
+```json
+{
+  "name": "alfred-unicorn",
+  "version": "1.0.0",
+  "description": "My awesome unicorn workflow",
+  "alfy": {
+    "updateNotification": false
+  }
+}
+```
 
 
 ## Publish to npm

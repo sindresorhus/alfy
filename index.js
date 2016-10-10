@@ -8,8 +8,11 @@ const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
+const updateNotification = require('./lib/update-notification');
 
 const alfy = module.exports;
+
+updateNotification();
 
 const getIcon = name => `/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/${name}.icns`;
 const getEnv = key => process.env[`alfred_${key}`];
