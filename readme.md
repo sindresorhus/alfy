@@ -10,6 +10,7 @@
 - Easy input↔output.
 - Config and cache handling built-in.
 - Fetching remote files with optional caching.
+- Publish your workflow to npm.
 - [Finds the `node` binary.](run-node.sh)
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
@@ -74,9 +75,7 @@ Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/
 
 ## Publish to npm
 
-Instead of publishing your packages to [Packal](http://www.packal.org), you can also publish them to [npm](https://npmjs.org). This way, your packages are only one simple `npm install` command away.
-
-Add [alfred-link](https://github.com/samverschueren/alfred-link) as dependency to your package and add it as `postinstall` script.
+By adding `alfy-init` as `postinstall` script, you can publish your package to [npm](https://npmjs.org) instead of to [Packal](http://www.packal.org). This way, your packages are only one simple `npm install` command away.
 
 ```json
 {
@@ -89,11 +88,10 @@ Add [alfred-link](https://github.com/samverschueren/alfred-link) as dependency t
     "url": "sindresorhus.com"
   },
   "scripts": {
-    "postinstall": "alfred-link"
+    "postinstall": "alfy-init"
   },
   "dependencies": {
-    "alfy": "*",
-    "alfred-link": "*"
+    "alfy": "*"
   }
 }
 ```
