@@ -12,6 +12,7 @@
 - Fetching remote files with optional caching.
 - Publish your workflow to npm.
 - Automatic [update notifications](#update-notifications).
+- Easily [testable workflows](#testing).
 - [Finds the `node` binary.](run-node.sh)
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
@@ -126,6 +127,29 @@ $ npm install --global alfred-unicorn
 ```
 
 > Tip: instead of manually updating every workflow yourself, use the [alfred-updater](https://github.com/SamVerschueren/alfred-updater) workflow to do that for you.
+
+
+## Testing
+
+Workflows can easily be tested with [alfy-test](https://github.com/SamVerschueren/alfy-test). Here is a small example.
+
+```js
+import test from 'ava';
+import alfyTest from 'alfy-test';
+
+test(async t => {
+    const alfy = alfyTest();
+
+    const result = await alfy('workflow input');
+
+    t.deepEqual(result, [
+        {
+            title: 'foo',
+            subtitle: 'bar'
+        }
+    ]);
+});
+```
 
 
 ## API
