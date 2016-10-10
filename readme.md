@@ -64,11 +64,19 @@ alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
 });
 ```
 
+<img src="media/screenshot.png" width="694">
+
+
+###### More
+
+Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng2`](https://github.com/SamVerschueren/alfred-ng2).
+
+
 ## Update notifications
 
 Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) in the background to show a notification when an update for your workflow is available.
 
-<img src="media/screenshot.png" width="694">
+<img src="media/screenshot-update.png" width="694">
 
 Although it's best practice to show update notifications, it's possible to turn them off by setting `updateNotification` to `false` in the workflow's `package.json` file.
 
@@ -82,11 +90,6 @@ Although it's best practice to show update notifications, it's possible to turn 
   }
 }
 ```
-
-
-###### More
-
-Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng2`](https://github.com/SamVerschueren/alfred-ng2).
 
 
 ## Publish to npm
