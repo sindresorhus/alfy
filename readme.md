@@ -131,7 +131,7 @@ $ npm install --global alfred-unicorn
 
 ## Testing
 
-Workflows can be easily tested with [alfy-test](https://github.com/SamVerschueren/alfy-test). Here is a small example.
+Workflows can easily be tested with [alfy-test](https://github.com/SamVerschueren/alfy-test). Here is a small example.
 
 ```js
 import test from 'ava';
