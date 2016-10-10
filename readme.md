@@ -12,7 +12,7 @@
 - Fetching remote files with optional caching.
 - Publish your workflow to npm.
 - Automatic [update notifications](#update-notifications).
-- Easy [testing](#testing).
+- Easily [testable workflows](#testing).
 - [Finds the `node` binary.](run-node.sh)
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
