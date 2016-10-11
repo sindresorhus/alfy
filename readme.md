@@ -79,19 +79,6 @@ Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) i
 
 <img src="media/screenshot-update.png" width="694">
 
-Although it's best practice to show update notifications, it's possible to turn them off by setting `updateNotification` to `false` in the workflow's `package.json` file.
-
-```json
-{
-  "name": "alfred-unicorn",
-  "version": "1.0.0",
-  "description": "My awesome unicorn workflow",
-  "alfy": {
-    "updateNotification": false
-  }
-}
-```
-
 
 ## Publish to npm
 
