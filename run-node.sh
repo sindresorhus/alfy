@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -z "$alfred_workflow_cache" ]]; then
-	echo "This script must be called from Alfred, \$alfred_workflow_cache is missing"
+	echo "This script must be called from Alfred, \$alfred_workflow_cache is missing. Make sure a bundleId is set."
 	exit 1
 fi
 
