@@ -493,6 +493,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-react-native](https://github.com/ekonstantinidis/alfred-react-native) - Access the React Native documentation
 - [alfred-hl](https://github.com/importre/alfred-hl) - Syntax highlight code in the clipboard
 - [alfred-workflow-docs-elastic](https://github.com/spinscale/alfred-workflow-elastic-docs) - Search the Elastic.co documentation
+- [alfredinary](https://github.com/urre/alfredinary) - Capture screenshots and upload to Cloudinary
 
 
 ## Related
