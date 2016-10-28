@@ -8,7 +8,7 @@
 ## Highlights
 
 - Easy input↔output.
-- Config and cache handling built-in.
+- Config and [cache](#caching) handling built-in.
 - Fetching remote files with optional caching.
 - Publish your workflow to npm.
 - Automatic [update notifications](#update-notifications).
@@ -78,6 +78,13 @@ Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/
 Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) in the background to show a notification when an update for your workflow is available.
 
 <img src="media/screenshot-update.png" width="694">
+
+
+## Caching
+
+Alfy offers the possibility of caching data, either with the [fetch](#fetchurl-options) or directly through the [cache](#cache) object.
+
+An important thing to note is that the cached data gets invalidated automatically when you update your workflow. This offers the flexibility for developers to change the structure of the cached data between workflows without having to worry about older structures.
 
 
 ## Publish to npm
