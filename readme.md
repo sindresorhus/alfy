@@ -84,7 +84,7 @@ Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) i
 
 Alfy offers the possibility of caching data, either with the [fetch](#fetchurl-options) or directly through the [cache](#cache) object.
 
-An important thing to note is that the cached data gets invalidated automatically when you update your workflow. This offers the flexibility for developers to change the structure of the cached data between workflows without having to worry about older structures.
+An important thing to note is that the cached data gets invalidated automatically when you update your workflow. This offers the flexibility for developers to change the structure of the cached data between workflows without having to worry about invalid older data.
 
 
 ## Publish to npm
