@@ -2,7 +2,6 @@ import test from 'ava';
 import hookStd from 'hook-std';
 import {alfy} from './_utils';
 
-process.env.AVA = true;
 const m = alfy();
 
 m.input = 'Unicorn';

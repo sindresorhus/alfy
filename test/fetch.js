@@ -1,9 +1,8 @@
 import test from 'ava';
 import nock from 'nock';
 import delay from 'delay';
+import tempfile from 'tempfile';
 import {alfy} from './_utils';
-
-process.env.AVA = true;
 
 const URL = 'http://foo.bar';
 
@@ -61,26 +60,17 @@ test('cache key', async t => {
 });
 
 test('invalid version', async t => {
-	const m = alfy();
+	const cache = tempfile();
 
+	const m = alfy({cache, version: '1.0.0'});
 	t.deepEqual(await m.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
 	t.deepEqual(await m.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
+	t.deepEqual(m.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {foo: 'bar'});
 
-	t.deepEqual(m.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {
-		version: '1.0.0',
-		data: {
-			foo: 'bar'
-		}
-	});
+	const m2 = alfy({cache, version: '1.0.0'});
+	t.deepEqual(await m2.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
 
-	m.meta.version = '1.0.1';
-
-	t.deepEqual(await m.fetch(`${URL}/cache-version`, {maxAge: 5000}), {unicorn: 'rainbow'});
-
-	t.deepEqual(m.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {
-		version: '1.0.1',
-		data: {
-			unicorn: 'rainbow'
-		}
-	});
+	const m3 = alfy({cache, version: '1.0.1'});
+	t.deepEqual(await m3.fetch(`${URL}/cache-version`, {maxAge: 5000}), {unicorn: 'rainbow'});
+	t.deepEqual(m.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {unicorn: 'rainbow'});
 });

@@ -1,8 +1,7 @@
 import test from 'ava';
 import delay from 'delay';
+import tempfile from 'tempfile';
 import {alfy} from './_utils';
-
-process.env.AVA = true;
 
 test('no cache', t => {
 	const m = alfy();
@@ -35,4 +34,17 @@ test('expired data', async t => {
 	t.false(m.cache.has('expire'));
 	t.falsy(m.cache.get('expire'));
 	t.falsy(m.cache.store.expire);
+});
+
+test('versioned data', async t => {
+	const cache = tempfile();
+
+	const m = alfy({cache, version: '1.0.0'});
+	m.cache.set('foo', 'bar');
+
+	const m2 = alfy({cache, version: '1.0.0'});
+	t.is(m2.cache.get('foo'), 'bar');
+
+	const m3 = alfy({cache, version: '1.0.1'});
+	t.falsy(m3.cache.get('foo'));
 });

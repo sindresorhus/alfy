@@ -47,7 +47,7 @@
   "dependencies": {
     "alfred-link": "^0.1.4",
     "alfred-notifier": "^0.2.0",
-    "cache-conf": "^0.2.0",
+    "cache-conf": "^0.3.0",
     "clean-stack": "^1.0.0",
     "conf": "^0.11.0",
     "dot-prop": "^4.0.0",

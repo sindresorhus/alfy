@@ -98,17 +98,14 @@ ${process.platform} ${process.arch} ${os.release()}
 	}]);
 };
 
-if (process.env.AVA) {
-	alfy.alfred.data = alfy.alfred.cache = os.tmpdir() + '/' + Date.now();
-}
-
 alfy.config = new Conf({
 	cwd: alfy.alfred.data
 });
 
 alfy.cache = new CacheConf({
 	configName: 'cache',
-	cwd: alfy.alfred.cache
+	cwd: alfy.alfred.cache,
+	version: alfy.meta.version
 });
 
 alfy.fetch = (url, opts) => {
@@ -126,9 +123,7 @@ alfy.fetch = (url, opts) => {
 
 	const rawKey = url + JSON.stringify(opts);
 	const key = rawKey.replace(/\./g, '\\.');
-
-	const cachedData = (alfy.cache.store[rawKey] && alfy.cache.store[rawKey].data) || {};
-	const cachedResponse = cachedData.version === alfy.meta.version ? cachedData.data : undefined;
+	const cachedResponse = alfy.cache.store[rawKey] && alfy.cache.store[rawKey].data;
 
 	if (cachedResponse && !alfy.cache.isExpired(key)) {
 		return Promise.resolve(cachedResponse);
@@ -138,12 +133,7 @@ alfy.fetch = (url, opts) => {
 		.then(res => opts.transform ? opts.transform(res.body) : res.body)
 		.then(data => {
 			if (opts.maxAge) {
-				const value = {
-					data,
-					version: alfy.meta.version
-				};
-
-				alfy.cache.set(key, value, {maxAge: opts.maxAge});
+				alfy.cache.set(key, data, {maxAge: opts.maxAge});
 			}
 
 			return data;
