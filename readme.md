@@ -89,7 +89,7 @@ An important thing to note is that the cached data gets invalidated automaticall
 
 ## Publish to npm
 
-By adding `alfy-init` as `postinstall` script, you can publish your package to [npm](https://npmjs.org) instead of to [Packal](http://www.packal.org). This way, your packages are only one simple `npm install` command away.
+By adding `alfy-init` as `postinstall` and `alfy-cleanup` as `preuninstall` script, you can publish your package to [npm](https://npmjs.org) instead of to [Packal](http://www.packal.org). This way, your packages are only one simple `npm install` command away.
 
 ```json
 {
@@ -102,7 +102,8 @@ By adding `alfy-init` as `postinstall` script, you can publish your package to [
     "url": "sindresorhus.com"
   },
   "scripts": {
-    "postinstall": "alfy-init"
+    "postinstall": "alfy-init",
+    "preuninstall": "alfy-cleanup"
   },
   "dependencies": {
     "alfy": "*"

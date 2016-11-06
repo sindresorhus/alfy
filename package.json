@@ -18,7 +18,8 @@
   ],
   "bin": {
     "run-node": "run-node.sh",
-    "alfy-init": "init.js"
+    "alfy-init": "init.js",
+    "alfy-cleanup": "cleanup.js"
   },
   "engines": {
     "node": ">=4"
@@ -29,6 +30,7 @@
   "files": [
     "index.js",
     "init.js",
+    "cleanup.js",
     "run-node.sh",
     "lib"
   ],
@@ -45,7 +47,7 @@
     "osx"
   ],
   "dependencies": {
-    "alfred-link": "^0.1.4",
+    "alfred-link": "^0.2.0",
     "alfred-notifier": "^0.2.0",
     "cache-conf": "^0.3.0",
     "clean-stack": "^1.0.0",
