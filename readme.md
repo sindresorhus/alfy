@@ -503,6 +503,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-workflow-docs-elastic](https://github.com/spinscale/alfred-workflow-elastic-docs) - Search the Elastic.co documentation
 - [alfredinary](https://github.com/urre/alfredinary) - Capture screenshots and upload to Cloudinary
 - [alfred-keycode](https://github.com/radibit/alfred-keycode) - Get JavaScript keycodes
+- [alfred-vue](https://github.com/radibit/alfred-vue) - Search the Vue.js API docs
 
 
 ## Related
