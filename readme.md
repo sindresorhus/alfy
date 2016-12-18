@@ -504,7 +504,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfredinary](https://github.com/urre/alfredinary) - Capture screenshots and upload to Cloudinary
 - [alfred-keycode](https://github.com/radibit/alfred-keycode) - Get JavaScript keycodes
 - [alfred-vue](https://github.com/radibit/alfred-vue) - Search the Vue.js API docs
-
+- [alfred-meteor-docs](https://github.com/wolasss/alfred-meteor-docs) - Search Meteor documentation
+- [alfred-climbing-grades-converter](https://github.com/wolasss/alfred-climbing-grades-converter) - Convert easily between different climbing grading systems
 
 ## Related
 
