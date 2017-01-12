@@ -38,8 +38,22 @@ alfy.alfred = {
 
 alfy.input = process.argv[2];
 
-alfy.output = arr => {
-	console.log(JSON.stringify({items: arr}, null, '\t'));
+const isDefined = x => x !== null && x !== undefined;
+
+const formatItemArg = item => {
+	if (isDefined(item) && isDefined(item.variables)) {
+		const alfredworkflow = {arg: item.arg, variables: item.variables};
+		item.arg = JSON.stringify({alfredworkflow});
+		delete item.variables;
+	}
+};
+
+alfy.output = items => {
+	if (isDefined(items) && items.forEach) {
+		items.forEach(formatItemArg);
+	}
+
+	console.log(JSON.stringify({items}, null, '\t'));
 };
 
 alfy.matches = (input, list, item) => {
