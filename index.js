@@ -123,7 +123,7 @@ alfy.fetch = (url, opts) => {
 
 	const rawKey = url + JSON.stringify(opts);
 	const key = rawKey.replace(/\./g, '\\.');
-	const cachedResponse = alfy.cache.store[rawKey] && alfy.cache.store[rawKey].data;
+	const cachedResponse = alfy.cache.get(key, {ignoreMaxAge: true});
 
 	if (cachedResponse && !alfy.cache.isExpired(key)) {
 		return Promise.resolve(cachedResponse);
