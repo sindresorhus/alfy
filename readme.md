@@ -70,7 +70,7 @@ alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
 
 ###### More
 
-Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng2`](https://github.com/SamVerschueren/alfred-ng2).
+Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng`](https://github.com/SamVerschueren/alfred-ng).
 
 
 ## Update notifications
@@ -497,7 +497,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 
 - [alfred-emoj](https://github.com/sindresorhus/alfred-emoj) - Find relevant emoji from text
 - [alfred-npms](https://github.com/sindresorhus/alfred-npms) - Search for npm packages with npms.io
-- [alfred-ng2](https://github.com/SamVerschueren/alfred-ng2) - Search for Angular 2 API references
+- [alfred-ng](https://github.com/SamVerschueren/alfred-ng) - Search through the Angular documentation on angular.io
 - [alfred-ionic](https://github.com/SamVerschueren/alfred-ionic) - Search through the Ionic documentation
 - [alfred-react-native](https://github.com/ekonstantinidis/alfred-react-native) - Access the React Native documentation
 - [alfred-hl](https://github.com/importre/alfred-hl) - Syntax highlight code in the clipboard
