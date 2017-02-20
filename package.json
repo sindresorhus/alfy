@@ -57,6 +57,7 @@
     "got": "^6.3.0",
     "hook-std": "^0.2.0",
     "loud-rejection": "^1.6.0",
+    "moment": "^2.17.1",
     "npm-run-path": "^2.0.2",
     "read-pkg-up": "^2.0.0"
   },
