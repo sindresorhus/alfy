@@ -497,6 +497,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 
 - [alfred-emoj](https://github.com/sindresorhus/alfred-emoj) - Find relevant emoji from text
 - [alfred-npms](https://github.com/sindresorhus/alfred-npms) - Search for npm packages with npms.io
+- [alfred-dark-mode](https://github.com/sindresorhus/alfred-dark-mode) - Toggle the system dark mode
+- [alfred-xcode](https://github.com/sindresorhus/alfred-xcode) - Open Xcode projects and workspaces
 - [alfred-ng](https://github.com/SamVerschueren/alfred-ng) - Search through the Angular documentation on angular.io
 - [alfred-ionic](https://github.com/SamVerschueren/alfred-ionic) - Search through the Ionic documentation
 - [alfred-react-native](https://github.com/ekonstantinidis/alfred-react-native) - Access the React Native documentation
