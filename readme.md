@@ -509,6 +509,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-vue](https://github.com/radibit/alfred-vue) - Search the Vue.js API docs
 - [alfred-meteor-docs](https://github.com/wolasss/alfred-meteor-docs) - Search the Meteor docs
 - [alfred-climbing-grades-converter](https://github.com/wolasss/alfred-climbing-grades-converter) - Convert between climbing grading systems
+- [alfred-hotel](https://github.com/exah/alfred-hotel) - Quickly start, stop and open [Hotel](https://github.com/typicode/hotel) apps
 
 
 ## Related
