@@ -40,17 +40,46 @@ alfy.input = process.argv[2];
 
 const isDefined = x => x !== null && x !== undefined;
 
-const formatItemArg = item => {
-	if (isDefined(item) && isDefined(item.variables)) {
-		const alfredworkflow = {arg: item.arg, variables: item.variables};
-		item.arg = JSON.stringify({alfredworkflow});
-		delete item.variables;
+const wrapArg = item => {
+	const alfredworkflow = {arg: item.arg, variables: item.variables};
+	const arg = JSON.stringify({alfredworkflow});
+	const newItem = Object.assign({}, item, {arg});
+	delete newItem.variables;
+	return newItem;
+};
+
+const formatMods = item => {
+	const copy = Object.assign({}, item);
+
+	Object.keys(item.mods).forEach(modKey => {
+		const modItem = item.mods[modKey];
+		copy.mods[modKey] = wrapArg(modItem);
+	});
+
+	return copy;
+};
+
+// see https://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/
+// for documentation on setting environment variables from Alfred workflows
+const format = item => {
+	if (!isDefined(item)) {
+		return item;
 	}
+
+	if (isDefined(item.variables)) {
+		item = wrapArg(item);
+	}
+
+	if (isDefined(item.mods)) {
+		item = formatMods(item);
+	}
+
+	return item;
 };
 
 alfy.output = items => {
-	if (isDefined(items) && items.forEach) {
-		items.forEach(formatItemArg);
+	if (Array.isArray(items)) {
+		items = items.map(format);
 	}
 
 	console.log(JSON.stringify({items}, null, '\t'));
