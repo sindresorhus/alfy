@@ -512,6 +512,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-climbing-grades-converter](https://github.com/wolasss/alfred-climbing-grades-converter) - Convert between climbing grading systems
 - [alfred-hotel](https://github.com/exah/alfred-hotel) - Quickly start, stop and open [Hotel](https://github.com/typicode/hotel) apps
 - [alfred-coolors](https://github.com/radibit/alfred-coolors) - Find relevant color names
+- [alfred-postico-favorites-workflow](https://github.com/payers1/alfred-postico-favorites-workflow) - Open postico favorites
+
 
 
 ## Related
