@@ -515,7 +515,6 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-postico-favorites-workflow](https://github.com/payers1/alfred-postico-favorites-workflow) - Open postico favorites
 
 
-
 ## Related
 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
