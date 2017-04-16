@@ -36,7 +36,7 @@ test('expired data', async t => {
 	t.falsy(m.cache.store.expire);
 });
 
-test('versioned data', async t => {
+test('versioned data', t => {
 	const cache = tempfile();
 
 	const m = alfy({cache, version: '1.0.0'});
