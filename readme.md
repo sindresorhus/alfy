@@ -513,6 +513,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-hotel](https://github.com/exah/alfred-hotel) - Quickly start, stop and open [Hotel](https://github.com/typicode/hotel) apps
 - [alfred-coolors](https://github.com/radibit/alfred-coolors) - Find relevant color names
 - [alfred-postico-favorites-workflow](https://github.com/payers1/alfred-postico-favorites-workflow) - Open postico favorites
+- [alfred-messages](https://github.com/briangonzalez/alfred-messages) - Message your contacts through iMessage
 
 
 ## Related
