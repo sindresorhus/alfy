@@ -156,6 +156,10 @@ const unicorn = getUnicorn();
 alfy.log(unicorn);
 ```
 
+## Environment variables
+
+Alfred lets users set [environment variables for a workflow](https://www.alfredapp.com/help/workflows/advanced/variables/) which can then be used by that workflow. This can be useful if you, for example, need the user to specify an API token for a service. You can access the workflow environment variables from [`process.env`](https://nodejs.org/api/process.html#process_process_env). For example `process.env.apiToken`.
+
 
 ## API
 
