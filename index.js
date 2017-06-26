@@ -1,5 +1,5 @@
 'use strict';
-/* eslint-disable dot-notation */
+
 const os = require('os');
 const Conf = require('conf');
 const got = require('got');
@@ -8,15 +8,33 @@ const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
+const moment = require('moment');
 const updateNotification = require('./lib/update-notification');
 
-const alfy = module.exports;
+/**
+ * Get system icon
+ * @param {String} name Icon name
+ * @return {String} Icon file path
+ */
+var getIcon = name => `/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/${name}.icns`;
 
-updateNotification();
+/**
+ * Get alfred env
+ * @param {String} key Environment variable name (without alfred_ prefix)
+ * @return {String}
+ */
+var getEnv = key => process.env[`alfred_${key}`];
 
-const getIcon = name => `/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/${name}.icns`;
-const getEnv = key => process.env[`alfred_${key}`];
+/**
+ * Alfy
+ * @type {Object}
+ */
+var alfy = {};
 
+/**
+ * Workflow metadata
+ * @type {Object}
+ */
 alfy.meta = {
 	name: getEnv('workflow_name'),
 	version: getEnv('workflow_version'),
@@ -24,6 +42,10 @@ alfy.meta = {
 	bundleId: getEnv('workflow_bundleid')
 };
 
+/**
+ * Alfred metadata
+ * @type {Object}
+ */
 alfy.alfred = {
 	version: getEnv('version'),
 	theme: getEnv('theme'),
@@ -36,12 +58,73 @@ alfy.alfred = {
 	preferencesLocalHash: getEnv('preferences_localhash')
 };
 
+/**
+ * Config store
+ * @type {Conf}
+ */
+alfy.config = new Conf({
+	cwd: alfy.alfred.data
+});
+
+/**
+ * Cache store
+ * @type {CacheConf}
+ */
+alfy.cache = new CacheConf({
+	configName: 'cache',
+	cwd: alfy.alfred.cache,
+	version: alfy.meta.version
+});
+
+/**
+ * Update check interval (in minutes)
+ * @type {Number|Boolean}
+ */
+alfy.checkUpdates = 1440;
+
+/**
+ * Last update timestamp (in seconds)
+ * @type {Number}
+ */
+alfy.lastUpdate = () => alfy.cache.get('alfy-last-update');
+
+/**
+ * Input from Alfred
+ * @type {String}
+ */
 alfy.input = process.argv[2];
 
+/**
+ * Output items
+ * @param {Array} Workflow items to output
+ * @return {String}
+ */
 alfy.output = arr => {
+	// Check for updates
+	if (alfy.checkUpdates !== false) {
+		if (alfy.checkUpdates === true || alfy.checkUpdates === 0 || !alfy.lastUpdate()) {
+			updateNotification();
+			alfy.cache.set('alfy-last-update', moment().unix());
+		} else if (alfy.checkUpdates > 0) {
+			const nextUpdate = moment.unix(alfy.lastUpdate()).add(alfy.checkUpdates, 'minutes');
+
+			if (nextUpdate.isSameOrBefore(moment())) {
+				updateNotification();
+				alfy.cache.set('alfy-last-update', moment().unix());
+			}
+		}
+	}
+
 	console.log(JSON.stringify({items: arr}, null, '\t'));
 };
 
+/**
+ * Matches items in list to input case-insensitively
+ * @param {String} input Search query.
+ * @param {Array} list List with items to match.
+ * @param {String|Function} item Item property name to match against or function to handle matching yourself.
+ * @return {Array}
+ */
 alfy.matches = (input, list, item) => {
 	input = input.toLowerCase().normalize();
 
@@ -62,12 +145,26 @@ alfy.matches = (input, list, item) => {
 	});
 };
 
+/**
+ * Matches items in list to alfy.input case-insensitively
+ * @param {Array} list List with items to match.
+ * @param {String|Function} item Item property name to match against or function to handle matching yourself.
+ * @return {Array}
+ */
 alfy.inputMatches = (list, item) => alfy.matches(alfy.input, list, item);
 
+/**
+ * Log a string to the console if the debug window is open.
+ * @param {String} str String to log
+ */
 alfy.log = str => {
 	console.error(str);
 };
 
+/**
+ * Display an error or error message in Alfred.
+ * @param {Error|String} err Error object or string.
+ */
 alfy.error = err => {
 	const stack = cleanStack(err.stack || err);
 
@@ -91,21 +188,17 @@ ${process.platform} ${process.arch} ${os.release()}
 			largetype: stack
 		},
 		icon: {
-			path: exports.icon.error
+			path: alfy.icon.error
 		}
 	}]);
 };
 
-alfy.config = new Conf({
-	cwd: alfy.alfred.data
-});
-
-alfy.cache = new CacheConf({
-	configName: 'cache',
-	cwd: alfy.alfred.cache,
-	version: alfy.meta.version
-});
-
+/**
+ * Fetch an URL asynchronously and return its response in a Promise
+ * @param {String} url URL to fetch.
+ * @param {Object} opts Any of the got options.
+ * @return {Promise}
+ */
 alfy.fetch = (url, opts) => {
 	opts = Object.assign({
 		json: true
@@ -145,8 +238,16 @@ alfy.fetch = (url, opts) => {
 		});
 };
 
+/**
+ * Debug mode enabled
+ * @type {Boolean}
+ */
 alfy.debug = getEnv('debug') === '1';
 
+/**
+ * System icons
+ * @type {Object}
+ */
 alfy.icon = {
 	get: getIcon,
 	info: getIcon('ToolbarInfo'),
@@ -157,6 +258,10 @@ alfy.icon = {
 	delete: getIcon('ToolbarDeleteIcon')
 };
 
+// Handle uncaught exceptions
 loudRejection(alfy.error);
 process.on('uncaughtException', alfy.error);
 hookStd.stderr(alfy.error);
+
+// Export alfy
+module.exports = alfy;

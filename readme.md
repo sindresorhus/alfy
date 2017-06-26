@@ -75,7 +75,7 @@ Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/
 
 ## Update notifications
 
-Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) in the background to show a notification when an update for your workflow is available.
+Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) in the background to show a notification when an update for your workflow is available. By default, alfy will check for updates once a day. You can change the interval or disable it with the [checkUpdates property](#checkUpdates).
 
 <img src="media/screenshot-update.png" width="694">
 
@@ -496,6 +496,13 @@ Example: `'adbd4f66bc3ae8493832af61a41ee609b20d8705'`
 
 Non-synced local preferences are stored within `Alfred.alfredpreferences` under `…/preferences/local/${preferencesLocalHash}/`.
 
+#### checkUpdates
+
+Type: `Number` `Boolean`
+
+Example: `1440` (1 day)
+
+Interval (in minutes) at which is checked for updates, `false` to disable checking updates, `true` to always check for updates.
 
 ## Users
 
