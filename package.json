@@ -1,70 +1,69 @@
 {
-  "name": "alfy",
-  "version": "0.6.0",
-  "description": "Create Alfred workflows with ease",
-  "license": "MIT",
-  "repository": "sindresorhus/alfy",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "maintainers": [
-    {
-      "name": "Sam Verschueren",
-      "email": "sam.verschueren@gmail.com",
-      "url": "github.com/SamVerschueren"
-    }
-  ],
-  "bin": {
-    "run-node": "run-node.sh",
-    "alfy-init": "init.js",
-    "alfy-cleanup": "cleanup.js"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js",
-    "init.js",
-    "cleanup.js",
-    "run-node.sh",
-    "lib"
-  ],
-  "keywords": [
-    "alfred",
-    "app",
-    "workflow",
-    "plugin",
-    "helper",
-    "util",
-    "utility",
-    "macos",
-    "mac",
-    "osx"
-  ],
-  "dependencies": {
-    "alfred-link": "^0.2.0",
-    "alfred-notifier": "^0.2.0",
-    "cache-conf": "^0.5.0",
-    "clean-stack": "^1.0.0",
-    "conf": "^0.11.0",
-    "dot-prop": "^4.0.0",
-    "execa": "^0.6.0",
-    "got": "^6.3.0",
-    "hook-std": "^0.2.0",
-    "loud-rejection": "^1.6.0",
-    "npm-run-path": "^2.0.2",
-    "read-pkg-up": "^2.0.0"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "delay": "^1.3.1",
-    "nock": "^9.0.2",
-    "tempfile": "^1.1.1",
-    "xo": "*"
-  }
+	"name": "alfy",
+	"version": "0.6.0",
+	"description": "Create Alfred workflows with ease",
+	"license": "MIT",
+	"repository": "sindresorhus/alfy",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"maintainers": [
+		{
+			"name": "Sam Verschueren",
+			"email": "sam.verschueren@gmail.com",
+			"url": "github.com/SamVerschueren"
+		}
+	],
+	"bin": {
+		"run-node": "run-node.sh",
+		"alfy-init": "init.js",
+		"alfy-cleanup": "cleanup.js"
+	},
+	"engines": {
+		"node": ">=4"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js",
+		"init.js",
+		"cleanup.js",
+		"run-node.sh",
+		"lib"
+	],
+	"keywords": [
+		"alfred",
+		"app",
+		"workflow",
+		"plugin",
+		"helper",
+		"util",
+		"utility",
+		"macos",
+		"mac"
+	],
+	"dependencies": {
+		"alfred-link": "^0.2.0",
+		"alfred-notifier": "^0.2.0",
+		"cache-conf": "^0.5.0",
+		"clean-stack": "^1.0.0",
+		"conf": "^0.11.0",
+		"dot-prop": "^4.0.0",
+		"execa": "^0.6.0",
+		"got": "^6.3.0",
+		"hook-std": "^0.2.0",
+		"loud-rejection": "^1.6.0",
+		"npm-run-path": "^2.0.2",
+		"read-pkg-up": "^2.0.0"
+	},
+	"devDependencies": {
+		"ava": "*",
+		"delay": "^1.3.1",
+		"nock": "^9.0.2",
+		"tempfile": "^1.1.1",
+		"xo": "*"
+	}
 }

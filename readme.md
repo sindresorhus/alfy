@@ -26,7 +26,7 @@ You need [Node.js 4+](https://nodejs.org) and [Alfred 3](https://www.alfredapp.c
 ## Install
 
 ```
-$ npm install --save alfy
+$ npm install alfy
 ```
 
 
@@ -93,21 +93,21 @@ By adding `alfy-init` as `postinstall` and `alfy-cleanup` as `preuninstall` scri
 
 ```json
 {
-  "name": "alfred-unicorn",
-  "version": "1.0.0",
-  "description": "My awesome unicorn workflow",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "scripts": {
-    "postinstall": "alfy-init",
-    "preuninstall": "alfy-cleanup"
-  },
-  "dependencies": {
-    "alfy": "*"
-  }
+	"name": "alfred-unicorn",
+	"version": "1.0.0",
+	"description": "My awesome unicorn workflow",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"scripts": {
+		"postinstall": "alfy-init",
+		"preuninstall": "alfy-cleanup"
+	},
+	"dependencies": {
+		"alfy": "*"
+	}
 }
 ```
 
@@ -133,16 +133,16 @@ import test from 'ava';
 import alfyTest from 'alfy-test';
 
 test(async t => {
-    const alfy = alfyTest();
+	const alfy = alfyTest();
 
-    const result = await alfy('workflow input');
+	const result = await alfy('workflow input');
 
-    t.deepEqual(result, [
-        {
-            title: 'foo',
-            subtitle: 'bar'
-        }
-    ]);
+	t.deepEqual(result, [
+		{
+			title: 'foo',
+			subtitle: 'bar'
+		}
+	]);
 });
 ```
 
@@ -538,4 +538,4 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 
 ## License
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+MIT

@@ -31,11 +31,11 @@ has_node() {
 	command -v node >/dev/null 2>&1
 }
 
-# check if we have node, otherwise inherit path from user shell
+# Check if we have Node.js, otherwise inherit path from user shell
 if ! has_node; then
 	set_path
 
-	# retry by deleting old path cache
+	# Retry by deleting old path cache
 	if ! has_node; then
 		rm "$PATH_CACHE"
 		set_path
