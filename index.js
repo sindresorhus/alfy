@@ -65,9 +65,7 @@ alfy.matches = (input, list, item) => {
 alfy.inputMatches = (list, item) => alfy.matches(alfy.input, list, item);
 
 alfy.log = str => {
-	if (alfy.debug) {
-		console.log(str);
-	}
+	console.error(str);
 };
 
 alfy.error = err => {

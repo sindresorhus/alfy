@@ -147,6 +147,16 @@ test(async t => {
 ```
 
 
+## Debugging
+
+When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the insect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()`:
+
+```js
+const unicorn = getUnicorn();
+alfy.log(unicorn);
+```
+
+
 ## API
 
 ### alfy
@@ -178,6 +188,10 @@ alfy.output([{
 ```
 
 <img src="media/screenshot-output.png" width="694">
+
+#### log(value)
+
+Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/).
 
 #### matches(input, list, [item])
 
@@ -252,14 +266,6 @@ alfy.matches('Foo', list, (item, input) => item === input);
 #### inputMatches(list, [item])
 
 Same as `matches()`, but with `alfy.input` as `input`.
-
-#### log(text)
-
-##### text
-
-Type: `string`
-
-Text to be logged to the debug panel. Only logs when `alfred.debug` is `true`, so not to interfere with the normal output.
 
 #### error(err)
 
