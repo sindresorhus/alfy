@@ -2,6 +2,21 @@ import {serial as test} from 'ava';
 import hookStd from 'hook-std';
 import {alfy} from './_utils';
 
+const itemWithMod = {
+	title: 'unicorn',
+	arg: '🦄',
+	env: {fabulous: true},
+	mods: {
+		alt: {
+			title: 'Rainbow',
+			arg: '🌈',
+			env: {
+				color: 'myriad'
+			}
+		}
+	}
+};
+
 const m = alfy();
 const hook = cb => {
 	const unhook = hookStd.stdout({silent: true}, output => {
@@ -12,7 +27,7 @@ const hook = cb => {
 	});
 };
 
-test.cb('.output() properly wraps item.variables', t => {
+test.cb('.output() properly wraps item.env', t => {
 	hook(output => {
 		const item = JSON.parse(output).items[0];
 		const arg = JSON.parse(item.arg);
@@ -27,11 +42,11 @@ test.cb('.output() properly wraps item.variables', t => {
 	m.output([{
 		title: 'unicorn',
 		arg: '🦄',
-		variables: {fabulous: true}
+		env: {fabulous: true}
 	}]);
 });
 
-test.cb('.output() wraps item.variables even if item.arg is not defined', t => {
+test.cb('.output() wraps item.env even if item.arg is not defined', t => {
 	hook(output => {
 		const item = JSON.parse(output).items[0];
 		const arg = JSON.parse(item.arg);
@@ -44,15 +59,21 @@ test.cb('.output() wraps item.variables even if item.arg is not defined', t => {
 	});
 	m.output([{
 		title: 'unicorn',
-		variables: {fabulous: true}
+		env: {fabulous: true}
 	}]);
 });
 
-test.cb('.output() does not wrap item.arg if item.variables is not defined', t => {
+test('.output() throws if it doesn\'t receive an array of plain objects', t => {
+	hook();
+	const outputNulls = () => m.output([null, null]);
+	t.throws(outputNulls, TypeError);
+});
+
+test.cb('.output() does not wrap item.arg if item.env is not defined', t => {
 	hook(output => {
 		const item = JSON.parse(output).items[0];
 		t.is(item.arg, '🦄');
-		t.is(item.variables, undefined);
+		t.is(item.env, undefined);
 		t.end();
 	});
 	m.output([{
@@ -61,39 +82,19 @@ test.cb('.output() does not wrap item.arg if item.variables is not defined', t =
 	}]);
 });
 
-test('.output() accepts null and undefined items', t => {
-	hook();
-	t.notThrows(() => m.output([undefined, null]));
-});
-
-test('.output() accepts non-arrays', t => {
+test('.output() throws a TypeError if its argument isn\'t an array', t => {
 	let done = false;
 	const unhook = hookStd.stdout({silent: true}, () => {
 		if (done) {
 			unhook();
 		}
 	});
-	t.notThrows(() => m.output({}));
-	t.notThrows(() => m.output('unicorn'));
-	t.notThrows(() => m.output(null));
+	t.throws(() => m.output({}), TypeError);
+	t.throws(() => m.output('unicorn'), TypeError);
+	t.throws(() => m.output(null), TypeError);
 	done = true;
-	t.notThrows(() => m.output(undefined));
+	t.throws(() => m.output(undefined), TypeError);
 });
-
-const itemWithMod = {
-	title: 'unicorn',
-	arg: '🦄',
-	variables: {fabulous: true},
-	mods: {
-		alt: {
-			title: 'Rainbow',
-			arg: '🌈',
-			variables: {
-				color: 'myriad'
-			}
-		}
-	}
-};
 
 test.cb('.output() wraps mod items', t => {
 	hook(output => {

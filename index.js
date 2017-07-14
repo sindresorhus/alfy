@@ -8,6 +8,7 @@ const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
+const isPlainObj = require('is-plain-obj');
 const updateNotification = require('./lib/update-notification');
 
 const alfy = module.exports;
@@ -38,39 +39,36 @@ alfy.alfred = {
 
 alfy.input = process.argv[2];
 
-const isDefined = x => x !== null && x !== undefined;
-
 const wrapArg = item => {
-	const alfredworkflow = {arg: item.arg, variables: item.variables};
+	const alfredworkflow = {arg: item.arg, variables: item.env};
 	const arg = JSON.stringify({alfredworkflow});
 	const newItem = Object.assign({}, item, {arg});
-	delete newItem.variables;
+	delete newItem.env;
 	return newItem;
 };
 
 const formatMods = item => {
 	const copy = Object.assign({}, item);
 
-	Object.keys(item.mods).forEach(modKey => {
-		const modItem = item.mods[modKey];
-		copy.mods[modKey] = wrapArg(modItem);
-	});
+	for (const mod of Object.keys(item.mods)) {
+		copy.mods[mod] = wrapArg(item.mods[mod]);
+	}
 
 	return copy;
 };
 
-// see https://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/
-// for documentation on setting environment variables from Alfred workflows
+// See https://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/
+// for documentation on setting environment variables from Alfred workflows.
 const format = item => {
-	if (!isDefined(item)) {
-		return item;
+	if (!isPlainObj(item)) {
+		throw new TypeError(`Expected \`item\` to be a plain object, got ${typeof item}.`);
 	}
 
-	if (isDefined(item.variables)) {
+	if (item.env) {
 		item = wrapArg(item);
 	}
 
-	if (isDefined(item.mods)) {
+	if (item.mods) {
 		item = formatMods(item);
 	}
 
@@ -78,10 +76,11 @@ const format = item => {
 };
 
 alfy.output = items => {
-	if (Array.isArray(items)) {
-		items = items.map(format);
+	if (!Array.isArray(items)) {
+		throw new TypeError(`Expected \`items\` to be an Array, got ${typeof items}`);
 	}
 
+	items = items.map(item => format(item));
 	console.log(JSON.stringify({items}, null, '\t'));
 };
 
@@ -201,6 +200,8 @@ alfy.icon = {
 	like: getIcon('ToolbarFavoritesIcon'),
 	delete: getIcon('ToolbarDeleteIcon')
 };
+
+alfy.env = process.env;
 
 loudRejection(alfy.error);
 process.on('uncaughtException', alfy.error);

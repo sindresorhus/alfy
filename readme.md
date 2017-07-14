@@ -16,6 +16,7 @@
 - [Finds the `node` binary.](run-node.sh)
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
+- Easily set [environment variables](#environment-variables).
 
 
 ## Prerequisites
@@ -165,7 +166,12 @@ Return output to Alfred.
 
 Type: `Array`
 
-List of `Object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/). In addition, if a list item has a `variables` property, it will be used to set Alfred's [Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/) if the user selects the item. More info on environment variables is [here](https://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/).
+List of `Object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/). If a list item has a `variables` property, it will be used to set Alfred's [Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/) when the user selects the item.
+
+See also:
+
+- [Environment variables in Alfy](#environment-variables)
+- [How to set environment variables in Alfred Workflows](https://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/)
 
 Example:
 
@@ -178,40 +184,6 @@ alfy.output([{
 ```
 
 <img src="media/screenshot-output.png" width="694">
-
-Using the `variables` property:
-
-```js
-alfy.output([
-  {
-    title: 'Unicorn',
-    arg: '🦄',
-    variables: {
-      color: 'white'
-    }
-  },
-  {
-    title: 'Rainbow',
-    arg: '🌈',
-    variables: {
-      color: 'myriad'
-    }
-  }
-]);
-```
-
-You can access Alfred Workflow Variables through `process.env`:
-
-```js
-// After a user selects "Unicorn" or "Rainbow"
-process.env.color
-//=> 'white' if they selected Unicorn
-//=> 'myriad' if they selected Rainbow
-```
-
-Alfred Workflow Variables are also available in the workflow editor using the form `{var:varname}`. For example, `{var:color}` 
-
-<img src="media/screenshot-variable.png" width="694">
 
 #### matches(input, list, [item])
 
@@ -524,6 +496,42 @@ Example: `'adbd4f66bc3ae8493832af61a41ee609b20d8705'`
 
 Non-synced local preferences are stored within `Alfred.alfredpreferences` under `…/preferences/local/${preferencesLocalHash}/`.
 
+## Environment Variables
+
+Alfy makes it easy to set environment variables when a user selects an item:
+
+```js
+alfy.output([
+  {
+    title: 'Unicorn',
+    arg: '🦄',
+    variables: {
+      color: 'white'
+    }
+  },
+  {
+    title: 'Rainbow',
+    arg: '🌈',
+    variables: {
+      color: 'myriad'
+    }
+  }
+]);
+```
+
+You can access Alfred Workflow Variables through `process.env` or `alfy.env`:
+
+```js
+// After a user selects "Unicorn" or "Rainbow"
+process.env.color
+alfy.env.color
+//=> 'white' if they selected Unicorn
+//=> 'myriad' if they selected Rainbow
+```
+
+Alfred Workflow Variables are also available in the workflow editor using the form `{var:varname}`. For example, `{var:color}`
+
+<img src="media/screenshot-variable.png" width="694">
 
 ## Users
 

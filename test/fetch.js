@@ -23,7 +23,7 @@ test('no cache', async t => {
 
 test('transform not a function', async t => {
 	const m = alfy();
-	t.throws(m.fetch(`${URL}/no-cache`, {transform: 'foo'}), 'Expected `transform` to be a `function`, got `string`');
+	await t.throws(m.fetch(`${URL}/no-cache`, {transform: 'foo'}), 'Expected `transform` to be a `function`, got `string`');
 });
 
 test('transform', async t => {
