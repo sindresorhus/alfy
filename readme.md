@@ -524,6 +524,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-coolors](https://github.com/radibit/alfred-coolors) - Find relevant color names
 - [alfred-postico-favorites-workflow](https://github.com/payers1/alfred-postico-favorites-workflow) - Open postico favorites
 - [alfred-messages](https://github.com/briangonzalez/alfred-messages) - Message your contacts through iMessage
+- [alfred-bitbucket](https://github.com/nicklayb/alfred-bitbucket) - List you and your teams public and private Bitbucket repositories
 
 
 ## Related
