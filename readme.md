@@ -509,6 +509,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-npms](https://github.com/sindresorhus/alfred-npms) - Search for npm packages with npms.io
 - [alfred-dark-mode](https://github.com/sindresorhus/alfred-dark-mode) - Toggle the system dark mode
 - [alfred-xcode](https://github.com/sindresorhus/alfred-xcode) - Open Xcode projects and workspaces
+- [alfred-lock](https://github.com/sindresorhus/alfred-lock) - Lock your Mac
 - [alfred-fkill](https://github.com/SamVerschueren/alfred-fkill) - Fabulously search and kill processes
 - [alfred-ng](https://github.com/SamVerschueren/alfred-ng) - Search through the Angular documentation on angular.io
 - [alfred-ionic](https://github.com/SamVerschueren/alfred-ionic) - Search through the Ionic documentation
