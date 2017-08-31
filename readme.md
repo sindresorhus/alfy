@@ -527,7 +527,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-messages](https://github.com/briangonzalez/alfred-messages) - Message your contacts through iMessage
 - [alfred-bitbucket](https://github.com/nicklayb/alfred-bitbucket) - List you and your teams public and private Bitbucket repositories
 - [alfred-asana](https://github.com/adriantoine/alfred-asana) - Search your Asana tasks
-
+- [alfred-cacher](https://github.com/CacherApp/alfred-cacher) - Find a code snippet from [Cacher](https://www.cacher.io) and copy it to the clipboard
 
 ## Related
 
