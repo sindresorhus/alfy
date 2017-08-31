@@ -529,6 +529,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-asana](https://github.com/adriantoine/alfred-asana) - Search your Asana tasks
 - [alfred-cacher](https://github.com/CacherApp/alfred-cacher) - Find a code snippet from [Cacher](https://www.cacher.io) and copy it to the clipboard
 
+
 ## Related
 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
