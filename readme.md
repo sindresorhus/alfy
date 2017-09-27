@@ -29,20 +29,28 @@ You need [Node.js 4+](https://nodejs.org) and [Alfred 3](https://www.alfredapp.c
 $ npm install alfy
 ```
 
-
 ## Usage
 
-Create a new Alfred workflow and add a Script Filter with the following script:
+1. Create a new (blank) Alfred workflow
 
+2. Add a `Script Filter` (right click on the canvas > `Inputs` > `Script Filter`), set Language to `/bin/bash`, and add the following script:
 ```sh
 ./node_modules/.bin/run-node index.js "$1"
-```
+``` 
+_We can't call `node` directly as GUI apps on macOS doesn't inherit the $PATH._
 
-*We can't call `node` directly as GUI apps on macOS doesn't inherit the $PATH.*
 
-In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
+> Tip: you can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow. If so, you can skip the rest of the steps, go straight to the `index.js` and do your thing.
 
-> Tip: you can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow.
+2. Set Keyword by which you want to invoke your workflow
+
+3. Go to your new workflow directory (right click on workflow > `Open in Finder`)
+
+4. Initialize a repo with `npm init`
+
+5. Install Alfy `npm install alfy`
+
+6. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
 
 ## Example
