@@ -8,8 +8,8 @@ const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
-const isPlainObj = require('is-plain-obj');
 const updateNotification = require('./lib/update-notification');
+const {format} = require('./lib/utils');
 
 const alfy = module.exports;
 
@@ -38,42 +38,6 @@ alfy.alfred = {
 };
 
 alfy.input = process.argv[2];
-
-const wrapArg = item => {
-	const alfredworkflow = {arg: item.arg, variables: item.env};
-	const arg = JSON.stringify({alfredworkflow});
-	const newItem = Object.assign({}, item, {arg});
-	delete newItem.env;
-	return newItem;
-};
-
-const formatMods = item => {
-	const copy = Object.assign({}, item);
-
-	for (const mod of Object.keys(item.mods)) {
-		copy.mods[mod] = wrapArg(item.mods[mod]);
-	}
-
-	return copy;
-};
-
-// See https://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/
-// for documentation on setting environment variables from Alfred workflows.
-const format = item => {
-	if (!isPlainObj(item)) {
-		throw new TypeError(`Expected \`item\` to be a plain object, got ${typeof item}.`);
-	}
-
-	if (item.env) {
-		item = wrapArg(item);
-	}
-
-	if (item.mods) {
-		item = formatMods(item);
-	}
-
-	return item;
-};
 
 alfy.output = items => {
 	if (!Array.isArray(items)) {
