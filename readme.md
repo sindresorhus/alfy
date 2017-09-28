@@ -505,14 +505,14 @@ alfy.output([
   {
     title: 'Unicorn',
     arg: '🦄',
-    variables: {
+    env: {
       color: 'white'
     }
   },
   {
     title: 'Rainbow',
     arg: '🌈',
-    variables: {
+    env: {
       color: 'myriad'
     }
   }

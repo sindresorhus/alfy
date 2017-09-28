@@ -41,7 +41,7 @@ alfy.input = process.argv[2];
 
 alfy.output = items => {
 	if (!Array.isArray(items)) {
-		throw new TypeError(`Expected \`items\` to be an Array, got ${typeof items}`);
+		throw new TypeError(`Expected \`items\` to be an Array, got \`${typeof items}\``);
 	}
 
 	items = items.map(item => format(item));
