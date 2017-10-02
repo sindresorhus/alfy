@@ -42,15 +42,15 @@ _We can't call `node` directly as GUI apps on macOS doesn't inherit the $PATH._
 
 > Tip: you can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow. If so, you can skip the rest of the steps, go straight to the `index.js` and do your thing.
 
-2. Set Keyword by which you want to invoke your workflow
+3. Set Keyword by which you want to invoke your workflow
 
-3. Go to your new workflow directory (right click on workflow > `Open in Finder`)
+4. Go to your new workflow directory (right click on workflow > `Open in Finder`)
 
-4. Initialize a repo with `npm init`
+5. Initialize a repo with `npm init`
 
-5. Install Alfy `npm install alfy`
+6. Install Alfy `npm install alfy`
 
-6. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
+7. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
 
 ## Example
