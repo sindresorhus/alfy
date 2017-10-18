@@ -528,6 +528,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-bitbucket](https://github.com/nicklayb/alfred-bitbucket) - List you and your teams public and private Bitbucket repositories
 - [alfred-asana](https://github.com/adriantoine/alfred-asana) - Search your Asana tasks
 - [alfred-cacher](https://github.com/CacherApp/alfred-cacher) - Find a code snippet from [Cacher](https://www.cacher.io) and copy it to the clipboard
+- [alfred-kaomoji](https://github.com/vinkla/alfred-kaomoji) - Find relevant kaomoji from text
+- [alfred-packagist](https://github.com/vinkla/alfred-packagist) - Search for PHP packages with Packagist
 
 
 ## Related
