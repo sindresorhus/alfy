@@ -529,6 +529,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-asana](https://github.com/adriantoine/alfred-asana) - Search your Asana tasks
 - [alfred-cacher](https://github.com/CacherApp/alfred-cacher) - Find a code snippet from [Cacher](https://www.cacher.io) and copy it to the clipboard
 - [alfred-loremipsum](https://github.com/AntonNiklasson/alfred-loremipsum) - Generate placeholder text
+- [alfred-kaomoji](https://github.com/vinkla/alfred-kaomoji) - Find relevant kaomoji from text
+- [alfred-packagist](https://github.com/vinkla/alfred-packagist) - Search for PHP packages with Packagist
 
 
 ## Related
