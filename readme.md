@@ -531,6 +531,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-loremipsum](https://github.com/AntonNiklasson/alfred-loremipsum) - Generate placeholder text
 - [alfred-kaomoji](https://github.com/vinkla/alfred-kaomoji) - Find relevant kaomoji from text
 - [alfred-packagist](https://github.com/vinkla/alfred-packagist) - Search for PHP packages with Packagist
+- [alfred-vpn](https://github.com/stve/alfred-vpn) - Connect/disconnect from VPNs
 
 
 ## Related
