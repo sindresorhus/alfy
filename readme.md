@@ -31,24 +31,25 @@ $ npm install alfy
 
 ## Usage
 
-1. Create a new (blank) Alfred workflow
+1. Create a new blank Alfred workflow.
 
-2. Add a `Script Filter` (right click on the canvas > `Inputs` > `Script Filter`), set Language to `/bin/bash`, and add the following script:
-```sh
+2. Add a `Script Filter` (right-click the canvas → `Inputs` → `Script Filter`), set `Language` to `/bin/bash`, and add the following script:
+
+```
 ./node_modules/.bin/run-node index.js "$1"
-``` 
-_We can't call `node` directly as GUI apps on macOS doesn't inherit the $PATH._
+```
 
+*We can't call `node` directly as GUI apps on macOS doesn't inherit the $PATH.*
 
-> Tip: you can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow. If so, you can skip the rest of the steps, go straight to the `index.js` and do your thing.
+> Tip: You can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow. If so, you can skip the rest of the steps, go straight to the `index.js` and do your thing.
 
-3. Set Keyword by which you want to invoke your workflow
+3. Set the `Keyword` by which you want to invoke your workflow.
 
-4. Go to your new workflow directory (right click on workflow > `Open in Finder`)
+4. Go to your new workflow directory (right-click on the workflow in the sidebar → `Open in Finder`).
 
-5. Initialize a repo with `npm init`
+5. Initialize a repo with `npm init`.
 
-6. Install Alfy `npm install alfy`
+6. Install Alfy with `npm install alfy`.
 
 7. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
@@ -540,7 +541,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-kaomoji](https://github.com/vinkla/alfred-kaomoji) - Find relevant kaomoji from text
 - [alfred-packagist](https://github.com/vinkla/alfred-packagist) - Search for PHP packages with Packagist
 - [alfred-vpn](https://github.com/stve/alfred-vpn) - Connect/disconnect from VPNs
-- [alfred-clap](https://github.com/jacc/alfred-clap) - 👏🏻 Clap 👏🏻 stuff 👏🏻 out 👏🏻 in 👏🏻 Alfred! 👏🏻 
+- [alfred-clap](https://github.com/jacc/alfred-clap) - 👏🏻 Clap 👏🏻 stuff 👏🏻 out 👏🏻 in 👏🏻 Alfred! 👏🏻
 
 
 ## Related
