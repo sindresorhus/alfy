@@ -542,6 +542,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-packagist](https://github.com/vinkla/alfred-packagist) - Search for PHP packages with Packagist
 - [alfred-vpn](https://github.com/stve/alfred-vpn) - Connect/disconnect from VPNs
 - [alfred-clap](https://github.com/jacc/alfred-clap) - 👏🏻 Clap 👏🏻 stuff 👏🏻 out 👏🏻 in 👏🏻 Alfred! 👏🏻
+- [alfred-yandex-translate](https://github.com/mkalygin/alfred-yandex-translate) - Translate words and text with Yandex Translate
 
 
 ## Related
