@@ -543,6 +543,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-vpn](https://github.com/stve/alfred-vpn) - Connect/disconnect from VPNs
 - [alfred-clap](https://github.com/jacc/alfred-clap) - 👏🏻 Clap 👏🏻 stuff 👏🏻 out 👏🏻 in 👏🏻 Alfred! 👏🏻
 - [alfred-yandex-translate](https://github.com/mkalygin/alfred-yandex-translate) - Translate words and text with Yandex Translate
+- [alfred-now](https://github.com/lucaperret/alfred-now) - Use [Now](https://zeit.co/now) commands within Alfred to access deployments and aliases
 
 
 ## Related
