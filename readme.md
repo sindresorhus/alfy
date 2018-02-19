@@ -544,6 +544,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-clap](https://github.com/jacc/alfred-clap) - 👏🏻 Clap 👏🏻 stuff 👏🏻 out 👏🏻 in 👏🏻 Alfred! 👏🏻
 - [alfred-yandex-translate](https://github.com/mkalygin/alfred-yandex-translate) - Translate words and text with Yandex Translate
 - [alfred-now](https://github.com/lucaperret/alfred-now) - Use [Now](https://zeit.co/now) commands within Alfred to access deployments and aliases
+- [alfred-chuck-norris-jokes](https://github.com/jeppestaerk/alfred-chuck-norris-jokes) - Get Chuck Norris jokes
 
 
 ## Related
