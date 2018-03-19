@@ -547,6 +547,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-chuck-norris-jokes](https://github.com/jeppestaerk/alfred-chuck-norris-jokes) - Get Chuck Norris jokes
 - [alfred-show-network-info](https://github.com/jeppestaerk/alfred-show-network-info) - See network info and discover local devices
 - [alfred-currency-conversion](https://github.com/jeppestaerk/alfred-currency-conversion) - See foreign exchange rates and currency conversion
+- [alfred-polyglot](https://github.com/nikersify/alfred-polyglot) - Translate text with Google Translate
 
 
 ## Related
