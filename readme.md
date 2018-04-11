@@ -549,6 +549,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-currency-conversion](https://github.com/jeppestaerk/alfred-currency-conversion) - See foreign exchange rates and currency conversion
 - [alfred-reference](https://github.com/vinkla/alfred-reference) - Search for HTML elements and CSS properties
 - [alfred-polyglot](https://github.com/nikersify/alfred-polyglot) - Translate text with Google Translate
+- [alfred-stock-price](https://github.com/Wei-Xia/alfred-stock-price-workflow) - Show real time stock price in US market
 
 
 ## Related
