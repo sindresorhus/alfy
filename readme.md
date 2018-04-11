@@ -552,7 +552,6 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-stock-price](https://github.com/Wei-Xia/alfred-stock-price-workflow) - Show real time stock price in US market
 
 
-
 ## Related
 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
