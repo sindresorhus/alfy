@@ -1,5 +1,4 @@
 'use strict';
-/* eslint-disable dot-notation */
 const os = require('os');
 const Conf = require('conf');
 const got = require('got');
