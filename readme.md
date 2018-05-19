@@ -552,6 +552,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-stock-price](https://github.com/Wei-Xia/alfred-stock-price-workflow) - Show real time stock price in US market
 - [alfred-jira](https://github.com/colinf/alfred-jira) - Convert clipboard text between Markdown and Jira markup
 - [alfred-homebrew](https://github.com/vinkla/alfred-homebrew) - Search for macOS packages with Homebrew
+- [alfred-network-location-switch](https://github.com/abdul/alfred-network-location-switch) - Switch macOS network location
 
 
 ## Related
