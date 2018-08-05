@@ -554,7 +554,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-homebrew](https://github.com/vinkla/alfred-homebrew) - Search for macOS packages with Homebrew
 - [alfred-network-location-switch](https://github.com/abdul/alfred-network-location-switch) - Switch macOS network location
 - [alfred-cool](https://github.com/nguyenvanduocit/alfred-cool) - Find cool words
-
+- [alfred-ip](https://github.com/calpa/alfy-ip) - Find your public IP in worldwide
 
 ## Related
 
