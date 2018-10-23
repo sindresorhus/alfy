@@ -556,6 +556,9 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-cool](https://github.com/nguyenvanduocit/alfred-cool) - Find cool words
 - [alfred-google-books](https://github.com/Dameck/alfred-google-books) - Search for Google Books
 - [alfred-ip](https://github.com/calpa/alfy-ip) - Find your public IP
+- [alfred-typograf](https://github.com/VictorKolb/alfred-typograf) - Apply typographic rules to text
+
+
 
 
 ## Related
