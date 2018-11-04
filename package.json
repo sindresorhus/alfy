@@ -46,7 +46,7 @@
 		"mac"
 	],
 	"dependencies": {
-		"alfred-link": "^0.2.0",
+		"alfred-link": "^0.3.0",
 		"alfred-notifier": "^0.2.0",
 		"cache-conf": "^0.6.0",
 		"clean-stack": "^1.0.0",
