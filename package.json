@@ -49,21 +49,20 @@
 		"alfred-link": "^0.3.0",
 		"alfred-notifier": "^0.2.0",
 		"cache-conf": "^0.6.0",
-		"clean-stack": "^1.0.0",
-		"conf": "^1.1.2",
+		"clean-stack": "^2.0.0",
+		"conf": "^2.0.0",
 		"dot-prop": "^4.0.0",
-		"execa": "^0.10.0",
+		"execa": "^1.0.0",
 		"got": "^8.0.1",
-		"hook-std": "^0.4.0",
+		"hook-std": "^1.1.0",
 		"loud-rejection": "^1.6.0",
-		"npm-run-path": "^2.0.2",
-		"read-pkg-up": "^3.0.0"
+		"read-pkg-up": "^4.0.0"
 	},
 	"devDependencies": {
-		"ava": "*",
-		"delay": "^2.0.0",
-		"nock": "^9.0.2",
+		"ava": "^0.25.0",
+		"delay": "^4.1.0",
+		"nock": "^10.0.2",
 		"tempfile": "^2.0.0",
-		"xo": "*"
+		"xo": "^0.23.0"
 	}
 }

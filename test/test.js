@@ -11,14 +11,15 @@ test('default', t => {
 	t.is(typeof m.icon.error, 'string');
 });
 
-test.serial.cb('.error()', t => {
-	const unhook = hookStd.stdout({silent: true}, output => {
-		unhook();
+test.serial('.error()', async t => {
+	const promise = hookStd.stdout(output => {
+		promise.unhook();
 		t.is(JSON.parse(output).items[0].title, 'Error: foo');
-		t.end();
 	});
 
 	m.error(new Error('foo'));
+
+	await promise;
 });
 
 test('.matches()', t => {

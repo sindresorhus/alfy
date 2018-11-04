@@ -37,8 +37,8 @@ alfy.alfred = {
 
 alfy.input = process.argv[2];
 
-alfy.output = arr => {
-	console.log(JSON.stringify({items: arr}, null, '\t'));
+alfy.output = items => {
+	console.log(JSON.stringify({items}, null, '\t'));
 };
 
 alfy.matches = (input, list, item) => {
@@ -63,12 +63,12 @@ alfy.matches = (input, list, item) => {
 
 alfy.inputMatches = (list, item) => alfy.matches(alfy.input, list, item);
 
-alfy.log = str => {
-	console.error(str);
+alfy.log = text => {
+	console.error(text);
 };
 
-alfy.error = err => {
-	const stack = cleanStack(err.stack || err);
+alfy.error = error => {
+	const stack = cleanStack(error.stack || error);
 
 	const copy = `
 \`\`\`
@@ -82,7 +82,7 @@ ${process.platform} ${process.arch} ${os.release()}
 	`.trim();
 
 	alfy.output([{
-		title: err.stack ? `${err.name}: ${err.message}` : err,
+		title: error.stack ? `${error.name}: ${error.message}` : error,
 		subtitle: 'Press ⌘L to see the full error and ⌘C to copy it.',
 		valid: false,
 		text: {
@@ -105,20 +105,20 @@ alfy.cache = new CacheConf({
 	version: alfy.meta.version
 });
 
-alfy.fetch = (url, opts) => {
-	opts = Object.assign({
+alfy.fetch = (url, options) => {
+	options = Object.assign({
 		json: true
-	}, opts);
+	}, options);
 
 	if (typeof url !== 'string') {
 		return Promise.reject(new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``));
 	}
 
-	if (opts.transform && typeof opts.transform !== 'function') {
-		return Promise.reject(new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof opts.transform}\``));
+	if (options.transform && typeof options.transform !== 'function') {
+		return Promise.reject(new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``));
 	}
 
-	const rawKey = url + JSON.stringify(opts);
+	const rawKey = url + JSON.stringify(options);
 	const key = rawKey.replace(/\./g, '\\.');
 	const cachedResponse = alfy.cache.get(key, {ignoreMaxAge: true});
 
@@ -126,21 +126,21 @@ alfy.fetch = (url, opts) => {
 		return Promise.resolve(cachedResponse);
 	}
 
-	return got(url, opts)
-		.then(res => opts.transform ? opts.transform(res.body) : res.body)
+	return got(url, options)
+		.then(response => options.transform ? options.transform(response.body) : response.body)
 		.then(data => {
-			if (opts.maxAge) {
-				alfy.cache.set(key, data, {maxAge: opts.maxAge});
+			if (options.maxAge) {
+				alfy.cache.set(key, data, {maxAge: options.maxAge});
 			}
 
 			return data;
 		})
-		.catch(err => {
+		.catch(error => {
 			if (cachedResponse) {
 				return cachedResponse;
 			}
 
-			throw err;
+			throw error;
 		});
 };
 

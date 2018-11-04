@@ -29,9 +29,9 @@ test('transform not a function', async t => {
 test('transform', async t => {
 	const m = alfy();
 	const result = await m.fetch(`${URL}/no-cache`, {
-		transform: res => {
-			res.unicorn = 'rainbow';
-			return res;
+		transform: response => {
+			response.unicorn = 'rainbow';
+			return response;
 		}
 	});
 
