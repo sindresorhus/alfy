@@ -78,7 +78,7 @@ ${stack}
 -
 ${alfy.meta.name} ${alfy.meta.version}
 Alfred ${alfy.alfred.version}
-${process.platform} ${process.arch} ${os.release()}
+${process.platform} ${os.release()}
 	`.trim();
 
 	alfy.output([{
@@ -105,10 +105,11 @@ alfy.cache = new CacheConf({
 	version: alfy.meta.version
 });
 
-alfy.fetch = (url, options) => {
-	options = Object.assign({
-		json: true
-	}, options);
+alfy.fetch = async (url, options) => {
+	options = {
+		json: true,
+		...options
+	};
 
 	if (typeof url !== 'string') {
 		return Promise.reject(new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``));
@@ -126,22 +127,24 @@ alfy.fetch = (url, options) => {
 		return Promise.resolve(cachedResponse);
 	}
 
-	return got(url, options)
-		.then(response => options.transform ? options.transform(response.body) : response.body)
-		.then(data => {
-			if (options.maxAge) {
-				alfy.cache.set(key, data, {maxAge: options.maxAge});
-			}
+	let response;
+	try {
+		response = await got(url, options);
+	} catch (error) {
+		if (cachedResponse) {
+			return cachedResponse;
+		}
 
-			return data;
-		})
-		.catch(error => {
-			if (cachedResponse) {
-				return cachedResponse;
-			}
+		throw error;
+	}
 
-			throw error;
-		});
+	const data = options.transform ? options.transform(response.body) : response.body;
+
+	if (options.maxAge) {
+		alfy.cache.set(key, data, {maxAge: options.maxAge});
+	}
+
+	return data;
 };
 
 alfy.debug = getEnv('debug') === '1';

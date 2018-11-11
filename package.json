@@ -22,7 +22,7 @@
 		"alfy-cleanup": "cleanup.js"
 	},
 	"engines": {
-		"node": ">=6"
+		"node": ">=8"
 	},
 	"scripts": {
 		"test": "xo && ava"
@@ -53,7 +53,7 @@
 		"conf": "^2.0.0",
 		"dot-prop": "^4.0.0",
 		"execa": "^1.0.0",
-		"got": "^8.0.1",
+		"got": "^9.3.2",
 		"hook-std": "^1.1.0",
 		"loud-rejection": "^1.6.0",
 		"read-pkg-up": "^4.0.0"
