@@ -558,6 +558,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-google-books](https://github.com/Dameck/alfred-google-books) - Search for Google Books
 - [alfred-ip](https://github.com/calpa/alfy-ip) - Find your public IP
 - [alfred-figma](https://github.com/jonrohan/alfred-figma) – Quick links and search Figma teams, projects and files
+- [alfred-title](https://github.com/Kikobeats/alfred-title) – Alfred workflow that capitalizes your title.
 
 
 ## Related
