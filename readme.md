@@ -559,7 +559,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-ip](https://github.com/calpa/alfy-ip) - Find your public IP
 - [alfred-figma](https://github.com/jonrohan/alfred-figma) – Quick links and search Figma teams, projects and files
 - [alfred-flutter-docs](https://github.com/Sh1d0w/alfred-flutter-docs) – Quickly search and preview Flutter docs
-- [alfred-ascii](https://github.com/artivilla/alfred-ascii) – Find relevant ascii from text
+- [alfred-ascii](https://github.com/artivilla/alfred-ascii) – Find relevant ASCII from text
 
 
 ## Related
