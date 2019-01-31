@@ -560,6 +560,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-figma](https://github.com/jonrohan/alfred-figma) – Quick links and search Figma teams, projects and files
 - [alfred-flutter-docs](https://github.com/Sh1d0w/alfred-flutter-docs) – Quickly search and preview Flutter docs
 - [alfred-title](https://github.com/Kikobeats/alfred-title) – Capitalize your titles
+- [alfred-trello](https://github.com/mblode/alfred-trello) - Search your boards, quickly add cards, and view list of cards for Trello
 
 
 ## Related
