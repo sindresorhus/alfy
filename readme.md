@@ -14,6 +14,7 @@
 - Automatic [update notifications](#update-notifications).
 - Easily [testable workflows](#testing).
 - [Finds the `node` binary.](run-node.sh)
+- Support for top-level `await`.
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
 
@@ -61,17 +62,17 @@ Here we fetch some JSON from a placeholder API and present matching items to the
 ```js
 const alfy = require('alfy');
 
-alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
-	const items = alfy
-		.inputMatches(data, 'title')
-		.map(x => ({
-			title: x.title,
-			subtitle: x.body,
-			arg: x.id
-		}));
+const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
 
-	alfy.output(items);
-});
+const items = alfy
+	.inputMatches(data, 'title')
+	.map(element => ({
+		title: element.title,
+		subtitle: element.body,
+		arg: element.id
+	}));
+
+alfy.output(items);
 ```
 
 <img src="media/screenshot.png" width="694">
@@ -141,7 +142,7 @@ Workflows can easily be tested with [alfy-test](https://github.com/SamVerschuere
 import test from 'ava';
 import alfyTest from 'alfy-test';
 
-test(async t => {
+test('main', async t => {
 	const alfy = alfyTest();
 
 	const result = await alfy('workflow input');
@@ -186,18 +187,21 @@ Return output to Alfred.
 
 ##### list
 
-Type: `Array`
+Type: `object[]`
 
-List of `Object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
+List of `object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
 
 Example:
 
 ```js
-alfy.output([{
-	title: 'Unicorn'
-}, {
-	title: 'Rainbow'
-}]);
+alfy.output([
+	{
+		title: 'Unicorn'
+	},
+	{
+		title: 'Rainbow'
+	}
+]);
 ```
 
 <img src="media/screenshot-output.png" width="694">
@@ -206,9 +210,9 @@ alfy.output([{
 
 Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/).
 
-#### matches(input, list, [item])
+#### matches(input, list, item?)
 
-Returns an `Array` of items in `list` that case-insensitively contains `input`.
+Returns an `string[]` of items in `list` that case-insensitively contains `input`.
 
 ```js
 alfy.matches('Corn', ['foo', 'unicorn']);
@@ -223,24 +227,27 @@ Text to match against the `list` items.
 
 ##### list
 
-Type: `Array`
+Type: `string[]`
 
 List to be matched against.
 
 ##### item
 
-Type: `string` `Function`
+Type: `string | Function`
 
-By default it will match against the `list` items.
+By default, it will match against the `list` items.
 
 Specify a string to match against an object property:
 
 ```js
-const list = [{
-	title: 'foo'
-}, {
-	title: 'unicorn'
-}];
+const list = [
+	{
+		title: 'foo'
+	},
+	{
+		title: 'unicorn'
+	}
+];
 
 alfy.matches('Unicorn', list, 'title');
 //=> [{title: 'unicorn'}]
@@ -249,52 +256,55 @@ alfy.matches('Unicorn', list, 'title');
 Or [nested property](https://github.com/sindresorhus/dot-prop):
 
 ```js
-const list = [{
-	name: {
-		first: 'John',
-		last: 'Doe'
+const list = [
+	{
+		name: {
+			first: 'John',
+			last: 'Doe'
+		}
+	},
+	{
+		name: {
+			first: 'Sindre',
+			last: 'Sorhus'
+		}
 	}
-}, {
-	name: {
-		first: 'Sindre',
-		last: 'Sorhus'
-	}
-}];
+];
 
 alfy.matches('sindre', list, 'name.first');
 //=> [{name: {first: 'Sindre', last: 'Sorhus'}}]
 ```
 
-Specify a function to handle the matching yourself. The function receives the list item and input, both lowercased, as arguments, and is expected to return a boolean whether it matches:
+Specify a function to handle the matching yourself. The function receives the list item and input, both lowercased, as arguments, and is expected to return a boolean of whether it matches:
 
 ```js
 const list = ['foo', 'unicorn'];
 
-// here we do an exact match
-// `Foo` matches the item since it's lowercased for you
+// Here we do an exact match.
+// `Foo` matches the item since it's lowercased for you.
 alfy.matches('Foo', list, (item, input) => item === input);
 //=> ['foo']
 ```
 
-#### inputMatches(list, [item])
+#### inputMatches(list, item?)
 
 Same as `matches()`, but with `alfy.input` as `input`.
 
-#### error(err)
+#### error(error)
 
 Display an error or error message in Alfred.
 
 **Note:** You don't need to `.catch()` top-level promises. Alfy handles that for you.
 
-##### err
+##### error
 
-Type: `Error` `string`
+Type: `Error | string`
 
 Error or error message to be displayed.
 
 <img src="media/screenshot-error.png" width="694">
 
-#### fetch(url, [options])
+#### fetch(url, options?)
 
 Returns a `Promise` that returns the body of the response.
 
@@ -306,7 +316,7 @@ URL to fetch.
 
 ##### options
 
-Type: `Object`
+Type: `object`
 
 Any of the [`got` options](https://github.com/sindresorhus/got#options).
 
@@ -330,7 +340,7 @@ Type: `Function`
 Transform the response before it gets cached.
 
 ```js
-alfy.fetch('https://api.foo.com', {
+await alfy.fetch('https://api.foo.com', {
 	transform: body => {
 		body.foo = 'bar';
 		return body;
@@ -346,14 +356,14 @@ const pify = require('pify');
 
 const parseString = pify(xml2js.parseString);
 
-alfy.fetch('https://api.foo.com', {
+await alfy.fetch('https://api.foo.com', {
 	transform: body => parseString(body)
 })
 ```
 
 #### config
 
-Type: `Object`
+Type: `object`
 
 Persist config data.
 
@@ -370,7 +380,7 @@ alfy.config.get('unicorn');
 
 #### cache
 
-Type: `Object`
+Type: `object`
 
 Persist cache data.
 
@@ -415,7 +425,7 @@ Whether the user currently has the [workflow debugger](https://www.alfredapp.com
 
 #### icon
 
-Type: `Object`<br>
+Type: `object`<br>
 Keys: `info` `warning` `error` `alert` `like` `delete`
 
 Get various default system icons.
@@ -434,7 +444,7 @@ console.log(alfy.icon.get('Clock'));
 
 #### meta
 
-Type: `Object`
+Type: `object`
 
 Example:
 
@@ -449,7 +459,7 @@ Example:
 
 #### alfred
 
-Type: `Object`
+Type: `object`
 
 Alfred metadata.
 
@@ -572,12 +582,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [generator-alfred](https://github.com/samverschueren/generator-alfred) - Scaffold out an Alfred workflow
 
 
-## Created by
+## Maintainers
 
 - [Sindre Sorhus](https://github.com/sindresorhus)
 - [Sam Verschueren](https://github.com/SamVerschueren)
-
-
-## License
-
-MIT

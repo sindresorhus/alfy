@@ -50,20 +50,20 @@
 		"alfred-notifier": "^0.2.0",
 		"cache-conf": "^0.6.0",
 		"clean-stack": "^2.0.0",
-		"conf": "^2.0.0",
-		"dot-prop": "^4.0.0",
+		"conf": "^5.0.0",
+		"dot-prop": "^5.1.0",
 		"esm": "^3.2.18",
-		"execa": "^1.0.0",
+		"execa": "^2.0.1",
 		"got": "^9.3.2",
-		"hook-std": "^1.1.0",
-		"loud-rejection": "^1.6.0",
-		"read-pkg-up": "^4.0.0"
+		"hook-std": "^2.0.0",
+		"loud-rejection": "^2.1.0",
+		"read-pkg-up": "^6.0.0"
 	},
 	"devDependencies": {
-		"ava": "^0.25.0",
-		"delay": "^4.1.0",
+		"ava": "^2.1.0",
+		"delay": "^4.3.0",
 		"nock": "^10.0.2",
-		"tempfile": "^2.0.0",
-		"xo": "^0.23.0"
+		"tempfile": "^3.0.0",
+		"xo": "^0.24.0"
 	}
 }

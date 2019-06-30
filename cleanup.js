@@ -2,7 +2,14 @@
 'use strict';
 const execa = require('execa');
 
-execa('alfred-unlink', {localDir: __dirname}).catch(error => {
-	console.error(error);
-	process.exit(1);
-});
+(async () => {
+	try {
+		await execa('alfred-unlink', {
+			preferLocal: true,
+			localDir: __dirname
+		});
+	} catch (error) {
+		console.error(error);
+		process.exit(1);
+	}
+})();
