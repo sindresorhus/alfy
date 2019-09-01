@@ -21,7 +21,7 @@
 
 ## Prerequisites
 
-You need [Node.js 8+](https://nodejs.org) and [Alfred 3](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
+You need [Node.js 8+](https://nodejs.org) and [Alfred 3 or 4](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
 
 
 ## Install
@@ -497,13 +497,13 @@ Find out what subtext mode the user has selected in the Appearance preferences.
 
 ##### data
 
-Example: `'/Users/sindresorhus/Library/Application Support/Alfred 3/Workflow Data/com.sindresorhus.npms'`
+Example: `'/Users/sindresorhus/Library/Application Support/Alfred/Workflow Data/com.sindresorhus.npms'`
 
 Recommended location for non-volatile data. Just use `alfy.data` which uses this path.
 
 ##### cache
 
-Example: `'/Users/sindresorhus/Library/Caches/com.runningwithcrayons.Alfred-3/Workflow Data/com.sindresorhus.npms'`
+Example: `'/Users/sindresorhus/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/com.sindresorhus.npms'`
 
 Recommended location for volatile data. Just use `alfy.cache` which uses this path.
 
