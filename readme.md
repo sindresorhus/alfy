@@ -586,3 +586,4 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 
 - [Sindre Sorhus](https://github.com/sindresorhus)
 - [Sam Verschueren](https://github.com/SamVerschueren)
+- [@LitoMore](https://github.com/LitoMore)
