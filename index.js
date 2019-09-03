@@ -93,6 +93,8 @@ ${process.platform} ${os.release()}
 			path: exports.icon.error
 		}
 	}]);
+
+	console.error(error);
 };
 
 alfy.config = new Conf({
@@ -161,4 +163,3 @@ alfy.icon = {
 
 loudRejection(alfy.error);
 process.on('uncaughtException', alfy.error);
-hookStd.stderr(alfy.error);
