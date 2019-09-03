@@ -2,7 +2,6 @@
 const os = require('os');
 const Conf = require('conf');
 const got = require('got');
-const hookStd = require('hook-std');
 const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
