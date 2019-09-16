@@ -7,6 +7,7 @@ const loudRejection = require('loud-rejection');
 const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
+const AlfredConfig = require('alfred-config');
 const updateNotification = require('./lib/update-notification');
 
 const alfy = module.exports;
@@ -96,6 +97,10 @@ ${process.platform} ${os.release()}
 };
 
 alfy.config = new Conf({
+	cwd: alfy.alfred.data
+});
+
+alfy.userConfig = new AlfredConfig({
 	cwd: alfy.alfred.data
 });
 

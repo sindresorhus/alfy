@@ -393,6 +393,19 @@ alfy.config.get('unicorn');
 //=> '🦄'
 ```
 
+#### userConfig
+
+Type: `object`
+
+If the workflow supports user configuration, it will export a readable [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) with the user workflow configuration.
+
+Example:
+
+```js
+alfy.userConfig.get('apiKey');
+//=> '16811cad1b8547478b3e53eae2e0f083'
+```
+
 #### cache
 
 Type: `object`

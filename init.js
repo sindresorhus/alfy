@@ -8,6 +8,11 @@ const execa = require('execa');
 			preferLocal: true,
 			localDir: __dirname
 		});
+
+		await execa('alfred-config', {
+			preferLocal: true,
+			localDir: __dirname
+		});
 	} catch (error) {
 		console.error(error);
 		process.exit(1);
