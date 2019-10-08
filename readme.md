@@ -572,6 +572,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-title](https://github.com/Kikobeats/alfred-title) – Capitalize your titles
 - [alfred-trello](https://github.com/mblode/alfred-trello) - Search your boards, quickly add cards, and view list of cards for Trello
 - [alfred-npm-versions](https://github.com/mrmartineau/alfred-npm-versions) - Lookup the latest 15 versions for an npm package
+- [alfred-travis-ci](https://github.com/adriantombu/alfred-travis-ci) - Check the status of your Travis CI builds
 
 
 ## Related
