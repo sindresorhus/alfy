@@ -3,9 +3,7 @@
 const path = require('path');
 const tempfile = require('tempfile');
 
-exports.alfy = options => {
-	options = options || {};
-
+exports.alfy = (options = {}) => {
 	delete require.cache[path.resolve(__dirname, '../index.js')];
 
 	process.env.alfred_workflow_cache = options.cache || tempfile();

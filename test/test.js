@@ -2,31 +2,32 @@ import test from 'ava';
 import hookStd from 'hook-std';
 import {alfy} from './_utils';
 
-const m = alfy();
+const alfyInstance = alfy();
 
-m.input = 'Unicorn';
+alfyInstance.input = 'Unicorn';
 
 test('default', t => {
-	t.false(m.debug);
-	t.is(typeof m.icon.error, 'string');
+	t.false(alfyInstance.debug);
+	t.is(typeof alfyInstance.icon.error, 'string');
 });
 
-test.serial.cb('.error()', t => {
-	const unhook = hookStd.stdout({silent: true}, output => {
-		unhook();
+test.serial('.error()', async t => {
+	const promise = hookStd.stdout(output => {
+		promise.unhook();
 		t.is(JSON.parse(output).items[0].title, 'Error: foo');
-		t.end();
 	});
 
-	m.error(new Error('foo'));
+	alfyInstance.error(new Error('foo'));
+
+	await promise;
 });
 
 test('.matches()', t => {
-	t.deepEqual(m.matches('Unicorn', ['foo', 'unicorn']), ['unicorn']);
-	t.deepEqual(m.matches('Unicorn', [{name: 'foo'}, {name: 'unicorn'}], 'name'), [{name: 'unicorn'}]);
-	t.deepEqual(m.matches('Foobar', [{name: 'foo', sub: 'bar'}, {name: 'unicorn', sub: 'rainbow'}], (item, input) => item.name + item.sub === input), [{name: 'foo', sub: 'bar'}]);
+	t.deepEqual(alfyInstance.matches('Unicorn', ['foo', 'unicorn']), ['unicorn']);
+	t.deepEqual(alfyInstance.matches('Unicorn', [{name: 'foo'}, {name: 'unicorn'}], 'name'), [{name: 'unicorn'}]);
+	t.deepEqual(alfyInstance.matches('Foobar', [{name: 'foo', sub: 'bar'}, {name: 'unicorn', sub: 'rainbow'}], (item, input) => item.name + item.sub === input), [{name: 'foo', sub: 'bar'}]);
 });
 
 test('.inputMatches()', t => {
-	t.deepEqual(m.inputMatches(['foo', 'unicorn']), ['unicorn']);
+	t.deepEqual(alfyInstance.inputMatches(['foo', 'unicorn']), ['unicorn']);
 });

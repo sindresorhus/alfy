@@ -1,4 +1,4 @@
-# ![Alfy](https://cdn.rawgit.com/sindresorhus/alfy/4b50f0323dd99eafdd34523dc8de0680be04e049/media/header.svg)
+# ![Alfy](media/header.svg)
 
 > Create [Alfred workflows](https://www.alfredapp.com/workflows/) with ease
 
@@ -14,13 +14,14 @@
 - Automatic [update notifications](#update-notifications).
 - Easily [testable workflows](#testing).
 - [Finds the `node` binary.](run-node.sh)
+- Support for top-level `await`.
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
 
 
 ## Prerequisites
 
-You need [Node.js 4+](https://nodejs.org) and [Alfred 3](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
+You need [Node.js 8+](https://nodejs.org) and [Alfred 3 or 4](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
 
 
 ## Install
@@ -29,20 +30,29 @@ You need [Node.js 4+](https://nodejs.org) and [Alfred 3](https://www.alfredapp.c
 $ npm install alfy
 ```
 
-
 ## Usage
 
-Create a new Alfred workflow and add a Script Filter with the following script:
+1. Create a new blank Alfred workflow.
 
-```sh
+2. Add a `Script Filter` (right-click the canvas → `Inputs` → `Script Filter`), set `Language` to `/bin/bash`, and add the following script:
+
+```
 ./node_modules/.bin/run-node index.js "$1"
 ```
 
 *We can't call `node` directly as GUI apps on macOS doesn't inherit the $PATH.*
 
-In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
+> Tip: You can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow. If so, you can skip the rest of the steps, go straight to the `index.js` and do your thing.
 
-> Tip: you can use [generator-alfred](https://github.com/SamVerschueren/generator-alfred) to scaffold out an `alfy` based workflow.
+3. Set the `Keyword` by which you want to invoke your workflow.
+
+4. Go to your new workflow directory (right-click on the workflow in the sidebar → `Open in Finder`).
+
+5. Initialize a repo with `npm init`.
+
+6. Install Alfy with `npm install alfy`.
+
+7. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
 
 ## Example
@@ -52,17 +62,17 @@ Here we fetch some JSON from a placeholder API and present matching items to the
 ```js
 const alfy = require('alfy');
 
-alfy.fetch('jsonplaceholder.typicode.com/posts').then(data => {
-	const items = alfy
-		.inputMatches(data, 'title')
-		.map(x => ({
-			title: x.title,
-			subtitle: x.body,
-			arg: x.id
-		}));
+const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
 
-	alfy.output(items);
-});
+const items = alfy
+	.inputMatches(data, 'title')
+	.map(element => ({
+		title: element.title,
+		subtitle: element.body,
+		arg: element.id
+	}));
+
+alfy.output(items);
 ```
 
 <img src="media/screenshot.png" width="694">
@@ -132,7 +142,7 @@ Workflows can easily be tested with [alfy-test](https://github.com/SamVerschuere
 import test from 'ava';
 import alfyTest from 'alfy-test';
 
-test(async t => {
+test('main', async t => {
 	const alfy = alfyTest();
 
 	const result = await alfy('workflow input');
@@ -177,18 +187,21 @@ Return output to Alfred.
 
 ##### list
 
-Type: `Array`
+Type: `object[]`
 
-List of `Object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
+List of `object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
 
 Example:
 
 ```js
-alfy.output([{
-	title: 'Unicorn'
-}, {
-	title: 'Rainbow'
-}]);
+alfy.output([
+	{
+		title: 'Unicorn'
+	},
+	{
+		title: 'Rainbow'
+	}
+]);
 ```
 
 <img src="media/screenshot-output.png" width="694">
@@ -197,9 +210,9 @@ alfy.output([{
 
 Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/).
 
-#### matches(input, list, [item])
+#### matches(input, list, item?)
 
-Returns an `Array` of items in `list` that case-insensitively contains `input`.
+Returns an `string[]` of items in `list` that case-insensitively contains `input`.
 
 ```js
 alfy.matches('Corn', ['foo', 'unicorn']);
@@ -214,24 +227,27 @@ Text to match against the `list` items.
 
 ##### list
 
-Type: `Array`
+Type: `string[]`
 
 List to be matched against.
 
 ##### item
 
-Type: `string` `Function`
+Type: `string | Function`
 
-By default it will match against the `list` items.
+By default, it will match against the `list` items.
 
 Specify a string to match against an object property:
 
 ```js
-const list = [{
-	title: 'foo'
-}, {
-	title: 'unicorn'
-}];
+const list = [
+	{
+		title: 'foo'
+	},
+	{
+		title: 'unicorn'
+	}
+];
 
 alfy.matches('Unicorn', list, 'title');
 //=> [{title: 'unicorn'}]
@@ -240,52 +256,55 @@ alfy.matches('Unicorn', list, 'title');
 Or [nested property](https://github.com/sindresorhus/dot-prop):
 
 ```js
-const list = [{
-	name: {
-		first: 'John',
-		last: 'Doe'
+const list = [
+	{
+		name: {
+			first: 'John',
+			last: 'Doe'
+		}
+	},
+	{
+		name: {
+			first: 'Sindre',
+			last: 'Sorhus'
+		}
 	}
-}, {
-	name: {
-		first: 'Sindre',
-		last: 'Sorhus'
-	}
-}];
+];
 
 alfy.matches('sindre', list, 'name.first');
 //=> [{name: {first: 'Sindre', last: 'Sorhus'}}]
 ```
 
-Specify a function to handle the matching yourself. The function receives the list item and input, both lowercased, as arguments, and is expected to return a boolean whether it matches:
+Specify a function to handle the matching yourself. The function receives the list item and input, both lowercased, as arguments, and is expected to return a boolean of whether it matches:
 
 ```js
 const list = ['foo', 'unicorn'];
 
-// here we do an exact match
-// `Foo` matches the item since it's lowercased for you
+// Here we do an exact match.
+// `Foo` matches the item since it's lowercased for you.
 alfy.matches('Foo', list, (item, input) => item === input);
 //=> ['foo']
 ```
 
-#### inputMatches(list, [item])
+#### inputMatches(list, item?)
 
 Same as `matches()`, but with `alfy.input` as `input`.
 
-#### error(err)
+#### error(error)
 
 Display an error or error message in Alfred.
 
 **Note:** You don't need to `.catch()` top-level promises. Alfy handles that for you.
 
-##### err
+##### error
 
-Type: `Error` `string`
+Type: `Error | string`
 
 Error or error message to be displayed.
 
 <img src="media/screenshot-error.png" width="694">
 
-#### fetch(url, [options])
+#### fetch(url, options?)
 
 Returns a `Promise` that returns the body of the response.
 
@@ -297,7 +316,7 @@ URL to fetch.
 
 ##### options
 
-Type: `Object`
+Type: `object`
 
 Any of the [`got` options](https://github.com/sindresorhus/got#options).
 
@@ -321,7 +340,7 @@ Type: `Function`
 Transform the response before it gets cached.
 
 ```js
-alfy.fetch('https://api.foo.com', {
+await alfy.fetch('https://api.foo.com', {
 	transform: body => {
 		body.foo = 'bar';
 		return body;
@@ -337,14 +356,14 @@ const pify = require('pify');
 
 const parseString = pify(xml2js.parseString);
 
-alfy.fetch('https://api.foo.com', {
+await alfy.fetch('https://api.foo.com', {
 	transform: body => parseString(body)
 })
 ```
 
 #### config
 
-Type: `Object`
+Type: `object`
 
 Persist config data.
 
@@ -361,7 +380,7 @@ alfy.config.get('unicorn');
 
 #### cache
 
-Type: `Object`
+Type: `object`
 
 Persist cache data.
 
@@ -406,7 +425,7 @@ Whether the user currently has the [workflow debugger](https://www.alfredapp.com
 
 #### icon
 
-Type: `Object`<br>
+Type: `object`<br>
 Keys: `info` `warning` `error` `alert` `like` `delete`
 
 Get various default system icons.
@@ -425,7 +444,7 @@ console.log(alfy.icon.get('Clock'));
 
 #### meta
 
-Type: `Object`
+Type: `object`
 
 Example:
 
@@ -440,7 +459,7 @@ Example:
 
 #### alfred
 
-Type: `Object`
+Type: `object`
 
 Alfred metadata.
 
@@ -478,13 +497,13 @@ Find out what subtext mode the user has selected in the Appearance preferences.
 
 ##### data
 
-Example: `'/Users/sindresorhus/Library/Application Support/Alfred 3/Workflow Data/com.sindresorhus.npms'`
+Example: `'/Users/sindresorhus/Library/Application Support/Alfred/Workflow Data/com.sindresorhus.npms'`
 
 Recommended location for non-volatile data. Just use `alfy.data` which uses this path.
 
 ##### cache
 
-Example: `'/Users/sindresorhus/Library/Caches/com.runningwithcrayons.Alfred-3/Workflow Data/com.sindresorhus.npms'`
+Example: `'/Users/sindresorhus/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/com.sindresorhus.npms'`
 
 Recommended location for volatile data. Just use `alfy.cache` which uses this path.
 
@@ -509,6 +528,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-npms](https://github.com/sindresorhus/alfred-npms) - Search for npm packages with npms.io
 - [alfred-dark-mode](https://github.com/sindresorhus/alfred-dark-mode) - Toggle the system dark mode
 - [alfred-xcode](https://github.com/sindresorhus/alfred-xcode) - Open Xcode projects and workspaces
+- [alfred-lock](https://github.com/sindresorhus/alfred-lock) - Lock your Mac
 - [alfred-fkill](https://github.com/SamVerschueren/alfred-fkill) - Fabulously search and kill processes
 - [alfred-ng](https://github.com/SamVerschueren/alfred-ng) - Search through the Angular documentation on angular.io
 - [alfred-ionic](https://github.com/SamVerschueren/alfred-ionic) - Search through the Ionic documentation
@@ -519,12 +539,42 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-keycode](https://github.com/radibit/alfred-keycode) - Get JavaScript keycodes
 - [alfred-vue](https://github.com/radibit/alfred-vue) - Search the Vue.js API docs
 - [alfred-meteor-docs](https://github.com/wolasss/alfred-meteor-docs) - Search the Meteor docs
+- [alfred-meteor-packages](https://github.com/sasikanth513/alfred-meteor-packages) - Meteor package search
 - [alfred-climbing-grades-converter](https://github.com/wolasss/alfred-climbing-grades-converter) - Convert between climbing grading systems
 - [alfred-hotel](https://github.com/exah/alfred-hotel) - Quickly start, stop and open [Hotel](https://github.com/typicode/hotel) apps
 - [alfred-coolors](https://github.com/radibit/alfred-coolors) - Find relevant color names
 - [alfred-postico-favorites-workflow](https://github.com/payers1/alfred-postico-favorites-workflow) - Open postico favorites
 - [alfred-messages](https://github.com/briangonzalez/alfred-messages) - Message your contacts through iMessage
 - [alfred-bitbucket](https://github.com/nicklayb/alfred-bitbucket) - List you and your teams public and private Bitbucket repositories
+- [alfred-asana](https://github.com/adriantoine/alfred-asana) - Search your Asana tasks
+- [alfred-cacher](https://github.com/CacherApp/alfred-cacher) - Find a code snippet from [Cacher](https://www.cacher.io) and copy it to the clipboard
+- [alfred-loremipsum](https://github.com/AntonNiklasson/alfred-loremipsum) - Generate placeholder text
+- [alfred-kaomoji](https://github.com/vinkla/alfred-kaomoji) - Find relevant kaomoji from text
+- [alfred-packagist](https://github.com/vinkla/alfred-packagist) - Search for PHP packages with Packagist
+- [alfred-vpn](https://github.com/stve/alfred-vpn) - Connect/disconnect from VPNs
+- [alfred-clap](https://github.com/jacc/alfred-clap) - 👏🏻 Clap 👏🏻 stuff 👏🏻 out 👏🏻 in 👏🏻 Alfred! 👏🏻
+- [alfred-yandex-translate](https://github.com/mkalygin/alfred-yandex-translate) - Translate words and text with Yandex Translate
+- [alfred-now](https://github.com/lucaperret/alfred-now) - Use [Now](https://zeit.co/now) commands within Alfred to access deployments and aliases
+- [alfred-chuck-norris-jokes](https://github.com/jeppestaerk/alfred-chuck-norris-jokes) - Get Chuck Norris jokes
+- [alfred-show-network-info](https://github.com/jeppestaerk/alfred-show-network-info) - See network info and discover local devices
+- [alfred-currency-conversion](https://github.com/jeppestaerk/alfred-currency-conversion) - See foreign exchange rates and currency conversion
+- [alfred-reference](https://github.com/vinkla/alfred-reference) - Search for HTML elements and CSS properties
+- [alfred-polyglot](https://github.com/nikersify/alfred-polyglot) - Translate text with Google Translate
+- [alfred-stock-price](https://github.com/Wei-Xia/alfred-stock-price-workflow) - Show real time stock price in US market
+- [alfred-jira](https://github.com/colinf/alfred-jira) - Convert clipboard text between Markdown and Jira markup
+- [alfred-homebrew](https://github.com/vinkla/alfred-homebrew) - Search for macOS packages with Homebrew
+- [alfred-network-location-switch](https://github.com/abdul/alfred-network-location-switch) - Switch macOS network location
+- [alfred-cool](https://github.com/nguyenvanduocit/alfred-cool) - Find cool words
+- [alfred-google-books](https://github.com/Dameck/alfred-google-books) - Search for Google Books
+- [alfred-ip](https://github.com/calpa/alfy-ip) - Find your public IP
+- [alfred-figma](https://github.com/jonrohan/alfred-figma) – Quick links and search Figma teams, projects and files
+- [alfred-flutter-docs](https://github.com/Sh1d0w/alfred-flutter-docs) – Quickly search and preview Flutter docs
+- [alfred-title](https://github.com/Kikobeats/alfred-title) – Capitalize your titles
+- [alfred-trello](https://github.com/mblode/alfred-trello) - Search your boards, quickly add cards, and view list of cards for Trello
+- [alfred-npm-versions](https://github.com/mrmartineau/alfred-npm-versions) - Lookup the latest 15 versions for an npm package
+- [alfred-travis-ci](https://github.com/adriantombu/alfred-travis-ci) - Check the status of your Travis CI builds
+- [alfred-github-trending](https://github.com/mikqi/alfred-github-trending) - Search trending repositories on GitHub
+- [alfred-elm](https://github.com/nicklayb/alfred-elm) - Browser Elm packages documentation
 
 
 ## Related
@@ -535,12 +585,8 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [generator-alfred](https://github.com/samverschueren/generator-alfred) - Scaffold out an Alfred workflow
 
 
-## Created by
+## Maintainers
 
 - [Sindre Sorhus](https://github.com/sindresorhus)
 - [Sam Verschueren](https://github.com/SamVerschueren)
-
-
-## License
-
-MIT
+- [@LitoMore](https://github.com/LitoMore)

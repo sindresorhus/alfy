@@ -2,7 +2,7 @@ import test from 'ava';
 import nock from 'nock';
 import delay from 'delay';
 import tempfile from 'tempfile';
-import {alfy} from './_utils';
+import {alfy as createAlfy} from './_utils';
 
 const URL = 'http://foo.bar';
 
@@ -16,22 +16,22 @@ test.before(() => {
 });
 
 test('no cache', async t => {
-	const m = alfy();
-	t.deepEqual(await m.fetch(`${URL}/no-cache`), {foo: 'bar'});
-	t.falsy(m.cache.get(`${URL}/no-cache`));
+	const alfy = createAlfy();
+	t.deepEqual(await alfy.fetch(`${URL}/no-cache`), {foo: 'bar'});
+	t.falsy(alfy.cache.get(`${URL}/no-cache`));
 });
 
 test('transform not a function', async t => {
-	const m = alfy();
-	await t.throws(m.fetch(`${URL}/no-cache`, {transform: 'foo'}), 'Expected `transform` to be a `function`, got `string`');
+	const alfy = createAlfy();
+	await t.throwsAsync(alfy.fetch(`${URL}/no-cache`, {transform: 'foo'}), 'Expected `transform` to be a `function`, got `string`');
 });
 
 test('transform', async t => {
-	const m = alfy();
-	const result = await m.fetch(`${URL}/no-cache`, {
-		transform: res => {
-			res.unicorn = 'rainbow';
-			return res;
+	const alfy = createAlfy();
+	const result = await alfy.fetch(`${URL}/no-cache`, {
+		transform: response => {
+			response.unicorn = 'rainbow';
+			return response;
 		}
 	});
 
@@ -42,35 +42,35 @@ test('transform', async t => {
 });
 
 test('cache', async t => {
-	const m = alfy();
+	const alfy = createAlfy();
 
-	t.deepEqual(await m.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world'});
-	t.deepEqual(await m.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world'});
 
 	await delay(5000);
 
-	t.deepEqual(await m.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world!'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world!'});
 });
 
 test('cache key', async t => {
-	const m = alfy();
+	const alfy = createAlfy();
 
-	t.deepEqual(await m.fetch(`${URL}/cache-key`, {query: {unicorn: 'rainbow'}, maxAge: 5000}), {unicorn: 'rainbow'});
-	t.truthy(m.cache.store['http://foo.bar/cache-key{"json":true,"query":{"unicorn":"rainbow"},"maxAge":5000}']);
+	t.deepEqual(await alfy.fetch(`${URL}/cache-key`, {query: {unicorn: 'rainbow'}, maxAge: 5000}), {unicorn: 'rainbow'});
+	t.truthy(alfy.cache.store['http://foo.bar/cache-key{"json":true,"query":{"unicorn":"rainbow"},"maxAge":5000}']);
 });
 
 test('invalid version', async t => {
 	const cache = tempfile();
 
-	const m = alfy({cache, version: '1.0.0'});
-	t.deepEqual(await m.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
-	t.deepEqual(await m.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
-	t.deepEqual(m.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {foo: 'bar'});
+	const alfy = createAlfy({cache, version: '1.0.0'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
+	t.deepEqual(alfy.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {foo: 'bar'});
 
-	const m2 = alfy({cache, version: '1.0.0'});
-	t.deepEqual(await m2.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
+	const alfy2 = createAlfy({cache, version: '1.0.0'});
+	t.deepEqual(await alfy2.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
 
-	const m3 = alfy({cache, version: '1.0.1'});
-	t.deepEqual(await m3.fetch(`${URL}/cache-version`, {maxAge: 5000}), {unicorn: 'rainbow'});
-	t.deepEqual(m.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {unicorn: 'rainbow'});
+	const alfy3 = createAlfy({cache, version: '1.0.1'});
+	t.deepEqual(await alfy3.fetch(`${URL}/cache-version`, {maxAge: 5000}), {unicorn: 'rainbow'});
+	t.deepEqual(alfy.cache.store['http://foo.bar/cache-version{"json":true,"maxAge":5000}'].data, {unicorn: 'rainbow'});
 });

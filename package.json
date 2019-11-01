@@ -1,28 +1,16 @@
 {
 	"name": "alfy",
-	"version": "0.6.0",
+	"version": "0.9.1",
 	"description": "Create Alfred workflows with ease",
 	"license": "MIT",
 	"repository": "sindresorhus/alfy",
-	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
-	},
-	"maintainers": [
-		{
-			"name": "Sam Verschueren",
-			"email": "sam.verschueren@gmail.com",
-			"url": "github.com/SamVerschueren"
-		}
-	],
 	"bin": {
 		"run-node": "run-node.sh",
 		"alfy-init": "init.js",
 		"alfy-cleanup": "cleanup.js"
 	},
 	"engines": {
-		"node": ">=4"
+		"node": ">=8"
 	},
 	"scripts": {
 		"test": "xo && ava"
@@ -46,24 +34,24 @@
 		"mac"
 	],
 	"dependencies": {
-		"alfred-link": "^0.2.0",
+		"alfred-link": "^0.3.1",
 		"alfred-notifier": "^0.2.0",
-		"cache-conf": "^0.5.0",
-		"clean-stack": "^1.0.0",
-		"conf": "^1.1.2",
-		"dot-prop": "^4.0.0",
-		"execa": "^0.7.0",
-		"got": "^7.0.0",
-		"hook-std": "^0.4.0",
-		"loud-rejection": "^1.6.0",
-		"npm-run-path": "^2.0.2",
-		"read-pkg-up": "^2.0.0"
+		"cache-conf": "^0.6.0",
+		"clean-stack": "^2.2.0",
+		"conf": "^5.0.0",
+		"dot-prop": "^5.1.0",
+		"esm": "^3.2.18",
+		"execa": "^2.0.4",
+		"got": "^9.3.2",
+		"hook-std": "^2.0.0",
+		"loud-rejection": "^2.1.0",
+		"read-pkg-up": "^6.0.0"
 	},
 	"devDependencies": {
-		"ava": "*",
-		"delay": "^2.0.0",
-		"nock": "^9.0.2",
-		"tempfile": "^2.0.0",
-		"xo": "*"
+		"ava": "^2.3.0",
+		"delay": "^4.3.0",
+		"nock": "^10.0.2",
+		"tempfile": "^3.0.0",
+		"xo": "^0.24.0"
 	}
 }
