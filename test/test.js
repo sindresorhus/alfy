@@ -1,4 +1,5 @@
 import test from 'ava';
+import hookStd from 'hook-std';
 import {alfy} from './_utils';
 
 const alfyInstance = alfy();
@@ -8,6 +9,17 @@ alfyInstance.input = 'Unicorn';
 test('default', t => {
 	t.false(alfyInstance.debug);
 	t.is(typeof alfyInstance.icon.error, 'string');
+});
+
+test.serial('.error()', async t => {
+	const promise = hookStd.stdout(output => {
+		promise.unhook();
+		t.is(JSON.parse(output).items[0].title, 'Error: foo');
+	});
+
+	alfyInstance.error(new Error('foo'));
+
+	await promise;
 });
 
 test('.matches()', t => {
