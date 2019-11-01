@@ -574,7 +574,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-npm-versions](https://github.com/mrmartineau/alfred-npm-versions) - Lookup the latest 15 versions for an npm package
 - [alfred-travis-ci](https://github.com/adriantombu/alfred-travis-ci) - Check the status of your Travis CI builds
 - [alfred-github-trending](https://github.com/mikqi/alfred-github-trending) - Search trending repositories on GitHub
-- [alfred-elm](https://github.com/nicklayb/alfred-elm) - Browser Elm packages documentation
+- [alfred-elm](https://github.com/nicklayb/alfred-elm) - Browse Elm packages documentation
 
 
 ## Related
