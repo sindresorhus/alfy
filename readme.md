@@ -575,7 +575,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-travis-ci](https://github.com/adriantombu/alfred-travis-ci) - Check the status of your Travis CI builds
 - [alfred-github-trending](https://github.com/mikqi/alfred-github-trending) - Search trending repositories on GitHub
 - [alfred-elm](https://github.com/nicklayb/alfred-elm) - Browse Elm packages documentation
-- [alfred-imagemin](https://github.com/kawamataryo/alfred-imagemin) - Minify selected images seamlessly with imagemin
+- [alfred-imagemin](https://github.com/kawamataryo/alfred-imagemin) - Minify images with Imagemin
 
 
 ## Related
