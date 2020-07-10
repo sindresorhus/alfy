@@ -576,6 +576,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-github-trending](https://github.com/mikqi/alfred-github-trending) - Search trending repositories on GitHub
 - [alfred-elm](https://github.com/nicklayb/alfred-elm) - Browse Elm packages documentation
 - [alfred-imagemin](https://github.com/kawamataryo/alfred-imagemin) - Minify images with Imagemin
+- [alfred-evernote-workflow](https://github.com/jopemachine/alfred-evernote-workflow) - Search Evernote with keywords and tags
 
 
 ## Related
