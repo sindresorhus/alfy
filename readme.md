@@ -204,6 +204,24 @@ alfy.output([
 ]);
 ```
 
+##### options - ([rerun Interval](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/))
+
+Scripts can be set to re-run automatically after an interval using the 'rerun' key with a value of 0.1 to 5.0 seconds. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run.
+
+For an example of usage, if the factor number 3 is exceeded, the script runs again every three seconds and could be used to change the title and subtitle values whenever it is executed.
+
+```js
+alfy.output([
+	{
+		title: 'Unicorn'
+	},
+	{
+		title: 'Rainbow'
+	// run every three seconds.
+	}, { rerunInterval: 3 }
+]);
+```
+
 <img src="media/screenshot-output.png" width="694">
 
 #### log(value)
