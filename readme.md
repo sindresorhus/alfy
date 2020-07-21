@@ -219,11 +219,10 @@ alfy.output([
 	{
 		title: 'Download Caching...',
 		subtitle: `Pregress: ${progress}`,
-	}, { 
+	}], { 
 		// rerun and update progress every 3 seconds
 		rerunInterval: 3 
-	}
-]);
+});
 ```
 
 <img src="media/screenshot-output.png" width="694">
