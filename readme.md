@@ -219,7 +219,7 @@ Example:
 ```js
 alfy.output([
 	{
-		title: 'Download Caching...',
+		title: 'Downloading Cache...',
 		subtitle: `Pregress: ${progress}`,
 	}], { 
 		// rerun and update progress every 3 seconds
