@@ -208,17 +208,21 @@ alfy.output([
 
 Scripts can be set to re-run automatically after an interval using the 'rerun' key with a value of 0.1 to 5.0 seconds. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run.
 
-For an example of usage, if the factor number 3 is exceeded, the script runs again every three seconds and could be used to change the title and subtitle values whenever it is executed.
+This option could be useful when the file is used as js file of script filter.
+
+For an example of usage, if the factor number is given by 3, the script runs again every three seconds and could be used to change the title and subtitle values whenever it is executed.
+
+Specifically speaking, it could be used to update the progress of a particular task.
 
 ```js
 alfy.output([
 	{
-		title: 'Unicorn'
-	},
-	{
-		title: 'Rainbow'
-	// run every three seconds.
-	}, { rerunInterval: 3 }
+		title: 'Download Caching...',
+		subtitle: `Pregress: ${progress}`,
+	}, { 
+		// rerun and update progress every 3 seconds
+		rerunInterval: 3 
+	}
 ]);
 ```
 
