@@ -234,6 +234,28 @@ alfy.output(
 
 <img src="media/screenshot-output.png" width="694">
 
+###### variables
+
+Type: `object`
+
+```js
+alfy.output(
+	[
+		{
+			title: 'Downloading Unicorns…',
+			subtitle: `${progress}%`,
+		}
+	],
+	{ 
+		variables: {
+			"fruit": "banana",
+        	"vegetable": "carrot"
+		}
+	}
+);
+```
+
+
 #### log(value)
 
 Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/).
