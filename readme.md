@@ -181,7 +181,7 @@ Type: `string`
 
 Input from Alfred. What the user wrote in the input box.
 
-#### output(list)
+#### output(list, options?)
 
 Return output to Alfred.
 
@@ -202,6 +202,34 @@ alfy.output([
 		title: 'Rainbow'
 	}
 ]);
+```
+
+##### options
+
+Type: `object`
+
+###### rerunInterval
+
+Type: `number` *(seconds)*\
+Values: `0.1...0.5`
+
+A script can be set to re-run automatically after some interval. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run. [More info.](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
+
+For example, it could be used to update the progress of a particular task:
+
+```js
+alfy.output(
+	[
+		{
+			title: 'Downloading Unicorns…',
+			subtitle: `${progress}%`,
+		}
+	],
+	{ 
+		// Re-run and update progress every 3 seconds.
+		rerunInterval: 3 
+	}
+);
 ```
 
 <img src="media/screenshot-output.png" width="694">
