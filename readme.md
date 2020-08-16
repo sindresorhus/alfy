@@ -238,7 +238,7 @@ alfy.output(
 
 Type: `object`
 
-variables can be useful when passing variables in scripts to Alfred.
+variables can be useful when passing variables in scripts to Alfred. 
 
 This is especially useful when you want to pass in multiple variables.
 
@@ -261,11 +261,9 @@ alfy.output(
 
 ```
 
-Passed variables can be used in the following ways.
+Passed variables can be used like `{var:apiKey}`.
 
-`{var:apiKey}`
-
-You can also use `{allVars}` to communicate all variables.
+You can also use `{allVars}` to communicate all variables. [More info.](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
 
 
 #### log(value)
