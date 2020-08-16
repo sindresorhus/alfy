@@ -181,7 +181,7 @@ Type: `string`
 
 Input from Alfred. What the user wrote in the input box.
 
-#### output(list)
+#### output(list, options?)
 
 Return output to Alfred.
 
@@ -204,27 +204,32 @@ alfy.output([
 ]);
 ```
 
-##### options - ([rerun Interval](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/))
+##### options
 
-Type: `number`
+Type: `object`
 
-Scripts can be set to re-run automatically after some interval with a value of 0.1 to 5.0 seconds. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run.
+###### rerunInterval
 
-For an example of usage, if the factor number is given by 3, the script runs again every three seconds and could be used to change the title and subtitle values whenever it is executed.
+Type: `number` *(seconds)*\
+Values: `0.1...0.5`
 
-Specifically speaking, it could be used to update the progress of a particular task.
+A script can be set to re-run automatically after some interval. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run. [More info.](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
 
-Example:
+For example, it could be used to update the progress of a particular task:
 
 ```js
-alfy.output([
-	{
-		title: 'Downloading Cache...',
-		subtitle: `Pregress: ${progress}`,
-	}], { 
-		// rerun and update progress every 3 seconds
+alfy.output(
+	[
+		{
+			title: 'Downloading Unicorns…',
+			subtitle: `${progress}%`,
+		}
+	],
+	{ 
+		// Re-run and update progress every 3 seconds.
 		rerunInterval: 3 
-});
+	}
+);
 ```
 
 <img src="media/screenshot-output.png" width="694">
