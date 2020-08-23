@@ -240,9 +240,9 @@ Type: `object`
 
 variables can be useful when passing variables in scripts to Alfred. 
 
-This is especially useful when you want to pass in multiple variables.
+In alfred, variable includes item-level variable and root-level variable.
 
-You can pass the variable you want to pass on to the alfred in the following ways:
+You can set a root-level variable by putting variables in this options object in the following ways:
 
 ```js
 alfy.output(
@@ -258,10 +258,25 @@ alfy.output(
         } 
 	}
 );
-
 ```
 
-Passed variables can be used like `{var:apiKey}`.
+If the value of variables must be different depending on the item, you must use item-level variables like this way.
+
+```js
+const items = [];
+items.push({
+	title: `${someInfo}`,
+	variables: {
+		title: `${someInfo}`
+	}
+});
+
+....
+
+alfy.output(items);
+```
+
+Passed variables can be used like `{var:apiKey}` in both.
 
 You can also use `{allVars}` to communicate all variables. [More info.](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
 
