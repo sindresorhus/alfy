@@ -211,7 +211,7 @@ Type: `object`
 ###### rerunInterval
 
 Type: `number` *(seconds)*\
-Values: `0.1...0.5`
+Values: `0.1...5.0`
 
 A script can be set to re-run automatically after some interval. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run. [More info.](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
 
