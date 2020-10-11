@@ -240,27 +240,47 @@ Type: `object`
 
 ###### 1. Root level variable
 
-variables can be useful when passing variables in scripts to Alfred. 
+variables can be useful when passing variables in `script filter` to Alfred. 
 
 In alfred, variable includes `item-level variable` and `root-level variable`.
 
 You can set a `root-level variable` by putting variables in this options object in the following ways:
 
+Here's a `script filter` example using `root-level variable`.
+
 ```js
+const alfy = require('alfy')
+const [userID, serviceProvider] = alfy.input.split('@', 2)
+const isValidEmail =  /* some boolean value indicating input is valid. */
+
 alfy.output(
-	[
-		{
-			title: 'API key register',
-		}
-	],
-	{ 
-		variables: {
-            "apiKey": apiKey,
-            "error": errorOccured
-        } 
-	}
-);
+  [
+    {
+      title: `${alfy.input} is ${isValidEmail ? 'valid' : 'invalid'} email`,
+      arg: `${isValidEmail}`
+    }
+  ],
+  {
+    variables: {
+      email: `${alfy.input}`,
+      userID,
+      serviceProvider
+    }
+  }
+)
 ```
+
+We can fetch these variables from this script by using `{var:email}`, `{var:userID}` like below screenshot.
+
+<img src="media/screenshot-var-desc-1.png" width="694">
+
+When we type abc@gmail.com, it gives us below notification.
+
+<img src="media/screenshot-var-desc-2.png" width="694">
+
+And this is the result of entering only abc (not valid email).
+
+<img src="media/screenshot-var-desc-3.png" width="694">
 
 ###### 2. Item level variable
 
@@ -274,7 +294,6 @@ items.push({
 		title: `${someInfo}`
 	}
 });
-
 ....
 
 alfy.output(items);
