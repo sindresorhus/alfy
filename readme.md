@@ -159,7 +159,7 @@ test('main', async t => {
 
 ## Debugging
 
-When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the insect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()`:
+When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the inspect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()`:
 
 ```js
 const unicorn = getUnicorn();
