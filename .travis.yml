@@ -1,6 +1,0 @@
-language: node_js
-node_js:
-  # Uncomment when using Got v10
-  # - '12'
-  - '10'
-  - '8'

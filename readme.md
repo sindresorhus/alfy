@@ -2,9 +2,6 @@
 
 > Create [Alfred workflows](https://www.alfredapp.com/workflows/) with ease
 
-[![Build Status](https://travis-ci.org/sindresorhus/alfy.svg?branch=master)](https://travis-ci.org/sindresorhus/alfy)
-
-
 ## Highlights
 
 - Easy input↔output.
@@ -18,11 +15,9 @@
 - Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
   *No need to manually `.catch()` top-level promises.*
 
-
 ## Prerequisites
 
 You need [Node.js 8+](https://nodejs.org) and [Alfred 3 or 4](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
-
 
 ## Install
 
@@ -54,7 +49,6 @@ $ npm install alfy
 
 7. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
-
 ## Example
 
 Here we fetch some JSON from a placeholder API and present matching items to the user:
@@ -77,11 +71,9 @@ alfy.output(items);
 
 <img src="media/screenshot.png" width="694">
 
-
 ###### More
 
 Some example usage in the wild: [`alfred-npms`](https://github.com/sindresorhus/alfred-npms), [`alfred-emoj`](https://github.com/sindresorhus/alfred-emoj), [`alfred-ng`](https://github.com/SamVerschueren/alfred-ng).
-
 
 ## Update notifications
 
@@ -89,13 +81,11 @@ Alfy uses [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) i
 
 <img src="media/screenshot-update.png" width="694">
 
-
 ## Caching
 
 Alfy offers the possibility of caching data, either with the [fetch](#fetchurl-options) or directly through the [cache](#cache) object.
 
 An important thing to note is that the cached data gets invalidated automatically when you update your workflow. This offers the flexibility for developers to change the structure of the cached data between workflows without having to worry about invalid older data.
-
 
 ## Publish to npm
 
@@ -133,7 +123,6 @@ $ npm install --global alfred-unicorn
 
 > Tip: instead of manually updating every workflow yourself, use the [alfred-updater](https://github.com/SamVerschueren/alfred-updater) workflow to do that for you.
 
-
 ## Testing
 
 Workflows can easily be tested with [alfy-test](https://github.com/SamVerschueren/alfy-test). Here is a small example.
@@ -156,7 +145,6 @@ test('main', async t => {
 });
 ```
 
-
 ## Debugging
 
 When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the insect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()`:
@@ -169,7 +157,6 @@ alfy.log(unicorn);
 ## Environment variables
 
 Alfred lets users set [environment variables for a workflow](https://www.alfredapp.com/help/workflows/advanced/variables/) which can then be used by that workflow. This can be useful if you, for example, need the user to specify an API token for a service. You can access the workflow environment variables from [`process.env`](https://nodejs.org/api/process.html#process_process_env). For example `process.env.apiToken`.
-
 
 ## API
 
@@ -225,9 +212,9 @@ alfy.output(
 			subtitle: `${progress}%`,
 		}
 	],
-	{ 
+	{
 		// Re-run and update progress every 3 seconds.
-		rerunInterval: 3 
+		rerunInterval: 3
 	}
 );
 ```
@@ -350,7 +337,7 @@ Any of the [`got` options](https://github.com/sindresorhus/got#options).
 
 ###### json
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `true`
 
 Parse response body with `JSON.parse` and set `accept` header to `application/json`.
@@ -453,8 +440,8 @@ Whether the user currently has the [workflow debugger](https://www.alfredapp.com
 
 #### icon
 
-Type: `object`<br>
-Keys: `info` `warning` `error` `alert` `like` `delete`
+Type: `object`\
+Keys: `'info' | 'warning' | 'error' | 'alert' | 'like' | 'delete'`
 
 Get various default system icons.
 
@@ -547,7 +534,6 @@ Example: `'adbd4f66bc3ae8493832af61a41ee609b20d8705'`
 
 Non-synced local preferences are stored within `Alfred.alfredpreferences` under `…/preferences/local/${preferencesLocalHash}/`.
 
-
 ## Users
 
 *Alfred workflows using Alfy*
@@ -606,14 +592,12 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-imagemin](https://github.com/kawamataryo/alfred-imagemin) - Minify images with Imagemin
 - [alfred-evernote-workflow](https://github.com/jopemachine/alfred-evernote-workflow) - Search Evernote with keywords and tags
 
-
 ## Related
 
 - [alfred-simple](https://github.com/sindresorhus/alfred-simple) - Simple theme for Alfred *(Used in the screenshots)*
 - [alfred-updater](https://github.com/SamVerschueren/alfred-updater) - Workflow updater
 - [alfred-notifier](https://github.com/SamVerschueren/alfred-notifier) - Update notifications for your workflow
 - [generator-alfred](https://github.com/samverschueren/generator-alfred) - Scaffold out an Alfred workflow
-
 
 ## Maintainers
 
