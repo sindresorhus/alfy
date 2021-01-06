@@ -591,6 +591,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-elm](https://github.com/nicklayb/alfred-elm) - Browse Elm packages documentation
 - [alfred-imagemin](https://github.com/kawamataryo/alfred-imagemin) - Minify images with Imagemin
 - [alfred-evernote-workflow](https://github.com/jopemachine/alfred-evernote-workflow) - Search Evernote with keywords and tags
+- [alfred-deno-doc](https://github.com/jopemachine/alfred-deno-doc) - Access the deno documentation
 
 ## Related
 
