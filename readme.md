@@ -593,6 +593,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-evernote-workflow](https://github.com/jopemachine/alfred-evernote-workflow) - Search Evernote with keywords and tags
 - [alfred-deno-doc](https://github.com/jopemachine/alfred-deno-doc) - Access the Deno documentation
 - [alfred-fly](https://github.com/apollorion/fly) - Search Google Chrome bookmarks
+- [alfred-simple-email-fetcher](https://github.com/jopemachine/alfred-simple-email-fetcher) - Show unseen emails from multiple accounts using imap
 
 ## Related
 
