@@ -366,7 +366,7 @@ await alfy.fetch('https://api.foo.com', {
 You can also return a Promise.
 
 ```js
-const xml2js = require('xmls2js');
+const xml2js = require('xml2js');
 const pify = require('pify');
 
 const parseString = pify(xml2js.parseString);
