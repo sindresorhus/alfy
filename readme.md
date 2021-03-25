@@ -595,6 +595,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-fly](https://github.com/apollorion/fly) - Search Google Chrome bookmarks
 - [alfred-simple-email-fetcher](https://github.com/jopemachine/alfred-simple-email-fetcher) - Show unseen emails from multiple accounts using IMAP
 - [alfred-chrome-workflow](https://github.com/jopemachine/alfred-chrome-workflow) - Search Chrome's bookmarks, history and download logs
+- [alfred-code](https://github.com/shaodahong/alfred-code) - Use Alfred to quickly open the file in Code
 
 ## Related
 
