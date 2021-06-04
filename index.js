@@ -100,9 +100,7 @@ alfy.config = new Conf({
 	cwd: alfy.alfred.data
 });
 
-alfy.userConfig = new AlfredConfig({
-	cwd: alfy.alfred.data
-});
+alfy.userConfig = new AlfredConfig();
 
 alfy.cache = new CacheConf({
 	configName: 'cache',
