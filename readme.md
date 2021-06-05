@@ -393,6 +393,21 @@ alfy.config.get('unicorn');
 //=> '🦄'
 ```
 
+#### userConfig
+
+Type: `Map`
+
+Exports a [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) with the user workflow configuration. A workflow configuration allows your users to provide configuration information for the workflow. For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
+
+See [`alfred-config`](https://github.com/SamVerschueren/alfred-config#workflow-configuration) for more details.
+
+Example:
+
+```js
+alfy.userConfig.get('apiKey');
+//=> '16811cad1b8547478b3e53eae2e0f083'
+```
+
 #### cache
 
 Type: `object`
