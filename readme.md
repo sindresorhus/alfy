@@ -612,7 +612,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-chrome-workflow](https://github.com/jopemachine/alfred-chrome-workflow) - Search Chrome's bookmarks, history and download logs
 - [alfred-code](https://github.com/shaodahong/alfred-code) - Quickly open a file in Visual Studio Code
 - [alfred-amphetamine](https://github.com/demartini/alfred-amphetamine) - Start and end sessions quickly in the Amphetamine app
-- [alfred-ids](https://github.com/rizowski/alfred-ids) - Generate various id types
+- [alfred-ids](https://github.com/rizowski/alfred-ids) - Generate various types of IDs.
 
 ## Related
 
