@@ -11,7 +11,8 @@ const execa = require('execa');
 
 		await execa('alfred-config', {
 			preferLocal: true,
-			localDir: __dirname
+			localDir: __dirname,
+			stdio: 'inherit'
 		});
 	} catch (error) {
 		console.error(error);
