@@ -22,6 +22,32 @@ interface FetchOptions extends GotOptions<string> {
 	transform?: (body: unknown) => unknown;
 }
 
+interface OutputOptions {
+	rerunInterval?: number;
+}
+
+interface CacheConfGetOptions {
+	ignoreMaxAge?: boolean;
+}
+
+interface CacheConfSetOptions {
+	maxAge?: number;
+}
+
+interface CacheConf<T> extends Conf<T> {
+	get<Key extends keyof T>(key: Key, options: CacheConfGetOptions): T[Key];
+	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options: CacheConfGetOptions): Required<T>[Key];
+	get<Key extends string, Value = unknown>(key: Exclude<Key, keyof T>, defaultValue?: Value, options: CacheConfGetOptions): Value;
+	get(key: string, defaultValue?: unknown, options: CacheConfGetOptions): unknown;
+
+	set<Key extends keyof T>(key: Key, value?: T[Key], options: CacheConfSetOptions): void;
+	set(key: string, value: unknown, options: CacheConfSetOptions): void;
+	set(object: Partial<T>, options: CacheConfSetOptions): void;
+	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options: CacheConfSetOptions): void
+
+	isExpired: (key: T) => boolean;
+}
+
 interface IconElement {
 	readonly path?: string;
 	readonly type?: 'fileicon' | 'filetype'
@@ -159,32 +185,6 @@ interface ScriptFilterItem {
 	readonly quicklookurl?: string;
 
 	readonly variables?: Record<string, string>;
-}
-
-interface OutputOptions {
-	rerunInterval?: number;
-}
-
-interface CacheConfGetOptions {
-	ignoreMaxAge?: boolean;
-}
-
-interface CacheConfSetOptions {
-	maxAge?: number;
-}
-
-interface CacheConf<T> extends Conf<T> {
-	get<Key extends keyof T>(key: Key, options: CacheConfGetOptions): T[Key];
-	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options: CacheConfGetOptions): Required<T>[Key];
-	get<Key extends string, Value = unknown>(key: Exclude<Key, keyof T>, defaultValue?: Value, options: CacheConfGetOptions): Value;
-	get(key: string, defaultValue?: unknown, options: CacheConfGetOptions): unknown;
-
-	set<Key extends keyof T>(key: Key, value?: T[Key], options: CacheConfSetOptions): void;
-	set(key: string, value: unknown, options: CacheConfSetOptions): void;
-	set(object: Partial<T>, options: CacheConfSetOptions): void;
-	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options: CacheConfSetOptions): void
-
-	isExpired: (key: T) => boolean;
 }
 
 export default interface Alfy {
