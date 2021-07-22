@@ -67,7 +67,7 @@ interface ModifierKeyItem {
 	readonly variables?: Record<string, string>;
 }
 
-type PossibleModifiers = "fn" | "ctrl" | "alt" | "cmd";
+type PossibleModifiers = "fn" | "ctrl" | "opt" | "cmd" | "shift";
 
 /**
 	@interface ScriptFilterItem
