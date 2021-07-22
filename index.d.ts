@@ -187,7 +187,7 @@ interface CacheConf<T> extends Conf<T> {
 	isExpired: (key: T) => boolean;
 }
 
-export interface Alfy {
+export default interface Alfy {
 	/**
 	@param {Record<string, ScriptFilterItem>} items
 	@param {OutputOptions} options
