@@ -35,15 +35,15 @@ interface CacheConfSetOptions {
 }
 
 interface CacheConf<T> extends Conf<T> {
-	get<Key extends keyof T>(key: Key, options: CacheConfGetOptions): T[Key];
-	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options: CacheConfGetOptions): Required<T>[Key];
-	get<Key extends string, Value = unknown>(key: Exclude<Key, keyof T>, defaultValue?: Value, options: CacheConfGetOptions): Value;
-	get(key: string, defaultValue?: unknown, options: CacheConfGetOptions): unknown;
+	get<Key extends keyof T>(key: Key, options?: CacheConfGetOptions): T[Key];
+	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options?: CacheConfGetOptions): Required<T>[Key];
+	get<Key extends string, Value = unknown>(key: Exclude<Key, keyof T>, defaultValue?: Value, options?: CacheConfGetOptions): Value;
+	get(key: string, defaultValue?: unknown, options?: CacheConfGetOptions): unknown;
 
-	set<Key extends keyof T>(key: Key, value?: T[Key], options: CacheConfSetOptions): void;
+	set<Key extends keyof T>(key: Key, value?: T[Key], options?: CacheConfSetOptions): void;
 	set(key: string, value: unknown, options: CacheConfSetOptions): void;
 	set(object: Partial<T>, options: CacheConfSetOptions): void;
-	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options: CacheConfSetOptions): void
+	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options?: CacheConfSetOptions): void
 
 	isExpired: (key: T) => boolean;
 }
@@ -65,6 +65,13 @@ interface ModifierKeyItem {
 	readonly arg?: string;
 	readonly icon?: string;
 	readonly variables?: Record<string, string>;
+}
+
+interface ActionElement {
+	readonly text?: string[];
+	readonly url?: string;
+	readonly file?: string;
+	readonly auto?: string;
 }
 
 type PossibleModifiers = "fn" | "ctrl" | "opt" | "cmd" | "shift";
@@ -154,6 +161,29 @@ interface ScriptFilterItem {
 	You can now define the valid attribute to mark if the result is valid based on the modifier selection and set a different arg to be passed out if actioned with the modifier.
 	*/
 	readonly mods?: Record<PossibleModifiers, ModifierKeyItem>;
+
+	/**
+	@description This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
+	The action key can take a string or array for simple types', and the content type will automatically be derived by Alfred to file, url or text.
+	@example
+	```
+	Single Item:
+	"action": "Alfred is Great"
+
+	Multiple Items:
+	"action": ["Alfred is Great", "I use him all day long"]
+
+	For control over the content type of the action, you can use an object with typed keys as follows:
+	"action": {
+		"text": ["one", "two", "three"],
+		"url": "https://www.alfredapp.com",
+		"file": "~/Desktop",
+		"auto": "~/Pictures"
+	}
+	```
+	*/
+	// To do (jopemachine): Activate attribute below after 'action' is implemented in Alfred.
+	// readonly action?: string | string[] | ActionElement;
 
 	/**
 	@description The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
@@ -360,4 +390,4 @@ export default interface Alfy {
 	```
 	*/
 	userConfig: Map<string, string>;
-};
+}
