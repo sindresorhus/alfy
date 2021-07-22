@@ -189,10 +189,10 @@ interface CacheConf<T> extends Conf<T> {
 
 export interface Alfy {
 	/**
-	@param		{Record<string, ScriptFilterItem>} items
-	@param		{OutputOptions} options
-	@returns	{void}
-	@description	Return output to Alfred.
+	@param {Record<string, ScriptFilterItem>} items
+	@param {OutputOptions} options
+	@returns {void}
+	@description Return output to Alfred.
 	@example
 	```
 	alfy.output([
@@ -208,11 +208,11 @@ export interface Alfy {
 	output: (items: Record<string, ScriptFilterItem>, options?: OutputOptions) => void;
 
 	/**
-	@param	{string} input
-	@param	{(string | Record<string, unknown>)[]} list
-	@param	{string|((item: string | Record<string, unknown>, input: string) => boolean)} item
-	@returns	{string[]}
-	@description	Returns an string[] of items in list that case-insensitively contains input.
+	@param {string} input
+	@param {(string | Record<string, unknown>)[]} list
+	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} item
+	@returns {string[]}
+	@description Returns an string[] of items in list that case-insensitively contains input.
 	@example
 	```
 	alfy.matches('Corn', ['foo', 'unicorn']);
@@ -222,34 +222,34 @@ export interface Alfy {
 	matches: (input: string, list: (string | Record<string, unknown>)[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
 
 	/**
-	@param	{string[]} list
-	@param	{string|((item: string | Record<string, unknown>, input: string) => boolean)} item
-	@returns	{string[]}
-	@description	Same as matches(), but with alfy.input as input
+	@param {string[]} list
+	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} item
+	@returns {string[]}
+	@description Same as matches(), but with alfy.input as input
 	*/
 	inputMatches: (list: string[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
 
 	/**
-	@param	{string} text
-	@returns	{void}
-	@description	Log value to the Alfred workflow debugger.
+	@param {string} text
+	@returns {void}
+	@description Log value to the Alfred workflow debugger.
 	*/
 	log: (text: string) => void;
 
 	/**
-	@param	{Error | string} error
+	@param {Error | string} error
 	@returns {void}
-	@description	Display an error or error message in Alfred.
-					You don't need to .catch() top-level promises.
-					Alfy handles that for you.
+	@description Display an error or error message in Alfred.
+	You don't need to .catch() top-level promises.
+	Alfy handles that for you.
 	*/
 	error: (error: Error | string) => void;
 
 	/**
-	@param	{GotUrl} url
-	@param	{FetchOptions} options?
+	@param {GotUrl} url
+	@param {FetchOptions} options?
 	@returns {Promise<unknown>}
-	@description	Returns a Promise that returns the body of the response.
+	@description Returns a Promise that returns the body of the response.
 	@example
 	```
 	await alfy.fetch('https://api.foo.com', {
@@ -282,13 +282,13 @@ export interface Alfy {
 	};
 
 	/**
-	@description	Input from Alfred. What the user wrote in the input box.
+	@description Input from Alfred. What the user wrote in the input box.
 	*/
 	input: string;
 
 	/**
-	@description	Persist config data.
-					Exports a conf instance with the correct config path set.
+	@description Persist config data.
+	Exports a conf instance with the correct config path set.
 	@example
 	```
 	alfy.config.set('unicorn', '🦄');
@@ -300,8 +300,8 @@ export interface Alfy {
 	config: Conf<unknown>;
 
 	/**
-	@description	Persist cache data.
-					Exports a modified conf instance with the correct cache path set.
+	@description Persist cache data.
+	Exports a modified conf instance with the correct cache path set.
 	@example
 	```
 	alfy.cache.set('unicorn', '🦄');
@@ -313,9 +313,9 @@ export interface Alfy {
 	cache: CacheConf<unknown>;
 
 	/**
-	@description	Get various default system icons.
-					The most useful ones are included as keys. The rest you can get with icon.get().
-					Go to /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources in Finder to see them all.
+	@description Get various default system icons.
+	The most useful ones are included as keys. The rest you can get with icon.get().
+	Go to /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources in Finder to see them all.
 	@example
 	```
 	console.log(alfy.icon.error);
@@ -336,7 +336,7 @@ export interface Alfy {
 	};
 
 	/**
-	@description	Alfred metadata.
+	@description Alfred metadata.
 	*/
 	alfred: {
 		version: string;
@@ -351,15 +351,15 @@ export interface Alfy {
 	};
 
 	/**
-	@description	Whether the user currently has the workflow debugger open.
+	@description Whether the user currently has the workflow debugger open.
 	*/
 	debug: boolean
 
 	/**
-	@description	Exports a Map with the user workflow configuration.
-					A workflow configuration allows your users to provide configuration information for the workflow. 
-					For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
-					See alfred-config for more details.
+	@description Exports a Map with the user workflow configuration.
+	A workflow configuration allows your users to provide configuration information for the workflow. 
+	For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
+	See alfred-config for more details.
 	@example
 	```
 	alfy.userConfig.get('apiKey');
