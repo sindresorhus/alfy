@@ -1,40 +1,48 @@
 import Conf from 'conf';
 import { GotOptions, GotUrl } from 'got';
 
-interface FetchOptions extends GotOptions<string> {
+export interface FetchOptions extends GotOptions<string> {
 	/**
-	@type {boolean}
+	Parse response body with JSON.parse and set accept header to application/json.
 	@default true
-	@description Parse response body with JSON.parse and set accept header to application/json.
 	*/
-	json?: boolean;
+	readonly json?: boolean;
 
 	/**
-	@type {number}
-	@description Number of milliseconds this request should be cached.
+	Number of milliseconds this request should be cached.
 	*/
-	maxAge?: number;
+	readonly maxAge?: number;
 
 	/**
-	@type {(body: unknown) => unknown}
-	@description Transform the response before it gets cached.
+	Transform the response before it gets cached.
 	*/
-	transform?: (body: unknown) => unknown;
+	readonly transform?: (body: unknown) => unknown;
 }
 
-interface OutputOptions {
-	rerunInterval?: number;
+export interface OutputOptions {
+	/**
+	A script can be set to re-run automatically after some interval.
+	The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run.
+	For example, it could be used to update the progress of a particular task:
+	*/
+	readonly rerunInterval?: number;
 }
 
-interface CacheConfGetOptions {
-	ignoreMaxAge?: boolean;
+export interface CacheConfGetOptions {
+	/**
+	Get the item for the key provided without taking the maxAge of the item into account.
+	*/
+	readonly ignoreMaxAge?: boolean;
 }
 
-interface CacheConfSetOptions {
-	maxAge?: number;
+export interface CacheConfSetOptions {
+	/**
+	Number of milliseconds the cached value is valid.
+	*/
+	readonly maxAge?: number;
 }
 
-interface CacheConf<T> extends Conf<T> {
+export interface CacheConf<T> extends Conf<T> {
 	get<Key extends keyof T>(key: Key, options?: CacheConfGetOptions): T[Key];
 	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options?: CacheConfGetOptions): Required<T>[Key];
 	get<Key extends string, Value = unknown>(key: Exclude<Key, keyof T>, defaultValue?: Value, options?: CacheConfGetOptions): Value;
@@ -48,17 +56,36 @@ interface CacheConf<T> extends Conf<T> {
 	isExpired: (key: T) => boolean;
 }
 
-interface IconElement {
+/**
+	The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
+	By omitting the "type", Alfred will load the file path itself, for example a png.
+	By using "type": "fileicon", Alfred will get the icon for the specified path.
+	Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
+	@interface IconElement
+*/
+export interface IconElement {
 	readonly path?: string;
 	readonly type?: 'fileicon' | 'filetype'
 }
 
-interface TextElement {
+/**
+	The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
+	If these are not defined, you will inherit Alfred's standard behaviour where the arg is copied to the Clipboard or used for Large Type.
+	@interface TextElement
+*/
+export interface TextElement {
+	/**
+	User will get when copying the selected result row with ⌘C
+	*/
 	readonly copy?: string;
+
+	/**
+	User will get displaying large type with ⌘L.
+	*/
 	readonly largetype?: string;
 }
 
-interface ModifierKeyItem {
+export interface ModifierKeyItem {
 	readonly valid?: boolean;
 	readonly title?: string;
 	readonly subtitle?: string;
@@ -67,29 +94,49 @@ interface ModifierKeyItem {
 	readonly variables?: Record<string, string>;
 }
 
-interface ActionElement {
-	readonly text?: string[];
-	readonly url?: string;
-	readonly file?: string;
-	readonly auto?: string;
+/**
+	This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
+	The action key can take a string or array for simple types', and the content type will automatically be derived by Alfred to file, url or text.
+	@interface ActionElement
+*/
+export interface ActionElement {
+	/**
+	Forward text to Alfred.
+	*/
+	readonly text?: string | string[];
+
+	/**
+	Forward url to Alfred.
+	*/
+	readonly url?: string | string[];
+
+	/**
+	Forward file path to Alfred.
+	*/
+	readonly file?: string | string[];
+
+	/**
+	Forward some value and let the value type be infered from Alfred.
+	*/
+	readonly auto?: string | string[];
 }
 
 type PossibleModifiers = "fn" | "ctrl" | "opt" | "cmd" | "shift";
 
 /**
+	Each item describes a result row displayed in Alfred.
 	@interface ScriptFilterItem
-	@description Each item describes a result row displayed in Alfred.
 */
-interface ScriptFilterItem {
+export interface ScriptFilterItem {
 	/**
-	@description This is a unique identifier for the item which allows help Alfred to learn about this item for subsequent sorting and ordering of the user's actioned results.
+	This is a unique identifier for the item which allows help Alfred to learn about this item for subsequent sorting and ordering of the user's actioned results.
 	It is important that you use the same UID throughout subsequent executions of your script to take advantage of Alfred's knowledge and sorting.
 	If you would like Alfred to always show the results in the order you return them from your script, exclude the UID field. 
 	*/
 	readonly uid?: string;
 	
 	/**
-	@description The title displayed in the result row. There are no options for this element and it is essential that this element is populated.
+	The title displayed in the result row. There are no options for this element and it is essential that this element is populated.
 	@example
 	```
 	"title": "Desktop"
@@ -98,7 +145,7 @@ interface ScriptFilterItem {
 	readonly title: string;
 	
 	/**
-	@description The subtitle displayed in the result row. This element is optional.
+	The subtitle displayed in the result row. This element is optional.
 	@example
 	```
 	"subtitle": "~/Desktop"
@@ -107,7 +154,7 @@ interface ScriptFilterItem {
 	readonly subtitle?: string;
 
 	/**
-	@description The argument which is passed through the workflow to the connected output action.
+	The argument which is passed through the workflow to the connected output action.
 	While the arg attribute is optional, it's highly recommended that you populate this as it's the string which is passed to your connected output actions.
 	If excluded, you won't know which result item the user has selected.
 	@example
@@ -118,7 +165,7 @@ interface ScriptFilterItem {
 	readonly arg?: string;
 
 	/**
-	@description The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
+	The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
 	By omitting the "type", Alfred will load the file path itself, for example a png.
 	By using "type": "fileicon", Alfred will get the icon for the specified path. Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
 	@example
@@ -132,23 +179,25 @@ interface ScriptFilterItem {
 	readonly icon?: IconElement | string;
 
 	/**
-	@description If this item is valid or not. If an item is valid then Alfred will action this item when the user presses return. 
+	If this item is valid or not. If an item is valid then Alfred will action this item when the user presses return. 
 	@default true
 	*/
 	readonly valid?: boolean;
 
 	/**
-	@description From Alfred 3.5, the match field enables you to define what Alfred matches against when the workflow is set to "Alfred Filters Results". If match is present, it fully replaces matching on the title property.
+	From Alfred 3.5, the match field enables you to define what Alfred matches against when the workflow is set to "Alfred Filters Results".
+	If match is present, it fully replaces matching on the title property.
 	*/
 	readonly match?: string;
 
 	/**
-	@description An optional but recommended string you can provide which is populated into Alfred's search field if the user auto-complete's the selected result (⇥ by default).
+	An optional but recommended string you can provide which is populated into Alfred's search field if the user auto-complete's the selected result (⇥ by default).
 	*/
 	readonly autocomplete?: string;
 
 	/**
-	@description By specifying "type": "file", this makes Alfred treat your result as a file on your system. This allows the user to perform actions on the file like they can with Alfred's standard file filters.
+	By specifying "type": "file", this makes Alfred treat your result as a file on your system.
+	This allows the user to perform actions on the file like they can with Alfred's standard file filters.
 	When returning files, Alfred will check if the file exists before presenting that result to the user.
 	This has a very small performance implication but makes the results as predictable as possible.
 	If you would like Alfred to skip this check as you are certain that the files you are returning exist, you can use "type": "file:skipcheck".
@@ -157,13 +206,13 @@ interface ScriptFilterItem {
 	readonly type?: "default" | "file" | "file:skipcheck";
 
 	/**
-	@description The mod element gives you control over how the modifier keys react.
+	The mod element gives you control over how the modifier keys react.
 	You can now define the valid attribute to mark if the result is valid based on the modifier selection and set a different arg to be passed out if actioned with the modifier.
 	*/
 	readonly mods?: Record<PossibleModifiers, ModifierKeyItem>;
 
 	/**
-	@description This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
+	This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
 	The action key can take a string or array for simple types', and the content type will automatically be derived by Alfred to file, url or text.
 	@example
 	```
@@ -186,7 +235,7 @@ interface ScriptFilterItem {
 	// readonly action?: string | string[] | ActionElement;
 
 	/**
-	@description The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
+	The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
 	@example
 	```
 	"text": {
@@ -198,7 +247,7 @@ interface ScriptFilterItem {
 	readonly text?: TextElement;
 
 	/**
-	@description A Quick Look URL which will be visible if the user uses the Quick Look feature within Alfred (tapping shift, or ⌘Y). 
+	A Quick Look URL which will be visible if the user uses the Quick Look feature within Alfred (tapping shift, or ⌘Y). 
 	Note that quicklookurl will also accept a file path, both absolute and relative to home using ~/.
 	@example
 	```
@@ -207,15 +256,18 @@ interface ScriptFilterItem {
 	*/
 	readonly quicklookurl?: string;
 
+	/**
+	Variables can be passed out of the script filter within a variables object.
+	*/
 	readonly variables?: Record<string, string>;
 }
 
 export default interface Alfy {
 	/**
+	Return output to Alfred.
 	@param {Record<string, ScriptFilterItem>} items
-	@param {OutputOptions} options
+	@param {OutputOptions} [options]
 	@returns {void}
-	@description Return output to Alfred.
 	@example
 	```
 	alfy.output([
@@ -231,11 +283,11 @@ export default interface Alfy {
 	output: (items: Record<string, ScriptFilterItem>, options?: OutputOptions) => void;
 
 	/**
+	Returns an string[] of items in list that case-insensitively contains input.
 	@param {string} input
 	@param {(string | Record<string, unknown>)[]} list
-	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} item
+	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} [item]
 	@returns {string[]}
-	@description Returns an string[] of items in list that case-insensitively contains input.
 	@example
 	```
 	alfy.matches('Corn', ['foo', 'unicorn']);
@@ -245,34 +297,34 @@ export default interface Alfy {
 	matches: (input: string, list: (string | Record<string, unknown>)[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
 
 	/**
+	Same as matches(), but with `alfy.input` as input.
 	@param {string[]} list
-	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} item
+	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} [item]
 	@returns {string[]}
-	@description Same as matches(), but with alfy.input as input
 	*/
 	inputMatches: (list: string[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
 
 	/**
+	Log value to the Alfred workflow debugger.
 	@param {string} text
 	@returns {void}
-	@description Log value to the Alfred workflow debugger.
 	*/
 	log: (text: string) => void;
 
 	/**
-	@param {Error | string} error
-	@returns {void}
-	@description Display an error or error message in Alfred.
+	Display an error or error message in Alfred.
 	You don't need to .catch() top-level promises.
 	Alfy handles that for you.
+	@param {Error | string} error
+	@returns {void}
 	*/
 	error: (error: Error | string) => void;
 
 	/**
+	Returns a Promise that returns the body of the response.
 	@param {GotUrl} url
-	@param {FetchOptions} options?
+	@param {FetchOptions} [options]
 	@returns {Promise<unknown>}
-	@description Returns a Promise that returns the body of the response.
 	@example
 	```
 	await alfy.fetch('https://api.foo.com', {
@@ -286,7 +338,6 @@ export default interface Alfy {
 	fetch: (url: GotUrl, options?: FetchOptions) => Promise<unknown>;
 
 	/**
-	@description
 	@example
 	```
 	{
@@ -305,12 +356,12 @@ export default interface Alfy {
 	};
 
 	/**
-	@description Input from Alfred. What the user wrote in the input box.
+	Input from Alfred. What the user wrote in the input box.
 	*/
 	input: string;
 
 	/**
-	@description Persist config data.
+	Persist config data.
 	Exports a conf instance with the correct config path set.
 	@example
 	```
@@ -323,7 +374,7 @@ export default interface Alfy {
 	config: Conf<unknown>;
 
 	/**
-	@description Persist cache data.
+	Persist cache data.
 	Exports a modified conf instance with the correct cache path set.
 	@example
 	```
@@ -336,7 +387,7 @@ export default interface Alfy {
 	cache: CacheConf<unknown>;
 
 	/**
-	@description Get various default system icons.
+	Get various default system icons.
 	The most useful ones are included as keys. The rest you can get with icon.get().
 	Go to /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources in Finder to see them all.
 	@example
@@ -359,7 +410,7 @@ export default interface Alfy {
 	};
 
 	/**
-	@description Alfred metadata.
+	Alfred metadata.
 	*/
 	alfred: {
 		version: string;
@@ -374,12 +425,12 @@ export default interface Alfy {
 	};
 
 	/**
-	@description Whether the user currently has the workflow debugger open.
+	Whether the user currently has the workflow debugger open.
 	*/
 	debug: boolean
 
 	/**
-	@description Exports a Map with the user workflow configuration.
+	Exports a Map with the user workflow configuration.
 	A workflow configuration allows your users to provide configuration information for the workflow. 
 	For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
 	See alfred-config for more details.
