@@ -85,6 +85,11 @@ export interface TextElement {
 	readonly largetype?: string;
 }
 
+/**
+	Defines what to change when the modifier key is pressed.
+	When you release the modifier key, it returns to the original item.
+	@interface ModifierKeyItem
+*/
 export interface ModifierKeyItem {
 	readonly valid?: boolean;
 	readonly title?: string;
