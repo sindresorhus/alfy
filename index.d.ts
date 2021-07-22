@@ -265,9 +265,9 @@ export interface ScriptFilterItem {
 export default interface Alfy {
 	/**
 	Return output to Alfred.
-	@param {Record<string, ScriptFilterItem>} items
-	@param {OutputOptions} [options]
-	@returns {void}
+	@param items
+	@param options
+
 	@example
 	```
 	alfy.output([
@@ -284,10 +284,11 @@ export default interface Alfy {
 
 	/**
 	Returns an string[] of items in list that case-insensitively contains input.
-	@param {string} input
-	@param {(string | Record<string, unknown>)[]} list
-	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} [item]
-	@returns {string[]}
+	@param input
+	@param list
+	@param item
+	@returns string[] of items in list that case-insensitively contains input.
+
 	@example
 	```
 	alfy.matches('Corn', ['foo', 'unicorn']);
@@ -298,16 +299,15 @@ export default interface Alfy {
 
 	/**
 	Same as matches(), but with `alfy.input` as input.
-	@param {string[]} list
-	@param {string|((item: string | Record<string, unknown>, input: string) => boolean)} [item]
-	@returns {string[]}
+	@param list
+	@param item
+	@returns string[] of items in list that case-insensitively contains `alfy.input`.
 	*/
 	inputMatches: (list: string[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
 
 	/**
 	Log value to the Alfred workflow debugger.
-	@param {string} text
-	@returns {void}
+	@param text
 	*/
 	log: (text: string) => void;
 
@@ -315,16 +315,15 @@ export default interface Alfy {
 	Display an error or error message in Alfred.
 	You don't need to .catch() top-level promises.
 	Alfy handles that for you.
-	@param {Error | string} error
-	@returns {void}
+	@param error
 	*/
 	error: (error: Error | string) => void;
 
 	/**
 	Returns a Promise that returns the body of the response.
-	@param {GotUrl} url
-	@param {FetchOptions} [options]
-	@returns {Promise<unknown>}
+	@param url
+	@param options
+	@returns Body of the response.
 	@example
 	```
 	await alfy.fetch('https://api.foo.com', {
