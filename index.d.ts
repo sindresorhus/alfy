@@ -137,6 +137,7 @@ export interface ScriptFilterItem {
 	
 	/**
 	The title displayed in the result row. There are no options for this element and it is essential that this element is populated.
+
 	@example
 	```
 	"title": "Desktop"
@@ -146,6 +147,7 @@ export interface ScriptFilterItem {
 	
 	/**
 	The subtitle displayed in the result row. This element is optional.
+
 	@example
 	```
 	"subtitle": "~/Desktop"
@@ -157,6 +159,7 @@ export interface ScriptFilterItem {
 	The argument which is passed through the workflow to the connected output action.
 	While the arg attribute is optional, it's highly recommended that you populate this as it's the string which is passed to your connected output actions.
 	If excluded, you won't know which result item the user has selected.
+
 	@example
 	```
 	"arg": "~/Desktop"
@@ -168,6 +171,7 @@ export interface ScriptFilterItem {
 	The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
 	By omitting the "type", Alfred will load the file path itself, for example a png.
 	By using "type": "fileicon", Alfred will get the icon for the specified path. Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
+
 	@example
 	```
 	"icon": {
@@ -214,6 +218,7 @@ export interface ScriptFilterItem {
 	/**
 	This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
 	The action key can take a string or array for simple types', and the content type will automatically be derived by Alfred to file, url or text.
+
 	@example
 	```
 	Single Item:
@@ -236,6 +241,7 @@ export interface ScriptFilterItem {
 
 	/**
 	The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
+
 	@example
 	```
 	"text": {
@@ -249,6 +255,7 @@ export interface ScriptFilterItem {
 	/**
 	A Quick Look URL which will be visible if the user uses the Quick Look feature within Alfred (tapping shift, or ⌘Y). 
 	Note that quicklookurl will also accept a file path, both absolute and relative to home using ~/.
+
 	@example
 	```
 	"quicklookurl": "https://www.alfredapp.com/"
@@ -324,6 +331,7 @@ export default interface Alfy {
 	@param url
 	@param options
 	@returns Body of the response.
+
 	@example
 	```
 	await alfy.fetch('https://api.foo.com', {
@@ -362,6 +370,7 @@ export default interface Alfy {
 	/**
 	Persist config data.
 	Exports a conf instance with the correct config path set.
+
 	@example
 	```
 	alfy.config.set('unicorn', '🦄');
@@ -375,6 +384,7 @@ export default interface Alfy {
 	/**
 	Persist cache data.
 	Exports a modified conf instance with the correct cache path set.
+
 	@example
 	```
 	alfy.cache.set('unicorn', '🦄');
@@ -389,6 +399,7 @@ export default interface Alfy {
 	Get various default system icons.
 	The most useful ones are included as keys. The rest you can get with icon.get().
 	Go to /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources in Finder to see them all.
+
 	@example
 	```
 	console.log(alfy.icon.error);
@@ -433,6 +444,7 @@ export default interface Alfy {
 	A workflow configuration allows your users to provide configuration information for the workflow. 
 	For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
 	See alfred-config for more details.
+
 	@example
 	```
 	alfy.userConfig.get('apiKey');
