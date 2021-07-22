@@ -58,13 +58,6 @@ interface TextElement {
 	readonly largetype?: string;
 }
 
-interface ActionElement {
-	readonly text?: string[];
-	readonly url?: string;
-	readonly file?: string;
-	readonly auto?: string;
-};
-
 interface ModifierKeyItem {
 	readonly valid?: boolean;
 	readonly title?: string;
