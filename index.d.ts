@@ -292,13 +292,13 @@ export default interface Alfy {
 	]);
 	```
 	*/
-	output: (items: Record<string, ScriptFilterItem>, options?: OutputOptions) => void;
+	output: (items: ScriptFilterItem[], options?: OutputOptions) => void;
 
 	/**
 	Returns an string[] of items in list that case-insensitively contains input.
 	@param input
 	@param list
-	@param item
+	@param target
 	@returns string[] of items in list that case-insensitively contains input.
 
 	@example
@@ -307,15 +307,15 @@ export default interface Alfy {
 	//=> ['unicorn']
 	```
 	*/
-	matches: (input: string, list: (string | Record<string, unknown>)[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
+	matches: (input: string, list: (string | ScriptFilterItem)[], target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)) => (string | ScriptFilterItem)[];
 
 	/**
 	Same as matches(), but with `alfy.input` as input.
 	@param list
-	@param item
+	@param target
 	@returns string[] of items in list that case-insensitively contains `alfy.input`.
 	*/
-	inputMatches: (list: string[], item?: string | ((item: string | Record<string, unknown>, input: string) => boolean)) => string[];
+	inputMatches: (list: (string | ScriptFilterItem)[], target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)) => (string | ScriptFilterItem)[];
 
 	/**
 	Log value to the Alfred workflow debugger.
