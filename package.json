@@ -13,10 +13,11 @@
 		"node": ">=10"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"test": "xo && ava && tsd"
 	},
 	"files": [
 		"index.js",
+		"index.d.ts",
 		"init.js",
 		"cleanup.js",
 		"run-node.sh",
@@ -49,10 +50,12 @@
 		"read-pkg-up": "^6.0.0"
 	},
 	"devDependencies": {
+		"@types/got": "^9.6.12",
 		"ava": "^2.3.0",
 		"delay": "^4.3.0",
 		"nock": "^13.1.0",
 		"tempfile": "^3.0.0",
-		"xo": "^0.24.0"
+		"tsd": "^0.17.0",
+		"xo": "^0.39.1"
 	}
 }
