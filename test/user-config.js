@@ -1,6 +1,6 @@
 import path from 'path';
 import test from 'ava';
-import {alfy as createAlfy} from './_utils';
+import {alfy as createAlfy} from './_utils.js';
 
 test('read user config', t => {
 	const alfy = createAlfy({

@@ -1,5 +1,5 @@
 import Conf from 'conf';
-import { GotOptions, GotUrl } from 'got';
+import {GotOptions, GotUrl} from 'got';
 
 export interface FetchOptions extends GotOptions<string> {
 	/**
@@ -44,6 +44,8 @@ export interface CacheConfSetOptions {
 }
 
 export interface CacheConf<T> extends Conf<T> {
+	isExpired: (key: T) => boolean;
+
 	get<Key extends keyof T>(key: Key, options?: CacheConfGetOptions): T[Key];
 	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options?: CacheConfGetOptions): Required<T>[Key];
 	get<Key extends string, Value = unknown>(key: Exclude<Key, keyof T>, defaultValue?: Value, options?: CacheConfGetOptions): Value;
@@ -53,8 +55,6 @@ export interface CacheConf<T> extends Conf<T> {
 	set(key: string, value: unknown, options: CacheConfSetOptions): void;
 	set(object: Partial<T>, options: CacheConfSetOptions): void;
 	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options?: CacheConfSetOptions): void;
-
-	isExpired: (key: T) => boolean;
 }
 
 /**
@@ -311,7 +311,7 @@ export interface Alfy {
 	]);
 	```
 	*/
-	output: (items: ScriptFilterItem[], options?: OutputOptions) => void,
+	output: (items: ScriptFilterItem[], options?: OutputOptions) => void;
 
 	/**
 	Returns items in list that case-insensitively contains input.

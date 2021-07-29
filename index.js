@@ -8,7 +8,7 @@ const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
 const AlfredConfig = require('alfred-config');
-const updateNotification = require('./lib/update-notification');
+const updateNotification = require('./lib/update-notification.js');
 
 const alfy = module.exports;
 

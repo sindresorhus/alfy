@@ -2,7 +2,7 @@ import test from 'ava';
 import nock from 'nock';
 import delay from 'delay';
 import tempfile from 'tempfile';
-import {alfy as createAlfy} from './_utils';
+import {alfy as createAlfy} from './_utils.js';
 
 const URL = 'https://foo.bar';
 

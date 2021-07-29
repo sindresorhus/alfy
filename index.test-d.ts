@@ -1,5 +1,7 @@
-import { expectType } from 'tsd';
-import alfy, { ScriptFilterItem } from './index';
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+
+import {expectType} from 'tsd';
+import alfy, {ScriptFilterItem} from './index.js';
 
 const mockItems: ScriptFilterItem[] = [
 	{

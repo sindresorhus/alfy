@@ -1,7 +1,7 @@
 import test from 'ava';
 import delay from 'delay';
 import tempfile from 'tempfile';
-import {alfy as createAlfy} from './_utils';
+import {alfy as createAlfy} from './_utils.js';
 
 test('no cache', t => {
 	const alfy = createAlfy();
