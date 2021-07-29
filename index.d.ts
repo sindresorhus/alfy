@@ -4,6 +4,7 @@ import { GotOptions, GotUrl } from 'got';
 export interface FetchOptions extends GotOptions<string> {
 	/**
 	Parse response body with JSON.parse and set accept header to application/json.
+
 	@default true
 	*/
 	readonly json?: boolean;
@@ -16,7 +17,7 @@ export interface FetchOptions extends GotOptions<string> {
 	/**
 	Transform the response before it gets cached.
 	*/
-	readonly transform?: (body: unknown) => unknown;
+	readonly transform?: (body: any) => unknown;
 }
 
 export interface OutputOptions {
@@ -51,44 +52,41 @@ export interface CacheConf<T> extends Conf<T> {
 	set<Key extends keyof T>(key: Key, value?: T[Key], options?: CacheConfSetOptions): void;
 	set(key: string, value: unknown, options: CacheConfSetOptions): void;
 	set(object: Partial<T>, options: CacheConfSetOptions): void;
-	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options?: CacheConfSetOptions): void
+	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options?: CacheConfSetOptions): void;
 
 	isExpired: (key: T) => boolean;
 }
 
 /**
-	The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
-	By omitting the "type", Alfred will load the file path itself, for example a png.
-	By using "type": "fileicon", Alfred will get the icon for the specified path.
-	Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
-	@interface IconElement
+The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
+By omitting the 'type', Alfred will load the file path itself, for example a png.
+By using 'type': 'fileicon', Alfred will get the icon for the specified path.
+Finally, by using 'type': 'filetype', you can get the icon of a specific file, for example 'path': 'public.png'
 */
 export interface IconElement {
 	readonly path?: string;
-	readonly type?: 'fileicon' | 'filetype'
+	readonly type?: 'fileicon' | 'filetype';
 }
 
 /**
-	The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
-	If these are not defined, you will inherit Alfred's standard behaviour where the arg is copied to the Clipboard or used for Large Type.
-	@interface TextElement
+The text element defines the text the user will get when copying the selected result row with `⌘C` or displaying large type with `⌘L`.
+If these are not defined, you will inherit Alfred's standard behaviour where the arg is copied to the Clipboard or used for Large Type.
 */
 export interface TextElement {
 	/**
-	User will get when copying the selected result row with ⌘C
+	User will get when copying the selected result row with `⌘C`
 	*/
 	readonly copy?: string;
 
 	/**
-	User will get displaying large type with ⌘L.
+	User will get displaying large type with `⌘L`.
 	*/
 	readonly largetype?: string;
 }
 
 /**
-	Defines what to change when the modifier key is pressed.
-	When you release the modifier key, it returns to the original item.
-	@interface ModifierKeyItem
+Defines what to change when the modifier key is pressed.
+When you release the modifier key, it returns to the original item.
 */
 export interface ModifierKeyItem {
 	readonly valid?: boolean;
@@ -100,9 +98,8 @@ export interface ModifierKeyItem {
 }
 
 /**
-	This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
-	The action key can take a string or array for simple types', and the content type will automatically be derived by Alfred to file, url or text.
-	@interface ActionElement
+This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
+The action key can take a string or array for simple types, and the content type will automatically be derived by Alfred to file, url or text.
 */
 export interface ActionElement {
 	/**
@@ -126,36 +123,35 @@ export interface ActionElement {
 	readonly auto?: string | string[];
 }
 
-type PossibleModifiers = "fn" | "ctrl" | "opt" | "cmd" | "shift";
+type PossibleModifiers = 'fn' | 'ctrl' | 'opt' | 'cmd' | 'shift';
 
 /**
-	Each item describes a result row displayed in Alfred.
-	@interface ScriptFilterItem
+Each item describes a result row displayed in Alfred.
 */
 export interface ScriptFilterItem {
 	/**
 	This is a unique identifier for the item which allows help Alfred to learn about this item for subsequent sorting and ordering of the user's actioned results.
 	It is important that you use the same UID throughout subsequent executions of your script to take advantage of Alfred's knowledge and sorting.
-	If you would like Alfred to always show the results in the order you return them from your script, exclude the UID field. 
+	If you would like Alfred to always show the results in the order you return them from your script, exclude the UID field.
 	*/
 	readonly uid?: string;
-	
+
 	/**
 	The title displayed in the result row. There are no options for this element and it is essential that this element is populated.
 
 	@example
 	```
-	"title": "Desktop"
+	'title': 'Desktop'
 	```
 	*/
 	readonly title: string;
-	
+
 	/**
 	The subtitle displayed in the result row. This element is optional.
 
 	@example
 	```
-	"subtitle": "~/Desktop"
+	'subtitle': '~/Desktop'
 	```
 	*/
 	readonly subtitle?: string;
@@ -167,52 +163,54 @@ export interface ScriptFilterItem {
 
 	@example
 	```
-	"arg": "~/Desktop"
+	'arg': '~/Desktop'
 	```
 	*/
 	readonly arg?: string;
 
 	/**
 	The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
-	By omitting the "type", Alfred will load the file path itself, for example a png.
-	By using "type": "fileicon", Alfred will get the icon for the specified path. Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
+	By omitting the 'type', Alfred will load the file path itself, for example a png.
+	By using 'type': 'fileicon', Alfred will get the icon for the specified path. Finally, by using 'type': 'filetype', you can get the icon of a specific file, for example 'path': 'public.png'
 
 	@example
 	```
-	"icon": {
-		"type": "fileicon",
-		"path": "~/Desktop"
+	'icon': {
+		'type': 'fileicon',
+		'path': '~/Desktop'
 	}
 	```
 	*/
 	readonly icon?: IconElement | string;
 
 	/**
-	If this item is valid or not. If an item is valid then Alfred will action this item when the user presses return. 
+	If this item is valid or not. If an item is valid then Alfred will action this item when the user presses return.
+
 	@default true
 	*/
 	readonly valid?: boolean;
 
 	/**
-	From Alfred 3.5, the match field enables you to define what Alfred matches against when the workflow is set to "Alfred Filters Results".
+	From Alfred 3.5, the match field enables you to define what Alfred matches against when the workflow is set to 'Alfred Filters Results'.
 	If match is present, it fully replaces matching on the title property.
 	*/
 	readonly match?: string;
 
 	/**
-	An optional but recommended string you can provide which is populated into Alfred's search field if the user auto-complete's the selected result (⇥ by default).
+	An optional but recommended string you can provide which is populated into Alfred's search field if the user auto-complete's the selected result (`⇥` by default).
 	*/
 	readonly autocomplete?: string;
 
 	/**
-	By specifying "type": "file", this makes Alfred treat your result as a file on your system.
+	By specifying 'type': 'file', this makes Alfred treat your result as a file on your system.
 	This allows the user to perform actions on the file like they can with Alfred's standard file filters.
 	When returning files, Alfred will check if the file exists before presenting that result to the user.
 	This has a very small performance implication but makes the results as predictable as possible.
-	If you would like Alfred to skip this check as you are certain that the files you are returning exist, you can use "type": "file:skipcheck".
-	@default "default"
+	If you would like Alfred to skip this check as you are certain that the files you are returning exist, you can use 'type': 'file:skipcheck'.
+
+	@default 'default'
 	*/
-	readonly type?: "default" | "file" | "file:skipcheck";
+	readonly type?: 'default' | 'file' | 'file:skipcheck';
 
 	/**
 	The mod element gives you control over how the modifier keys react.
@@ -222,22 +220,22 @@ export interface ScriptFilterItem {
 
 	/**
 	This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
-	The action key can take a string or array for simple types', and the content type will automatically be derived by Alfred to file, url or text.
+	The action key can take a string or array for simple types, and the content type will automatically be derived by Alfred to file, url or text.
 
 	@example
 	```
-	Single Item:
-	"action": "Alfred is Great"
+	// For Single Item,
+	'action': 'Alfred is Great'
 
-	Multiple Items:
-	"action": ["Alfred is Great", "I use him all day long"]
+	// For Multiple Items,
+	'action': ['Alfred is Great', 'I use him all day long']
 
-	For control over the content type of the action, you can use an object with typed keys as follows:
-	"action": {
-		"text": ["one", "two", "three"],
-		"url": "https://www.alfredapp.com",
-		"file": "~/Desktop",
-		"auto": "~/Pictures"
+	// For control over the content type of the action, you can use an object with typed keys as follows:
+	'action': {
+		'text': ['one', 'two', 'three'],
+		'url': 'https://www.alfredapp.com',
+		'file': '~/Desktop',
+		'auto': '~/Pictures'
 	}
 	```
 	*/
@@ -245,25 +243,25 @@ export interface ScriptFilterItem {
 	// readonly action?: string | string[] | ActionElement;
 
 	/**
-	The text element defines the text the user will get when copying the selected result row with ⌘C or displaying large type with ⌘L.
+	The text element defines the text the user will get when copying the selected result row with `⌘C` or displaying large type with `⌘L`.
 
 	@example
 	```
-	"text": {
-		"copy": "https://www.alfredapp.com/ (text here to copy)",
-		"largetype": "https://www.alfredapp.com/ (text here for large type)"
+	'text': {
+		'copy': 'https://www.alfredapp.com/ (text here to copy)',
+		'largetype': 'https://www.alfredapp.com/ (text here for large type)'
 	}
 	```
 	*/
 	readonly text?: TextElement;
 
 	/**
-	A Quick Look URL which will be visible if the user uses the Quick Look feature within Alfred (tapping shift, or ⌘Y). 
-	Note that quicklookurl will also accept a file path, both absolute and relative to home using ~/.
+	A Quick Look URL which will be visible if the user uses the Quick Look feature within Alfred (tapping shift, or `⌘Y`).
+	Note that quicklookurl will also accept a file path, both absolute and relative to home using `~/`.
 
 	@example
 	```
-	"quicklookurl": "https://www.alfredapp.com/"
+	'quicklookurl': 'https://www.alfredapp.com/'
 	```
 	*/
 	readonly quicklookurl?: string;
@@ -274,9 +272,30 @@ export interface ScriptFilterItem {
 	readonly variables?: Record<string, string>;
 }
 
-export default interface Alfy {
+/**
+Create Alfred workflows with ease
+
+@example
+```
+const alfy = require('alfy');
+
+const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
+
+const items = alfy
+	.inputMatches(data, 'title')
+	.map(element => ({
+		title: element.title,
+		subtitle: element.body,
+		arg: element.id
+	}));
+
+alfy.output(items);
+```
+*/
+export interface Alfy {
 	/**
 	Return output to Alfred.
+
 	@param items
 	@param options
 
@@ -292,14 +311,15 @@ export default interface Alfy {
 	]);
 	```
 	*/
-	output: (items: ScriptFilterItem[], options?: OutputOptions) => void;
+	output: (items: ScriptFilterItem[], options?: OutputOptions) => void,
 
 	/**
-	Returns an string[] of items in list that case-insensitively contains input.
+	Returns items in list that case-insensitively contains input.
+
 	@param input
 	@param list
 	@param target
-	@returns string[] of items in list that case-insensitively contains input.
+	@returns items in list that case-insensitively contains input.
 
 	@example
 	```
@@ -307,32 +327,42 @@ export default interface Alfy {
 	//=> ['unicorn']
 	```
 	*/
-	matches: (input: string, list: (string | ScriptFilterItem)[], target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)) => (string | ScriptFilterItem)[];
+	matches: <T extends string[] | ScriptFilterItem[]> (input: string, list: T, target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)) => T;
 
 	/**
 	Same as matches(), but with `alfy.input` as input.
+
 	@param list
 	@param target
-	@returns string[] of items in list that case-insensitively contains `alfy.input`.
+	@returns items in list that case-insensitively contains `alfy.input`.
+
+	@example
+	```
+	// Assume user types 'Corn'.
+	alfy.inputMatches(['foo', 'unicorn']);
+	//=> ['unicorn']
 	*/
-	inputMatches: (list: (string | ScriptFilterItem)[], target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)) => (string | ScriptFilterItem)[];
+	inputMatches: <T extends string[] | ScriptFilterItem[]> (list: T, target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)) => T;
 
 	/**
 	Log value to the Alfred workflow debugger.
+
 	@param text
 	*/
 	log: (text: string) => void;
 
 	/**
 	Display an error or error message in Alfred.
-	You don't need to .catch() top-level promises.
-	Alfy handles that for you.
+
+	**Note:** You don't need to `.catch()` top-level promises. Alfy handles that for you.
+
 	@param error
 	*/
 	error: (error: Error | string) => void;
 
 	/**
-	Returns a Promise that returns the body of the response.
+	Returns a `Promise` that returns the body of the response.
+
 	@param url
 	@param options
 	@returns Body of the response.
@@ -347,7 +377,7 @@ export default interface Alfy {
 	})
 	```
 	*/
-	fetch: (url: GotUrl, options?: FetchOptions) => Promise<unknown>;
+	fetch: (url: GotUrl, options?: FetchOptions) => Promise<any>;
 
 	/**
 	@example
@@ -374,7 +404,8 @@ export default interface Alfy {
 
 	/**
 	Persist config data.
-	Exports a conf instance with the correct config path set.
+
+	Exports a [`conf` instance](https://github.com/sindresorhus/conf#instance) with the correct config path set.
 
 	@example
 	```
@@ -388,7 +419,8 @@ export default interface Alfy {
 
 	/**
 	Persist cache data.
-	Exports a modified conf instance with the correct cache path set.
+
+	Exports a modified [`conf` instance](https://github.com/sindresorhus/conf#instance) with the correct cache path set.
 
 	@example
 	```
@@ -402,8 +434,8 @@ export default interface Alfy {
 
 	/**
 	Get various default system icons.
-	The most useful ones are included as keys. The rest you can get with icon.get().
-	Go to /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources in Finder to see them all.
+
+	The most useful ones are included as keys. The rest you can get with `icon.get()`. Go to `/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources` in Finder to see them all.
 
 	@example
 	```
@@ -415,12 +447,40 @@ export default interface Alfy {
 	```
 	*/
 	icon: {
+		/**
+		Get various default system icons.
+		You can get icons in '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources'
+		*/
 		get: (icon: string) => string;
+
+		/**
+		Get 'info' icon which is '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/ToolbarInfo'
+		*/
 		info: string;
+
+		/**
+		Get 'warning' icon which is '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertCautionIcon'
+		*/
 		warning: string;
+
+		/**
+		Get 'error' icon which is '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertStopIcon'
+		*/
 		error: string;
+
+		/**
+		Get 'alert' icon which is '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Actions'
+		*/
 		alert: string;
+
+		/**
+		Get 'like' icon which is '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/ToolbarFavoritesIcon'
+		*/
 		like: string;
+
+		/**
+		Get 'delete' icon which is '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/ToolbarDeleteIcon'
+		*/
 		delete: string;
 	};
 
@@ -442,13 +502,13 @@ export default interface Alfy {
 	/**
 	Whether the user currently has the workflow debugger open.
 	*/
-	debug: boolean
+	debug: boolean;
 
 	/**
-	Exports a Map with the user workflow configuration.
-	A workflow configuration allows your users to provide configuration information for the workflow. 
-	For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
-	See alfred-config for more details.
+	Exports a [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) with the user workflow configuration. A workflow configuration allows your users to provide
+	configuration information for the workflow. For instance, if you are developing a GitHub workflow, you could let your users provide their own API tokens.
+
+	See [`alfred-config`](https://github.com/SamVerschueren/alfred-config#workflow-configuration) for more details.
 
 	@example
 	```
@@ -458,3 +518,7 @@ export default interface Alfy {
 	*/
 	userConfig: Map<string, string>;
 }
+
+export const alfy: Alfy;
+
+export default alfy;
