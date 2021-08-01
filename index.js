@@ -132,7 +132,7 @@ alfy.fetch = async (url, options) => {
 
 	let response;
 	try {
-		response = await got(url, options);
+		response = await got(url, {searchParams: options.query }).json();
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;
@@ -141,7 +141,7 @@ alfy.fetch = async (url, options) => {
 		throw error;
 	}
 
-	const data = options.transform ? options.transform(response.body) : response.body;
+	const data = options.transform ? options.transform(response) : response;
 
 	if (options.maxAge) {
 		alfy.cache.set(key, data, {maxAge: options.maxAge});
