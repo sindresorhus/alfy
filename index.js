@@ -132,7 +132,7 @@ alfy.fetch = async (url, options) => {
 
 	let response;
 	try {
-		response = await got(url, {searchParams: options.query }).json();
+		response = await got(url, {searchParams: options.query}).json();
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;
