@@ -26,7 +26,7 @@ expectType<void>(alfy.error(new Error('some error')));
 
 expectType<void>(alfy.log('some message'));
 
-expectType<Promise<any>>(alfy.fetch('https://api.foo.com', {
+expectType<Promise<any>>(alfy.fetch('https://foo.bar', {
 	transform: body => {
 		body.foo = 'bar';
 		return body;
