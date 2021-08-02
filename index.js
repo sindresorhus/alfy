@@ -110,7 +110,6 @@ alfy.cache = new CacheConf({
 
 alfy.fetch = async (url, options) => {
 	options = {
-		json: true,
 		...options
 	};
 
