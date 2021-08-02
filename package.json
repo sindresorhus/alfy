@@ -50,7 +50,6 @@
 		"read-pkg-up": "^6.0.0"
 	},
 	"devDependencies": {
-		"@types/got": "^9.6.12",
 		"ava": "^2.3.0",
 		"delay": "^4.3.0",
 		"nock": "^13.1.0",
