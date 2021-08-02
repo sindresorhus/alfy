@@ -10,7 +10,7 @@
 		"alfy-cleanup": "cleanup.js"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=10"
 	},
 	"scripts": {
 		"test": "xo && ava"
@@ -43,7 +43,7 @@
 		"dot-prop": "^5.1.0",
 		"esm": "^3.2.18",
 		"execa": "^2.0.4",
-		"got": "^9.3.2",
+		"got": "^11.8.2",
 		"hook-std": "^2.0.0",
 		"loud-rejection": "^2.1.0",
 		"read-pkg-up": "^6.0.0"

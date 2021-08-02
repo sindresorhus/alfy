@@ -10,11 +10,9 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          # Uncomment when using Got v10
-          # - 14
-          # - 12
+          - 14
+          - 12
           - 10
-          - 8
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
