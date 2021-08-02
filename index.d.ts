@@ -3,6 +3,11 @@ import {Options} from 'got';
 
 export interface FetchOptions extends Options {
 	/**
+	Equal to 'searchParams'
+	*/
+	readonly query?: string | Record<string, string | number | boolean | null | undefined> | URLSearchParams | undefined;
+
+	/**
 	Number of milliseconds this request should be cached.
 	*/
 	readonly maxAge?: number;
