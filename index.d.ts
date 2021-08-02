@@ -1,14 +1,7 @@
 import Conf from 'conf';
-import {GotOptions, GotUrl} from 'got';
+import {Options} from 'got';
 
-export interface FetchOptions extends GotOptions<string> {
-	/**
-	Parse response body with JSON.parse and set accept header to application/json.
-
-	@default true
-	*/
-	readonly json?: boolean;
-
+export interface FetchOptions extends Options {
 	/**
 	Number of milliseconds this request should be cached.
 	*/
@@ -377,7 +370,7 @@ export interface Alfy {
 	})
 	```
 	*/
-	fetch: (url: GotUrl, options?: FetchOptions) => Promise<any>;
+	fetch: (url: string, options?: FetchOptions) => Promise<any>;
 
 	/**
 	@example
