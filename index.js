@@ -1,16 +1,19 @@
-'use strict';
-const os = require('os');
-const Conf = require('conf');
-const got = require('got');
-const hookStd = require('hook-std');
-const loudRejection = require('loud-rejection');
-const cleanStack = require('clean-stack');
-const dotProp = require('dot-prop');
-const CacheConf = require('cache-conf');
-const AlfredConfig = require('alfred-config');
-const updateNotification = require('./lib/update-notification.js');
+import os from 'node:os';
+import process from 'node:process';
+import {createRequire} from 'node:module';
+import Conf from 'conf';
+import got from 'got';
+import hookStd from 'hook-std';
+import loudRejection from 'loud-rejection';
+import cleanStack from 'clean-stack';
+import dotProp from 'dot-prop';
+import AlfredConfig from 'alfred-config';
+import updateNotification from './lib/update-notification.js';
 
-const alfy = module.exports;
+const require = createRequire(import.meta.url);
+const CacheConf = require('cache-conf');
+
+const alfy = {};
 
 updateNotification();
 
@@ -21,7 +24,7 @@ alfy.meta = {
 	name: getEnv('workflow_name'),
 	version: getEnv('workflow_version'),
 	uid: getEnv('workflow_uid'),
-	bundleId: getEnv('workflow_bundleid')
+	bundleId: getEnv('workflow_bundleid'),
 };
 
 alfy.alfred = {
@@ -33,7 +36,7 @@ alfy.alfred = {
 	data: getEnv('workflow_data'),
 	cache: getEnv('workflow_cache'),
 	preferences: getEnv('preferences'),
-	preferencesLocalHash: getEnv('preferences_localhash')
+	preferencesLocalHash: getEnv('preferences_localhash'),
 };
 
 alfy.input = process.argv[2];
@@ -45,20 +48,20 @@ alfy.output = (items, {rerunInterval} = {}) => {
 alfy.matches = (input, list, item) => {
 	input = input.toLowerCase().normalize();
 
-	return list.filter(x => {
+	return list.filter(listItem => {
 		if (typeof item === 'string') {
-			x = dotProp.get(x, item);
+			listItem = dotProp.get(listItem, item);
 		}
 
-		if (typeof x === 'string') {
-			x = x.toLowerCase();
+		if (typeof listItem === 'string') {
+			listItem = listItem.toLowerCase();
 		}
 
 		if (typeof item === 'function') {
-			return item(x, input);
+			return item(listItem, input);
 		}
 
-		return x.includes(input);
+		return listItem.includes(input);
 	});
 };
 
@@ -88,16 +91,16 @@ ${process.platform} ${os.release()}
 		valid: false,
 		text: {
 			copy,
-			largetype: stack
+			largetype: stack,
 		},
 		icon: {
-			path: exports.icon.error
-		}
+			path: alfy.icon.error,
+		},
 	}]);
 };
 
 alfy.config = new Conf({
-	cwd: alfy.alfred.data
+	cwd: alfy.alfred.data,
 });
 
 alfy.userConfig = new AlfredConfig();
@@ -105,12 +108,12 @@ alfy.userConfig = new AlfredConfig();
 alfy.cache = new CacheConf({
 	configName: 'cache',
 	cwd: alfy.alfred.cache,
-	version: alfy.meta.version
+	version: alfy.meta.version,
 });
 
 alfy.fetch = async (url, options) => {
 	options = {
-		...options
+		...options,
 	};
 
 	if (typeof url !== 'string') {
@@ -158,9 +161,11 @@ alfy.icon = {
 	error: getIcon('AlertStopIcon'),
 	alert: getIcon('Actions'),
 	like: getIcon('ToolbarFavoritesIcon'),
-	delete: getIcon('ToolbarDeleteIcon')
+	delete: getIcon('ToolbarDeleteIcon'),
 };
 
 loudRejection(alfy.error);
 process.on('uncaughtException', alfy.error);
 hookStd.stderr(alfy.error);
+
+export default alfy;

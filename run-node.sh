@@ -43,7 +43,7 @@ if ! has_node; then
 fi
 
 if has_node; then
-	ESM_OPTIONS='{"await":true}' node --require esm "$@"
+	node --input-type=module "$@"
 else
 	echo $'{"items":[{"title": "Couldn\'t find the `node` binary", "subtitle": "Symlink it to `/usr/local/bin`"}]}'
 fi

@@ -12,12 +12,12 @@
 - Easily [testable workflows](#testing).
 - [Finds the `node` binary.](run-node.sh)
 - Support for top-level `await`.
-- Presents uncaught exceptions and unhandled Promise rejections to the user.<br>
+- Presents uncaught exceptions and unhandled Promise rejections to the user.\
   *No need to manually `.catch()` top-level promises.*
 
 ## Prerequisites
 
-You need [Node.js 8+](https://nodejs.org) and [Alfred 3 or 4](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
+You need [Node.js 14+](https://nodejs.org) and [Alfred 4](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
 
 ## Install
 
@@ -26,6 +26,8 @@ $ npm install alfy
 ```
 
 ## Usage
+
+**IMPORTANT:** Your script will be run as [ESM](https://nodejs.org/api/esm.html).
 
 1. Create a new blank Alfred workflow.
 
@@ -45,16 +47,18 @@ $ npm install alfy
 
 5. Initialize a repo with `npm init`.
 
-6. Install Alfy with `npm install alfy`.
+6. Add `"type": "module"` to package.json.
 
-7. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
+7. Install Alfy with `npm install alfy`.
+
+8. In the workflow directory, create a `index.js` file, import `alfy`, and do your thing.
 
 ## Example
 
 Here we fetch some JSON from a placeholder API and present matching items to the user:
 
 ```js
-const alfy = require('alfy');
+import alfy from 'alfy';
 
 const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
 
@@ -150,6 +154,8 @@ test('main', async t => {
 When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the insect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()`:
 
 ```js
+import alfy from 'alfy';
+
 const unicorn = getUnicorn();
 alfy.log(unicorn);
 ```
@@ -181,6 +187,8 @@ List of `object` with any of the [supported properties](https://www.alfredapp.co
 Example:
 
 ```js
+import alfy from 'alfy';
+
 alfy.output([
 	{
 		title: 'Unicorn'
@@ -205,6 +213,8 @@ A script can be set to re-run automatically after some interval. The script will
 For example, it could be used to update the progress of a particular task:
 
 ```js
+import alfy from 'alfy';
+
 alfy.output(
 	[
 		{
@@ -230,6 +240,8 @@ Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/wor
 Returns an `string[]` of items in `list` that case-insensitively contains `input`.
 
 ```js
+import alfy from 'alfy';
+
 alfy.matches('Corn', ['foo', 'unicorn']);
 //=> ['unicorn']
 ```
@@ -255,6 +267,8 @@ By default, it will match against the `list` items.
 Specify a string to match against an object property:
 
 ```js
+import alfy from 'alfy';
+
 const list = [
 	{
 		title: 'foo'
@@ -271,6 +285,8 @@ alfy.matches('Unicorn', list, 'title');
 Or [nested property](https://github.com/sindresorhus/dot-prop):
 
 ```js
+import alfy from 'alfy';
+
 const list = [
 	{
 		name: {
@@ -293,6 +309,8 @@ alfy.matches('sindre', list, 'name.first');
 Specify a function to handle the matching yourself. The function receives the list item and input, both lowercased, as arguments, and is expected to return a boolean of whether it matches:
 
 ```js
+import alfy from 'alfy';
+
 const list = ['foo', 'unicorn'];
 
 // Here we do an exact match.
@@ -355,6 +373,8 @@ Type: `Function`
 Transform the response before it gets cached.
 
 ```js
+import alfy from 'alfy';
+
 await alfy.fetch('https://api.foo.com', {
 	transform: body => {
 		body.foo = 'bar';
@@ -366,8 +386,9 @@ await alfy.fetch('https://api.foo.com', {
 You can also return a Promise.
 
 ```js
-const xml2js = require('xml2js');
-const pify = require('pify');
+import alfy from 'alfy';
+import xml2js from 'xml2js';
+import pify from 'pify';
 
 const parseString = pify(xml2js.parseString);
 
@@ -387,6 +408,8 @@ Exports a [`conf` instance](https://github.com/sindresorhus/conf#instance) with 
 Example:
 
 ```js
+import alfy from 'alfy';
+
 alfy.config.set('unicorn', '🦄');
 
 alfy.config.get('unicorn');
@@ -404,6 +427,8 @@ See [`alfred-config`](https://github.com/SamVerschueren/alfred-config#workflow-c
 Example:
 
 ```js
+import alfy from 'alfy';
+
 alfy.userConfig.get('apiKey');
 //=> '16811cad1b8547478b3e53eae2e0f083'
 ```
@@ -419,6 +444,8 @@ Exports a modified [`conf` instance](https://github.com/sindresorhus/conf#instan
 Example:
 
 ```js
+import alfy from 'alfy';
+
 alfy.cache.set('unicorn', '🦄');
 
 alfy.cache.get('unicorn');
@@ -433,7 +460,8 @@ the number of milliseconds the value is valid in the cache.
 Example:
 
 ```js
-const delay = require('delay');
+import alfy from 'alfy';
+import delay from 'delay';
 
 alfy.cache.set('foo', 'bar', {maxAge: 5000});
 
@@ -465,6 +493,8 @@ The most useful ones are included as keys. The rest you can get with `icon.get()
 Example:
 
 ```js
+import alfy from 'alfy';
+
 console.log(alfy.icon.error);
 //=> '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertStopIcon.icns'
 
