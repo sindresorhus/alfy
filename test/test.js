@@ -1,6 +1,6 @@
 import test from 'ava';
 import hookStd from 'hook-std';
-import {alfy} from './_utils';
+import {alfy} from './_utils.js';
 
 const alfyInstance = alfy();
 

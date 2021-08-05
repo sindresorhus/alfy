@@ -13,10 +13,11 @@
 		"node": ">=10"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"test": "xo && ava && tsd"
 	},
 	"files": [
 		"index.js",
+		"index.d.ts",
 		"init.js",
 		"cleanup.js",
 		"run-node.sh",
@@ -53,6 +54,8 @@
 		"delay": "^4.3.0",
 		"nock": "^13.1.0",
 		"tempfile": "^3.0.0",
-		"xo": "^0.24.0"
+		"tsd": "^0.17.0",
+		"typescript": "^4.3.5",
+		"xo": "^0.39.1"
 	}
 }
