@@ -43,7 +43,7 @@ if ! has_node; then
 fi
 
 if has_node; then
-	node --input-type=module "$@"
+	node "$@"
 else
 	echo $'{"items":[{"title": "Couldn\'t find the `node` binary", "subtitle": "Symlink it to `/usr/local/bin`"}]}'
 fi
