@@ -643,6 +643,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-code](https://github.com/shaodahong/alfred-code) - Quickly open a file in Visual Studio Code
 - [alfred-amphetamine](https://github.com/demartini/alfred-amphetamine) - Start and end sessions quickly in the Amphetamine app
 - [alfred-ids](https://github.com/rizowski/alfred-ids) - Generate various types of IDs.
+- [alfred-awesome-stars](https://github.com/jopemachine/alfred-awesome-stars) - Search starred repositories through 'awesome-stars'
 
 ## Related
 
