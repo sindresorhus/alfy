@@ -232,7 +232,7 @@ export interface ScriptFilterItem {
 
 	You can now define the valid attribute to mark if the result is valid based on the modifier selection and set a different arg to be passed out if actioned with the modifier.
 	*/
-	readonly mods?: Record<PossibleModifiers, ModifierKeyItem>;
+	readonly mods?: Partial<Record<PossibleModifiers, ModifierKeyItem>>;
 
 	/**
 	This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
