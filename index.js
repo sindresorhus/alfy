@@ -54,7 +54,7 @@ alfy.matches = (input, list, item) => {
 		}
 
 		if (typeof listItem === 'string') {
-			listItem = listItem.toLowerCase();
+			listItem = listItem.toLowerCase().normalize();
 		}
 
 		if (typeof item === 'function') {
