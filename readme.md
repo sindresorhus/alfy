@@ -351,7 +351,7 @@ URL to fetch.
 
 Type: `object`
 
-Any of the [`got` options](https://github.com/sindresorhus/got#options).
+Any of the [`got` options](https://github.com/sindresorhus/got/tree/v11.8.3#api) and the below options.
 
 ###### json
 

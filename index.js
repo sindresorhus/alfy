@@ -116,12 +116,17 @@ alfy.fetch = async (url, options) => {
 		...options,
 	};
 
+	// Deprecated, but left for backwards-compatibility.
+	if (options.query) {
+		options.searchParams = options.query;
+	}
+
 	if (typeof url !== 'string') {
-		return Promise.reject(new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``));
+		throw new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``);
 	}
 
 	if (options.transform && typeof options.transform !== 'function') {
-		return Promise.reject(new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``));
+		throw new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``);
 	}
 
 	const rawKey = url + JSON.stringify(options);
@@ -129,12 +134,12 @@ alfy.fetch = async (url, options) => {
 	const cachedResponse = alfy.cache.get(key, {ignoreMaxAge: true});
 
 	if (cachedResponse && !alfy.cache.isExpired(key)) {
-		return Promise.resolve(cachedResponse);
+		return cachedResponse;
 	}
 
 	let response;
 	try {
-		response = await got(url, {searchParams: options.query}).json();
+		response = await got(url, options).json();
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;

@@ -2,6 +2,7 @@ import Conf from 'conf';
 import {Options} from 'got';
 
 export interface FetchOptions extends Options {
+	// Deprecated, but left for backwards-compatibility.
 	/**
 	URL search parameters.
 	*/
