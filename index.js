@@ -137,9 +137,14 @@ alfy.fetch = async (url, options) => {
 		return cachedResponse;
 	}
 
+	const json = ('json' in options && options.json === false) ? false : true; // eslint-disable-line no-unneeded-ternary
+	if (!json) {
+		delete options.json;
+	}
+
 	let response;
 	try {
-		response = await got(url, options).json();
+		response = json ? await got(url, options).json() : (await got(url, options)).body;
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;

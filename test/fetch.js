@@ -13,6 +13,7 @@ test.before(() => {
 	nock(URL).get('/cache-key?unicorn=rainbow').reply(200, {unicorn: 'rainbow'});
 	nock(URL).get('/cache-version').once().reply(200, {foo: 'bar'});
 	nock(URL).get('/cache-version').twice().reply(200, {unicorn: 'rainbow'});
+	nock(URL).get('/string-response').once().reply(200, 'unicorn is rainbow');
 });
 
 test('no cache', async t => {
@@ -73,4 +74,9 @@ test('invalid version', async t => {
 	/// const alfy3 = createAlfy({cache, version: '1.0.1'});
 	// t.deepEqual(await alfy3.fetch(`${URL}/cache-version`, {maxAge: 5000}), {unicorn: 'rainbow'});
 	// t.deepEqual(alfy.cache.store['https://foo.bar/cache-version{"maxAge":5000}'].data, {unicorn: 'rainbow'});
+});
+
+test('non-json response', async t => {
+	const alfy = createAlfy();
+	t.is(await alfy.fetch(`${URL}/string-response`, {json: false}), 'unicorn is rainbow');
 });
