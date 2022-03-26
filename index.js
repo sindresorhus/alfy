@@ -137,14 +137,14 @@ alfy.fetch = async (url, options) => {
 		return cachedResponse;
 	}
 
-	const json = ('json' in options && options.json === false) ? false : true; // eslint-disable-line no-unneeded-ternary
-	if (!json) {
+	const rawBodyRequested = 'json' in options && options.json === false;
+	if (rawBodyRequested) {
 		delete options.json;
 	}
 
 	let response;
 	try {
-		response = json ? await got(url, options).json() : (await got(url, options)).body;
+		response = rawBodyRequested ? (await got(url, options)).body : await got(url, options).json();
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;
