@@ -116,6 +116,16 @@ alfy.fetch = async (url, options) => {
 		...options,
 	};
 
+	// Set responseType to 'text' if options.json === false or default to Json
+	if ('json' in options && options.json === false) {
+		delete options.json;
+		options.responseType = 'text';
+		options.resolveBodyOnly = true;
+	} else {
+		options.responseType = 'json';
+		options.resolveBodyOnly = true;
+	}
+
 	// Deprecated, but left for backwards-compatibility.
 	if (options.query) {
 		options.searchParams = options.query;
@@ -137,14 +147,9 @@ alfy.fetch = async (url, options) => {
 		return cachedResponse;
 	}
 
-	const rawBodyRequested = 'json' in options && options.json === false;
-	if (rawBodyRequested) {
-		delete options.json;
-	}
-
 	let response;
 	try {
-		response = rawBodyRequested ? (await got(url, options)).body : await got(url, options).json();
+		response = await got(url, options);
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;
