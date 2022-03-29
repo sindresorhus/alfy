@@ -76,7 +76,7 @@ test('invalid version', async t => {
 	// t.deepEqual(alfy.cache.store['https://foo.bar/cache-version{"maxAge":5000}'].data, {unicorn: 'rainbow'});
 });
 
-test('non-json response', async t => {
+test('non-JSON response', async t => {
 	const alfy = createAlfy();
 	t.is(await alfy.fetch(`${URL}/string-response`, {json: false}), 'unicorn is rainbow');
 });
