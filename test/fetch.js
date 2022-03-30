@@ -56,8 +56,8 @@ test('cache', async t => {
 test('cache key', async t => {
 	const alfy = createAlfy();
 
-	t.deepEqual(await alfy.fetch(`${URL}/cache-key`, {query: {unicorn: 'rainbow'}, maxAge: 5000}), {unicorn: 'rainbow'});
-	t.truthy(alfy.cache.store['https://foo.bar/cache-key{"query":{"unicorn":"rainbow"},"maxAge":5000}']);
+	t.deepEqual(await alfy.fetch(`${URL}/cache-key`, {searchParams: {unicorn: 'rainbow'}, maxAge: 5000}), {unicorn: 'rainbow'});
+	t.truthy(alfy.cache.store['https://foo.bar/cache-key{"searchParams":{"unicorn":"rainbow"},"maxAge":5000}']);
 });
 
 test('invalid version', async t => {

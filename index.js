@@ -116,25 +116,26 @@ alfy.fetch = async (url, options) => {
 		...options,
 	};
 
-	const {transform, maxAge} = options;
-	delete options.transform;
-	delete options.maxAge;
-
-	// Deprecated, but left for backwards-compatibility.
+	// TODO: Remove this in 2024.
 	if (options.query) {
-		options.searchParams = options.query;
-		delete options.query;
+		throw new Error('The `query` option was renamed to `searchParams`.');
 	}
 
 	if (typeof url !== 'string') {
 		throw new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``);
 	}
 
-	if (transform && typeof transform !== 'function') {
-		throw new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof transform}\``);
+	if (options.transform && typeof options.transform !== 'function') {
+		throw new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``);
 	}
 
 	const rawKey = url + JSON.stringify(options);
+
+	// This must be below the cache key generation.
+	const {transform, maxAge} = options;
+	delete options.transform;
+	delete options.maxAge;
+
 	const key = rawKey.replace(/\./g, '\\.');
 	const cachedResponse = alfy.cache.get(key, {ignoreMaxAge: true});
 

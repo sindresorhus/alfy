@@ -21,8 +21,8 @@ You need [Node.js 14+](https://nodejs.org) and [Alfred 4](https://www.alfredapp.
 
 ## Install
 
-```
-$ npm install alfy
+```sh
+npm install alfy
 ```
 
 ## Usage
@@ -121,8 +121,8 @@ You can remove [these](https://github.com/samverschueren/alfred-link#infoplist) 
 
 After publishing your workflow to npm, your users can easily install or update the workflow.
 
-```
-$ npm install --global alfred-unicorn
+```sh
+npm install --global alfred-unicorn
 ```
 
 > Tip: instead of manually updating every workflow yourself, use the [alfred-updater](https://github.com/SamVerschueren/alfred-updater) workflow to do that for you.
@@ -351,7 +351,7 @@ URL to fetch.
 
 Type: `object`
 
-Any of the [`got` options](https://github.com/sindresorhus/got/tree/v11.8.3#api) and the below options.
+Any of the [`got` options](https://github.com/sindresorhus/got/tree/v12.0.3#api) and the below options.
 
 ###### json
 
