@@ -137,9 +137,18 @@ alfy.fetch = async (url, options) => {
 		return cachedResponse;
 	}
 
+	if ('json' in options && options.json === false) {
+		delete options.json;
+		options.responseType = 'text';
+	} else {
+		options.responseType = 'json';
+	}
+
+	options.resolveBodyOnly = true;
+
 	let response;
 	try {
-		response = await got(url, options).json();
+		response = await got(url, options);
 	} catch (error) {
 		if (cachedResponse) {
 			return cachedResponse;
