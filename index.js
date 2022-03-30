@@ -137,13 +137,13 @@ alfy.fetch = async (url, options) => {
 		return cachedResponse;
 	}
 
-	// Set responseType to 'text' if options.json === false or default to Json
 	if ('json' in options && options.json === false) {
 		delete options.json;
 		options.responseType = 'text';
 	} else {
 		options.responseType = 'json';
 	}
+
 	options.resolveBodyOnly = true;
 
 	let response;
