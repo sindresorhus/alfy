@@ -1,5 +1,5 @@
 import test from 'ava';
-import hookStd from 'hook-std';
+import {hookStdout} from 'hook-std';
 import {alfy} from './_utils.js';
 
 const alfyInstance = alfy();
@@ -12,7 +12,7 @@ test('default', t => {
 });
 
 test.serial('.error()', async t => {
-	const promise = hookStd.stdout(output => {
+	const promise = hookStdout(output => {
 		promise.unhook();
 		t.is(JSON.parse(output).items[0].title, 'Error: foo');
 	});

@@ -1,12 +1,12 @@
 import Conf from 'conf';
 import {Options} from 'got';
 
-export interface FetchOptions extends Options {
+export interface FetchOptions extends Partial<Options> {
 	// Deprecated, but left for backwards-compatibility.
 	/**
 	URL search parameters.
 	*/
-	readonly query?: string | Record<string, string | number | boolean | null | undefined> | URLSearchParams | undefined;
+	readonly query?: string | Record<string, string | number | boolean | undefined> | URLSearchParams | undefined;
 
 	/**
 	Number of milliseconds this request should be cached.

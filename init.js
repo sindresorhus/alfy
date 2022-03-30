@@ -2,7 +2,7 @@
 import process from 'node:process';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import execa from 'execa';
+import {execa} from 'execa';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

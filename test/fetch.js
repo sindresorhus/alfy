@@ -30,7 +30,7 @@ test('transform not a function', async t => {
 test('transform', async t => {
 	const alfy = createAlfy();
 	const result = await alfy.fetch(`${URL}/no-cache`, {
-		transform: response => {
+		transform(response) {
 			response.unicorn = 'rainbow';
 			return response;
 		},
@@ -45,12 +45,12 @@ test('transform', async t => {
 test('cache', async t => {
 	const alfy = createAlfy();
 
-	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world'});
-	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000, retry: {}}), {hello: 'world'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000, retry: {}}), {hello: 'world'});
 
 	await delay(5000);
 
-	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000}), {hello: 'world!'});
+	t.deepEqual(await alfy.fetch(`${URL}/cache`, {maxAge: 5000, retry: {}}), {hello: 'world!'});
 });
 
 test('cache key', async t => {

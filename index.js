@@ -3,10 +3,10 @@ import process from 'node:process';
 import {createRequire} from 'node:module';
 import Conf from 'conf';
 import got from 'got';
-import hookStd from 'hook-std';
+import {hookStderr} from 'hook-std';
 import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
-import dotProp from 'dot-prop';
+import {getProperty} from 'dot-prop';
 import AlfredConfig from 'alfred-config';
 import updateNotification from './lib/update-notification.js';
 
@@ -50,7 +50,7 @@ alfy.matches = (input, list, item) => {
 
 	return list.filter(listItem => {
 		if (typeof item === 'string') {
-			listItem = dotProp.get(listItem, item);
+			listItem = getProperty(listItem, item);
 		}
 
 		if (typeof listItem === 'string') {
@@ -116,17 +116,22 @@ alfy.fetch = async (url, options) => {
 		...options,
 	};
 
+	const {transform, maxAge} = options;
+	delete options.transform;
+	delete options.maxAge;
+
 	// Deprecated, but left for backwards-compatibility.
 	if (options.query) {
 		options.searchParams = options.query;
+		delete options.query;
 	}
 
 	if (typeof url !== 'string') {
 		throw new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``);
 	}
 
-	if (options.transform && typeof options.transform !== 'function') {
-		throw new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``);
+	if (transform && typeof transform !== 'function') {
+		throw new TypeError(`Expected \`transform\` to be a \`function\`, got \`${typeof transform}\``);
 	}
 
 	const rawKey = url + JSON.stringify(options);
@@ -157,10 +162,10 @@ alfy.fetch = async (url, options) => {
 		throw error;
 	}
 
-	const data = options.transform ? options.transform(response) : response;
+	const data = transform ? transform(response) : response;
 
-	if (options.maxAge) {
-		alfy.cache.set(key, data, {maxAge: options.maxAge});
+	if (maxAge) {
+		alfy.cache.set(key, data, {maxAge});
 	}
 
 	return data;
@@ -180,6 +185,6 @@ alfy.icon = {
 
 loudRejection(alfy.error);
 process.on('uncaughtException', alfy.error);
-hookStd.stderr(alfy.error);
+hookStderr(alfy.error);
 
 export default alfy;

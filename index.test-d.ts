@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import {expectType} from 'tsd';
 import alfy, {ScriptFilterItem} from './index.js';
 
