@@ -640,6 +640,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-ids](https://github.com/rizowski/alfred-ids) - Generate various types of IDs.
 - [alfred-awesome-stars](https://github.com/jopemachine/alfred-awesome-stars) - Search starred GitHub repos through awesome-stars.
 - [alfred-pwgen](https://github.com/olssonm/alfred-password-generator) - Generate random and secure passwords.
+- [alfred-bear](https://github.com/jmeischner/alfred-bear) - Work with dynamic templates and the bear macOS app
 
 ## Related
 
