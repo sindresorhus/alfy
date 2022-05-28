@@ -641,6 +641,7 @@ Non-synced local preferences are stored within `Alfred.alfredpreferences` under 
 - [alfred-awesome-stars](https://github.com/jopemachine/alfred-awesome-stars) - Search starred GitHub repos through awesome-stars.
 - [alfred-pwgen](https://github.com/olssonm/alfred-password-generator) - Generate random and secure passwords.
 - [alfred-bear](https://github.com/jmeischner/alfred-bear) - Use dynamic templates with the Bear app.
+- [alfred-color-converter](https://github.com/toFrankie/alfred-color-converter) - Convert colors between RGB and HEX.
 
 ## Related
 
