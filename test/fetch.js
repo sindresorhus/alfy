@@ -14,6 +14,7 @@ test.before(() => {
 	nock(URL).get('/cache-version').once().reply(200, {foo: 'bar'});
 	nock(URL).get('/cache-version').twice().reply(200, {unicorn: 'rainbow'});
 	nock(URL).get('/string-response').once().reply(200, 'unicorn is rainbow');
+	nock(URL).get('/dont-resolve-body').once().reply(200, {foo: 'bar'}, {link: 'foobar'});
 });
 
 test('no cache', async t => {
@@ -79,4 +80,11 @@ test('invalid version', async t => {
 test('non-JSON response', async t => {
 	const alfy = createAlfy();
 	t.is(await alfy.fetch(`${URL}/string-response`, {json: false}), 'unicorn is rainbow');
+});
+
+test('disable resolveBodyOnly', async t => {
+	const alfy = createAlfy();
+	const result = await alfy.fetch(`${URL}/dont-resolve-body`, {resolveBodyOnly: false});
+	t.deepEqual(result.headers, {'content-type': 'application/json', link: 'foobar'});
+	t.deepEqual(result.body, {foo: 'bar'});
 });
