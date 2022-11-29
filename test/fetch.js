@@ -14,7 +14,8 @@ test.before(() => {
 	nock(URL).get('/cache-version').once().reply(200, {foo: 'bar'});
 	nock(URL).get('/cache-version').twice().reply(200, {unicorn: 'rainbow'});
 	nock(URL).get('/string-response').once().reply(200, 'unicorn is rainbow');
-	nock(URL).get('/dont-resolve-body').once().reply(200, {foo: 'bar'}, {link: 'foobar'});
+	nock(URL).get('/transform-full-response').once().reply(200, {foo: 'bar'}, {'accept-encoding': 'gzip'});
+	nock(URL).get('/resolve-full-response').once().reply(200, {foo: 'bar'}, {'accept-encoding': 'gzip'});
 });
 
 test('no cache', async t => {
@@ -38,6 +39,27 @@ test('transform', async t => {
 	});
 
 	t.deepEqual(result, {
+		foo: 'bar',
+		unicorn: 'rainbow',
+	});
+});
+
+test('transform full response', async t => {
+	const alfy = createAlfy();
+	const result = await alfy.fetch(`${URL}/transform-full-response`, {
+		resolveBodyOnly: false,
+		transform(response) {
+			response.body.unicorn = 'rainbow';
+			response.headers['accept-encoding'] = 'br';
+			return response;
+		},
+	});
+
+	t.deepEqual(result.headers, {
+		'content-type': 'application/json',
+		'accept-encoding': 'br',
+	});
+	t.deepEqual(result.body, {
 		foo: 'bar',
 		unicorn: 'rainbow',
 	});
@@ -82,9 +104,9 @@ test('non-JSON response', async t => {
 	t.is(await alfy.fetch(`${URL}/string-response`, {json: false}), 'unicorn is rainbow');
 });
 
-test('disable resolveBodyOnly', async t => {
+test('resolve full response', async t => {
 	const alfy = createAlfy();
-	const result = await alfy.fetch(`${URL}/dont-resolve-body`, {resolveBodyOnly: false});
-	t.deepEqual(result.headers, {'content-type': 'application/json', link: 'foobar'});
+	const result = await alfy.fetch(`${URL}/resolve-full-response`, {resolveBodyOnly: false});
+	t.deepEqual(result.headers, {'content-type': 'application/json', 'accept-encoding': 'gzip'});
 	t.deepEqual(result.body, {foo: 'bar'});
 });

@@ -366,6 +366,25 @@ Type: `number`
 
 Number of milliseconds this request should be cached.
 
+###### resolveBodyOnly
+
+Type: `boolean`\
+Default: `true`
+
+Determine whether body only or full response will be resolved.
+
+```js
+import alfy from 'alfy';
+
+await alfy.fetch('https://api.foo.com')
+//=> {"foo": "bar"}
+
+await alfy.fetch('https://api.foo.com', {
+	resolveBodyOnly:	false 
+})
+//=> {"body": {"foo": "bar"}, "headers": {"content-type": "application/json"}}
+```
+
 ###### transform
 
 Type: `Function`
@@ -379,6 +398,20 @@ await alfy.fetch('https://api.foo.com', {
 	transform: body => {
 		body.foo = 'bar';
 		return body;
+	}
+})
+```
+
+Transform the full response.
+
+```js
+import alfy from 'alfy';
+
+await alfy.fetch('https://api.foo.com', {
+	resolveBodyOnly: false,
+	transform: response => {
+		response.body.foo = 'bar';
+		return response;
 	}
 })
 ```
