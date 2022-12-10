@@ -398,7 +398,7 @@ await alfy.fetch('https://api.foo.com', {
 
 Type: `Function`
 
-Transform the response before it gets cached.
+Transform the response body before it gets cached.
 
 ```js
 import alfy from 'alfy';
@@ -411,7 +411,7 @@ await alfy.fetch('https://api.foo.com', {
 })
 ```
 
-Transform the full response.
+Transform the response.
 
 ```js
 import alfy from 'alfy';
