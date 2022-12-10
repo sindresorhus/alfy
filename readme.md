@@ -371,18 +371,27 @@ Number of milliseconds this request should be cached.
 Type: `boolean`\
 Default: `true`
 
-Determine whether body only or full response will be resolved.
+Whether to resolve with only body or a full response.
 
 ```js
 import alfy from 'alfy';
 
-await alfy.fetch('https://api.foo.com')
-//=> {"foo": "bar"}
+await alfy.fetch('https://api.foo.com');
+//=> {foo: 'bar'}
 
 await alfy.fetch('https://api.foo.com', {
-	resolveBodyOnly:	false 
-})
-//=> {"body": {"foo": "bar"}, "headers": {"content-type": "application/json"}}
+	resolveBodyOnly: false 
+});
+/*
+{
+	body: {
+		foo: 'bar'
+	},
+	headers: {
+		'content-type': 'application/json'
+	}
+}
+*/
 ```
 
 ###### transform
