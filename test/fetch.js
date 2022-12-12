@@ -14,6 +14,8 @@ test.before(() => {
 	nock(URL).get('/cache-version').once().reply(200, {foo: 'bar'});
 	nock(URL).get('/cache-version').twice().reply(200, {unicorn: 'rainbow'});
 	nock(URL).get('/string-response').once().reply(200, 'unicorn is rainbow');
+	nock(URL).get('/transform-full-response').once().reply(200, {foo: 'bar'}, {'accept-encoding': 'gzip'});
+	nock(URL).get('/resolve-full-response').once().reply(200, {foo: 'bar'}, {'accept-encoding': 'gzip'});
 });
 
 test('no cache', async t => {
@@ -42,6 +44,27 @@ test('transform', async t => {
 	});
 });
 
+test('transform full response', async t => {
+	const alfy = createAlfy();
+	const result = await alfy.fetch(`${URL}/transform-full-response`, {
+		resolveBodyOnly: false,
+		transform(response) {
+			response.body.unicorn = 'rainbow';
+			response.headers['accept-encoding'] = 'br';
+			return response;
+		},
+	});
+
+	t.deepEqual(result.headers, {
+		'content-type': 'application/json',
+		'accept-encoding': 'br',
+	});
+	t.deepEqual(result.body, {
+		foo: 'bar',
+		unicorn: 'rainbow',
+	});
+});
+
 test('cache', async t => {
 	const alfy = createAlfy();
 
@@ -57,7 +80,7 @@ test('cache key', async t => {
 	const alfy = createAlfy();
 
 	t.deepEqual(await alfy.fetch(`${URL}/cache-key`, {searchParams: {unicorn: 'rainbow'}, maxAge: 5000}), {unicorn: 'rainbow'});
-	t.truthy(alfy.cache.store['https://foo.bar/cache-key{"searchParams":{"unicorn":"rainbow"},"maxAge":5000}']);
+	t.truthy(alfy.cache.store['https://foo.bar/cache-key{"resolveBodyOnly":true,"searchParams":{"unicorn":"rainbow"},"maxAge":5000}']);
 });
 
 test('invalid version', async t => {
@@ -66,7 +89,7 @@ test('invalid version', async t => {
 	const alfy = createAlfy({cache, version: '1.0.0'});
 	t.deepEqual(await alfy.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
 	t.deepEqual(await alfy.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
-	t.deepEqual(alfy.cache.store['https://foo.bar/cache-version{"maxAge":5000}'].data, {foo: 'bar'});
+	t.deepEqual(alfy.cache.store['https://foo.bar/cache-version{"resolveBodyOnly":true,"maxAge":5000}'].data, {foo: 'bar'});
 
 	const alfy2 = createAlfy({cache, version: '1.0.0'});
 	t.deepEqual(await alfy2.fetch(`${URL}/cache-version`, {maxAge: 5000}), {foo: 'bar'});
@@ -79,4 +102,11 @@ test('invalid version', async t => {
 test('non-JSON response', async t => {
 	const alfy = createAlfy();
 	t.is(await alfy.fetch(`${URL}/string-response`, {json: false}), 'unicorn is rainbow');
+});
+
+test('resolve full response', async t => {
+	const alfy = createAlfy();
+	const result = await alfy.fetch(`${URL}/resolve-full-response`, {resolveBodyOnly: false});
+	t.deepEqual(result.headers, {'content-type': 'application/json', 'accept-encoding': 'gzip'});
+	t.deepEqual(result.body, {foo: 'bar'});
 });

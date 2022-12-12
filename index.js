@@ -113,6 +113,7 @@ alfy.cache = new CacheConf({
 
 alfy.fetch = async (url, options) => {
 	options = {
+		resolveBodyOnly: true,
 		...options,
 	};
 
@@ -149,8 +150,6 @@ alfy.fetch = async (url, options) => {
 	} else {
 		options.responseType = 'json';
 	}
-
-	options.resolveBodyOnly = true;
 
 	let response;
 	try {
