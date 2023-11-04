@@ -5,14 +5,17 @@
 	"license": "MIT",
 	"repository": "sindresorhus/alfy",
 	"type": "module",
-	"exports": "./index.js",
 	"bin": {
 		"run-node": "./run-node.sh",
 		"alfy-init": "./init.js",
 		"alfy-cleanup": "./cleanup.js"
 	},
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
 	"engines": {
-		"node": ">=14.13.1"
+		"node": ">=18"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -41,22 +44,26 @@
 		"alfred-link": "^0.3.1",
 		"alfred-notifier": "^0.2.3",
 		"cache-conf": "^0.6.0",
-		"clean-stack": "^4.1.0",
-		"conf": "^10.1.1",
-		"dot-prop": "^7.2.0",
-		"execa": "^6.1.0",
-		"got": "^12.0.3",
+		"clean-stack": "^5.2.0",
+		"conf": "^12.0.0",
+		"dot-prop": "^8.0.2",
+		"execa": "^8.0.1",
+		"got": "^13.0.0",
 		"hook-std": "^3.0.0",
 		"loud-rejection": "^2.2.0",
-		"read-pkg-up": "^9.1.0"
+		"read-package-up": "^11.0.0"
 	},
 	"devDependencies": {
-		"ava": "^4.1.0",
-		"delay": "^5.0.0",
-		"nock": "^13.2.4",
-		"tempfile": "^4.0.0",
-		"tsd": "^0.19.1",
-		"typescript": "^4.6.3",
-		"xo": "^0.48.0"
+		"ava": "^5.3.1",
+		"delay": "^6.0.0",
+		"nock": "^13.3.8",
+		"tempfile": "^5.0.0",
+		"tsd": "^0.29.0",
+		"xo": "^0.56.0"
+	},
+	"tsd": {
+		"compilerOptions": {
+			"module": "node16"
+		}
 	}
 }

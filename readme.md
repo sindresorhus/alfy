@@ -17,7 +17,7 @@
 
 ## Prerequisites
 
-You need [Node.js 14+](https://nodejs.org) and [Alfred 4 or later](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
+You need [Node.js 18+](https://nodejs.org) and [Alfred 4 or later](https://www.alfredapp.com) with the paid [Powerpack](https://www.alfredapp.com/powerpack/) upgrade.
 
 ## Install
 

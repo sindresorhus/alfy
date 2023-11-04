@@ -1,7 +1,7 @@
-import Conf from 'conf';
-import {Options} from 'got';
+import type Conf from 'conf';
+import {type Options} from 'got';
 
-export interface FetchOptions extends Partial<Options> {
+export type FetchOptions = {
 	/**
 	Number of milliseconds this request should be cached.
 	*/
@@ -11,33 +11,33 @@ export interface FetchOptions extends Partial<Options> {
 	Transform the response before it gets cached.
 	*/
 	readonly transform?: (body: unknown) => unknown;
-}
+} & Partial<Options>;
 
-export interface OutputOptions {
+export type OutputOptions = {
 	/**
 	A script can be set to re-run automatically after some interval.
 
 	The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run. For example, it could be used to update the progress of a particular task:
 	*/
 	readonly rerunInterval?: number;
-}
+};
 
-export interface CacheConfGetOptions {
+export type CacheConfGetOptions = {
 	/**
 	Get the item for the key provided without taking the `maxAge` of the item into account.
 	*/
 	readonly ignoreMaxAge?: boolean;
-}
+};
 
-export interface CacheConfSetOptions {
+export type CacheConfSetOptions = {
 	/**
 	Number of milliseconds the cached value is valid.
 	*/
 	readonly maxAge?: number;
-}
+};
 
-export interface CacheConf<T> extends Conf<T> {
-	isExpired: (key: T) => boolean;
+export type CacheConf<T extends Record<string, any> = Record<string, unknown>> = {
+	isExpired: (key: keyof T) => boolean;
 
 	get<Key extends keyof T>(key: Key, options?: CacheConfGetOptions): T[Key];
 	get<Key extends keyof T>(key: Key, defaultValue: Required<T>[Key], options?: CacheConfGetOptions): Required<T>[Key];
@@ -48,7 +48,7 @@ export interface CacheConf<T> extends Conf<T> {
 	set(key: string, value: unknown, options: CacheConfSetOptions): void;
 	set(object: Partial<T>, options: CacheConfSetOptions): void;
 	set<Key extends keyof T>(key: Partial<T> | Key | string, value?: T[Key] | unknown, options?: CacheConfSetOptions): void;
-}
+} & Conf<T>;
 
 /**
 The icon displayed in the result row. Workflows are run from their workflow folder, so you can reference icons stored in your workflow relatively.
@@ -59,17 +59,17 @@ By using `{type: 'fileicon}`, Alfred will get the icon for the specified path.
 
 Finally, by using `{type: 'filetype'}`, you can get the icon of a specific file. For example, `{path: 'public.png'}`.
 */
-export interface IconElement {
+export type IconElement = {
 	readonly path?: string;
 	readonly type?: 'fileicon' | 'filetype';
-}
+};
 
 /**
 The text element defines the text the user will get when copying the selected result row with `⌘C` or displaying large type with `⌘L`.
 
 If these are not defined, you will inherit Alfred's standard behaviour where the argument is copied to the Clipboard or used for Large Type.
 */
-export interface TextElement {
+export type TextElement = {
 	/**
 	User will get when copying the selected result row with `⌘C`.
 	*/
@@ -79,28 +79,28 @@ export interface TextElement {
 	User will get displaying large type with `⌘L`.
 	*/
 	readonly largetype?: string;
-}
+};
 
 /**
 Defines what to change when the modifier key is pressed.
 
 When you release the modifier key, it returns to the original item.
 */
-export interface ModifierKeyItem {
+export type ModifierKeyItem = {
 	readonly valid?: boolean;
 	readonly title?: string;
 	readonly subtitle?: string;
 	readonly arg?: string;
 	readonly icon?: string;
 	readonly variables?: Record<string, string>;
-}
+};
 
 /**
 This element defines the Universal Action items used when actioning the result, and overrides arg being used for actioning.
 
 The action key can take a string or array for simple types, and the content type will automatically be derived by Alfred to file, URL or text.
 */
-export interface ActionElement {
+export type ActionElement = {
 	/**
 	Forward text to Alfred.
 	*/
@@ -120,14 +120,14 @@ export interface ActionElement {
 	Forward some value and let the value type be infered from Alfred.
 	*/
 	readonly auto?: string | string[];
-}
+};
 
 type PossibleModifiers = 'fn' | 'ctrl' | 'opt' | 'cmd' | 'shift';
 
 /**
 Each item describes a result row displayed in Alfred.
 */
-export interface ScriptFilterItem {
+export type ScriptFilterItem = {
 	/**
 	This is a unique identifier for the item which allows help Alfred to learn about this item for subsequent sorting and ordering of the user's actioned results.
 
@@ -289,7 +289,7 @@ export interface ScriptFilterItem {
 	Variables can be passed out of the script filter within a variables object.
 	*/
 	readonly variables?: Record<string, string>;
-}
+};
 
 /**
 Create Alfred workflows with ease
@@ -311,7 +311,7 @@ const items = alfy
 alfy.output(items);
 ```
 */
-export interface Alfy {
+export type Alfy = {
 	/**
 	Return output to Alfred.
 
@@ -433,7 +433,7 @@ export interface Alfy {
 	//=> '🦄'
 	```
 	*/
-	config: Conf<Record<string, unknown>>;
+	config: Conf;
 
 	/**
 	Persist cache data.
@@ -450,7 +450,7 @@ export interface Alfy {
 	//=> '🦄'
 	```
 	*/
-	cache: CacheConf<unknown>;
+	cache: CacheConf;
 
 	/**
 	Get various default system icons.
@@ -542,7 +542,7 @@ export interface Alfy {
 	```
 	*/
 	userConfig: Map<string, string>;
-}
+};
 
 declare const alfy: Alfy;
 

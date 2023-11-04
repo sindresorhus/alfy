@@ -1,5 +1,5 @@
 import {expectType} from 'tsd';
-import alfy, {ScriptFilterItem} from './index.js';
+import alfy, {type ScriptFilterItem} from './index.js';
 
 const mockItems: ScriptFilterItem[] = [
 	{
@@ -25,5 +25,5 @@ expectType<void>(alfy.error(new Error('some error')));
 expectType<void>(alfy.log('some message'));
 
 expectType<Promise<unknown>>(alfy.fetch('https://foo.bar', {
-	transform: body => body,
+	transform: body => body, // eslint-disable-line @typescript-eslint/no-unsafe-return
 }));

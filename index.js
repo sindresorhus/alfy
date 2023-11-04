@@ -8,7 +8,7 @@ import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import {getProperty} from 'dot-prop';
 import AlfredConfig from 'alfred-config';
-import updateNotification from './lib/update-notification.js';
+import updateNotification from './lib/update-notification.js'; // eslint-disable-line import/order
 
 const require = createRequire(import.meta.url);
 const CacheConf = require('cache-conf');
@@ -100,6 +100,7 @@ ${process.platform} ${os.release()}
 };
 
 alfy.config = new Conf({
+	projectName: 'alfy',
 	cwd: alfy.alfred.data,
 });
 
@@ -137,7 +138,7 @@ alfy.fetch = async (url, options) => {
 	delete options.transform;
 	delete options.maxAge;
 
-	const key = rawKey.replace(/\./g, '\\.');
+	const key = rawKey.replaceAll('.', '\\.');
 	const cachedResponse = alfy.cache.get(key, {ignoreMaxAge: true});
 
 	if (cachedResponse && !alfy.cache.isExpired(key)) {
