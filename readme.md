@@ -323,6 +323,31 @@ alfy.matches('Foo', list, (item, input) => item === input);
 
 Same as `matches()`, but with `alfy.input` as `input`.
 
+If you want to match against multiple items, you must define your own matching function ([as defined here](#item)). Let’s extend the [example from the beginning](#example) to search for a keyword that appears either within the `title` or `body` property or booth.
+
+```js
+import alfy from 'alfy';
+
+const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
+
+const items = alfy
+	.inputMatches(
+		data,
+		(item, input) =>
+			item.title?.toLowerCase().includes(input) ||
+			item.body?.toLowerCase().includes(input)
+	)
+	.map((element) => ({
+		title: element.title,
+		subtitle: element.body,
+		arg: element.id,
+	}));
+
+alfy.output(items);
+```
+
+NB: Use optional chained properties if your data contains `null`, since `null.toLowerCase()` would result in an error.
+
 #### error(error)
 
 Display an error or error message in Alfred.
