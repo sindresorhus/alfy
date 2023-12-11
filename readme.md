@@ -323,7 +323,7 @@ alfy.matches('Foo', list, (item, input) => item === input);
 
 Same as `matches()`, but with `alfy.input` as `input`.
 
-If you want to match against multiple items, you must define your own matching function ([as defined here](#item)). Let’s extend the [example from the beginning](#example) to search for a keyword that appears either within the `title` or `body` property or booth.
+If you want to match against multiple items, you must define your own matching function ([as shown here](#item)). Let’s extend the [example from the beginning](#example) to search for a keyword that appears either within the `title` or `body` property or both.
 
 ```js
 import alfy from 'alfy';
@@ -345,8 +345,6 @@ const items = alfy
 
 alfy.output(items);
 ```
-
-NB: Use optional chained properties if your data contains `null`, since `null.toLowerCase()` would result in an error.
 
 #### error(error)
 
