@@ -41,8 +41,12 @@ alfy.alfred = {
 
 alfy.input = process.argv[2];
 
-alfy.output = (items, {rerunInterval} = {}) => {
-	console.log(JSON.stringify({items, rerun: rerunInterval}, null, '\t'));
+alfy.output = (items, {rerunInterval, variables} = {}) => {
+	if (Array.isArray(items)) {
+		console.log(JSON.stringify({items, rerun: rerunInterval, variables}, null, '\t'));
+	} else {
+		console.log(JSON.stringify({alfredworkflow: {arg: items, variables}}));
+	}
 };
 
 alfy.matches = (input, list, item) => {
