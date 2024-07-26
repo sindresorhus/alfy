@@ -118,11 +118,6 @@ alfy.fetch = async (url, options) => {
 		...options,
 	};
 
-	// TODO: Remove this in 2024.
-	if (options.query) {
-		throw new Error('The `query` option was renamed to `searchParams`.');
-	}
-
 	if (typeof url !== 'string') {
 		throw new TypeError(`Expected \`url\` to be a \`string\`, got \`${typeof url}\``);
 	}

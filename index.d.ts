@@ -22,6 +22,7 @@ export type OutputOptions = {
 	readonly rerunInterval?: number;
 };
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export type CacheConfGetOptions = {
 	/**
 	Get the item for the key provided without taking the `maxAge` of the item into account.
@@ -29,6 +30,7 @@ export type CacheConfGetOptions = {
 	readonly ignoreMaxAge?: boolean;
 };
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export type CacheConfSetOptions = {
 	/**
 	Number of milliseconds the cached value is valid.
@@ -36,6 +38,8 @@ export type CacheConfSetOptions = {
 	readonly maxAge?: number;
 };
 
+// TODO: Rename this in the next major version.
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export type CacheConf<T extends Record<string, any> = Record<string, unknown>> = {
 	isExpired: (key: keyof T) => boolean;
 

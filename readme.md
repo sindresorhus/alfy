@@ -103,7 +103,7 @@ By adding `alfy-init` as `postinstall` and `alfy-cleanup` as `preuninstall` scri
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
+		"url": "https://sindresorhus.com"
 	},
 	"scripts": {
 		"postinstall": "alfy-init",
