@@ -367,9 +367,9 @@ export type Alfy = {
 	/**
 	Log value to the Alfred workflow debugger.
 
-	@param text
+	@param value
 	*/
-	log: (text: string) => void;
+	log: (value: unknown) => void;
 
 	/**
 	Display an error or error message in Alfred.

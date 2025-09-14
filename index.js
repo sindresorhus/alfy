@@ -3,7 +3,6 @@ import process from 'node:process';
 import {createRequire} from 'node:module';
 import Conf from 'conf';
 import got from 'got';
-import {hookStderr} from 'hook-std';
 import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import {getProperty} from 'dot-prop';
@@ -14,6 +13,9 @@ const require = createRequire(import.meta.url);
 const CacheConf = require('cache-conf');
 
 const alfy = {};
+
+// Track if output has been generated to avoid empty JSON
+let hasOutput = false;
 
 updateNotification();
 
@@ -42,6 +44,7 @@ alfy.alfred = {
 alfy.input = process.argv[2];
 
 alfy.output = (items, {rerunInterval} = {}) => {
+	hasOutput = true;
 	console.log(JSON.stringify({items, rerun: rerunInterval}, null, '\t'));
 };
 
@@ -73,6 +76,7 @@ alfy.log = text => {
 
 alfy.error = error => {
 	const stack = cleanStack(error.stack || error);
+	const title = error.stack ? `${error.name}: ${error.message}` : String(error);
 
 	const copy = `
 \`\`\`
@@ -86,7 +90,7 @@ ${process.platform} ${os.release()}
 	`.trim();
 
 	alfy.output([{
-		title: error.stack ? `${error.name}: ${error.message}` : error,
+		title,
 		subtitle: 'Press ⌘L to see the full error and ⌘C to copy it.',
 		valid: false,
 		text: {
@@ -97,6 +101,9 @@ ${process.platform} ${os.release()}
 			path: alfy.icon.error,
 		},
 	}]);
+
+	// Also output to stderr for the debugger (as requested in issue #86)
+	console.error(stack);
 };
 
 alfy.config = new Conf({
@@ -181,6 +188,12 @@ alfy.icon = {
 
 loudRejection(alfy.error);
 process.on('uncaughtException', alfy.error);
-hookStderr(alfy.error);
+
+// Ensure valid JSON output even if user forgets to call alfy.output() (fixes #82)
+process.on('beforeExit', () => {
+	if (!hasOutput) {
+		alfy.output([]);
+	}
+});
 
 export default alfy;

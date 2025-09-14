@@ -151,13 +151,16 @@ test('main', async t => {
 
 ## Debugging
 
-When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the insect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()`:
+When developing your workflow it can be useful to be able to debug it when something is not working. This is when the [workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/) comes in handy. You can find it in your workflow view in Alfred. Press the insect icon to open it. It will show you the plain text output of `alfy.output()` and anything you log with `alfy.log()` or `console.error()`:
 
 ```js
 import alfy from 'alfy';
 
 const unicorn = getUnicorn();
 alfy.log(unicorn);
+
+// You can also use console.error() for debugging
+console.error('Debug info:', {data: someData});
 ```
 
 ## Environment variables
@@ -237,7 +240,7 @@ Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/wor
 
 #### matches(input, list, item?)
 
-Returns an `string[]` of items in `list` that case-insensitively contains `input`.
+Returns a `string[]` of items in `list` that case-insensitively contains `input`.
 
 ```js
 import alfy from 'alfy';
