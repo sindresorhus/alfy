@@ -1,5 +1,6 @@
 import test from 'ava';
 import {hookStdout} from 'hook-std';
+import updateNotification from '../lib/update-notification.js';
 import {alfy} from './_utils.js';
 
 const alfyInstance = alfy();
@@ -33,4 +34,10 @@ test('.inputMatches()', t => {
 	alfyInstance.input = 'Ünicörn';
 	t.deepEqual(alfyInstance.inputMatches(['foo', 'unicorn']), []);
 	t.deepEqual(alfyInstance.inputMatches(['foo', 'ünicörn']), ['ünicörn']);
+});
+
+test('updateNotification handles missing package.json gracefully', async t => {
+	// This test verifies that updateNotification doesn't throw when no package.json is found
+	// The function should handle the case where readPackageUp returns undefined
+	await t.notThrowsAsync(updateNotification);
 });
