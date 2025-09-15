@@ -17,7 +17,7 @@
 	},
 	"sideEffects": false,
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -47,21 +47,21 @@
 		"alfred-notifier": "^0.2.3",
 		"cache-conf": "^0.6.0",
 		"clean-stack": "^5.2.0",
-		"conf": "^13.0.1",
-		"dot-prop": "^9.0.0",
-		"execa": "^9.3.0",
-		"got": "^14.4.2",
-		"hook-std": "^3.0.0",
+		"conf": "^14.0.0",
+		"dot-prop": "^10.0.0",
+		"execa": "^9.6.0",
+		"got": "^14.4.8",
+		"hook-std": "^4.0.0",
 		"loud-rejection": "^2.2.0",
 		"read-package-up": "^11.0.0"
 	},
 	"devDependencies": {
-		"ava": "^6.1.3",
+		"ava": "^6.4.1",
 		"delay": "^6.0.0",
-		"nock": "^13.5.4",
+		"nock": "^14.0.10",
 		"tempfile": "^5.0.0",
-		"tsd": "^0.31.1",
-		"xo": "^0.59.2"
+		"tsd": "^0.33.0",
+		"xo": "^1.2.2"
 	},
 	"tsd": {
 		"compilerOptions": {
