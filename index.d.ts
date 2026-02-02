@@ -20,6 +20,30 @@ export type OutputOptions = {
 	The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run. For example, it could be used to update the progress of a particular task:
 	*/
 	readonly rerunInterval?: number;
+
+	/**
+	Variables passed out of the script filter and accessible throughout the current session as environment variables.
+
+	These are session-level variables that persist for the duration of the user action. Individual items can also have their own `variables` which override these when selected.
+
+	@example
+	```
+	import alfy from 'alfy';
+
+	alfy.output(
+		[
+			{
+				title: 'Unicorn',
+				arg: 'unicorn',
+			}
+		],
+		{
+			variables: {animal: 'unicorn'}
+		}
+	);
+	```
+	*/
+	readonly variables?: Record<string, string>;
 };
 
 export type CacheConfGetOptions = {

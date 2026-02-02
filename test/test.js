@@ -12,6 +12,35 @@ test('default', t => {
 	t.is(typeof alfyInstance.icon.error, 'string');
 });
 
+test.serial('.output() with variables', async t => {
+	const promise = hookStdout(output => {
+		promise.unhook();
+		const result = JSON.parse(output);
+		t.deepEqual(result.variables, {animal: 'unicorn'});
+		t.is(result.items[0].title, 'Unicorn');
+	});
+
+	alfyInstance.output(
+		[{title: 'Unicorn'}],
+		{variables: {animal: 'unicorn'}},
+	);
+
+	await promise;
+});
+
+test.serial('.output() without variables', async t => {
+	const promise = hookStdout(output => {
+		promise.unhook();
+		const result = JSON.parse(output);
+		t.is(result.variables, undefined);
+		t.is(result.items[0].title, 'Unicorn');
+	});
+
+	alfyInstance.output([{title: 'Unicorn'}]);
+
+	await promise;
+});
+
 test.serial('.error()', async t => {
 	const promise = hookStdout(output => {
 		promise.unhook();

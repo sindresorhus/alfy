@@ -11,6 +11,7 @@ const mockItems: ScriptFilterItem[] = [
 ];
 
 expectType<void>(alfy.output(mockItems));
+expectType<void>(alfy.output(mockItems, {variables: {animal: 'unicorn'}}));
 
 expectType<string[]>(alfy.matches('Corn', ['foo', 'unicorn']));
 

@@ -234,6 +234,28 @@ alfy.output(
 
 <img src="media/screenshot-output.png" width="694">
 
+###### variables
+
+Type: `object`
+
+Variables passed out of the script filter and accessible throughout the current session as environment variables. These are session-level variables that persist for the duration of the user action. Individual items can also have their own `variables` which override these when selected.
+
+```js
+import alfy from 'alfy';
+
+alfy.output(
+	[
+		{
+			title: 'Unicorn',
+			arg: 'unicorn',
+		}
+	],
+	{
+		variables: {animal: 'unicorn'}
+	}
+);
+```
+
 #### log(value)
 
 Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/).
