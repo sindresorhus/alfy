@@ -13,7 +13,25 @@ PATH_CACHE="$alfred_workflow_cache"/node_path
 
 get_user_path() {
 	eval $(/usr/libexec/path_helper -s)
-	echo "$($SHELL -i -l -c 'echo -e "\n"PATH=\"$PATH:\$PATH\""\n"' 2>/dev/null | grep "^PATH=")" > "$PATH_CACHE"
+
+	# Use delimiters to reliably extract PATH from shell startup noise (inspired by `shell-env`).
+	# Disable Oh My Zsh plugins that can block the process.
+	local delimiter="_ALFY_ENV_DELIMITER_"
+	local raw_env
+	raw_env="$(DISABLE_AUTO_UPDATE=true ZSH_TMUX_AUTOSTARTED=true ZSH_TMUX_AUTOSTART=false $SHELL -ilc "echo -n $delimiter; command env; echo -n $delimiter; exit" 2>/dev/null)"
+
+	# Extract the env output between the delimiters.
+	local env_output="${raw_env#*"$delimiter"}"
+	env_output="${env_output%%"$delimiter"*}"
+
+	# Extract PATH from the env output.
+	local user_path
+	user_path="$(echo "$env_output" | sed -n 's/^PATH=//p')"
+
+	# Only write cache if we got a non-empty result.
+	if [[ -n "$user_path" ]]; then
+		echo "PATH=\"${user_path}:\$PATH\"" > "$PATH_CACHE"
+	fi
 }
 
 set_path() {
